@@ -50,6 +50,7 @@ uint8_t LED_state; //state of LED eg. 00000001
 int LED_mode;
 boolean fwd_bck; //true=forwards, false=backwards
 LED_cycle;
+int TIM16Delay = 1;
 
 /* USER CODE END PV */
 
@@ -110,8 +111,18 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    // TODO: Check pushbuttons to change timer delay
 
+	  // TODO: Check pushbuttons to change timer delay and pattern type
+
+	  	  //If Button 0 is pressed, change the delay to 1s
+	  	  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 0)
+	  	  {
+	  		 if(TIM16Delay == 1){
+	  			 TIM16Delay = 0.5;
+	  		 }else{
+	  			 TIM16Delay = 1;
+	  		 }
+	  	  }
 
     
 
