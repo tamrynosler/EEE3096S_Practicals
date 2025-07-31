@@ -45,7 +45,11 @@ TIM_HandleTypeDef htim16;
 
 /* USER CODE BEGIN PV */
 // TODO: Define input variables
-
+uint8_t LED_start_state = 0b00000001;
+uint8_t LED_state; //state of LED eg. 00000001
+int LED_mode;
+boolean fwd_bck; //true=forwards, false=backwards
+LED_cycle;
 
 /* USER CODE END PV */
 
