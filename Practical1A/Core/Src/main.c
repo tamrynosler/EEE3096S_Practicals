@@ -47,9 +47,9 @@ TIM_HandleTypeDef htim16;
 // TODO: Define input variables
 uint8_t LED_start_state = 0b00000001;
 uint8_t LED_state; //state of LED eg. 00000001
-int LED_mode;
-boolean fwd_bck; //true=forwards, false=backwards
-LED_cycle;
+
+int LED_mode = 1;
+
 int TIM16Delay = 1;
 
 /* USER CODE END PV */
@@ -97,8 +97,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   // TODO: Start timer TIM16
+  HAL_TIM_Base_Start_IT(&htim16);
 
- 
 
   /* USER CODE END 2 */
 
@@ -114,15 +114,37 @@ int main(void)
 
 	  // TODO: Check pushbuttons to change timer delay and pattern type
 
-	  	  //If Button 0 is pressed, change the delay to 1s
+
+	  	  //If Button 0 is pressed, toggle delay between 0.5s and 1s
 	  	  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 0)
 	  	  {
 	  		 if(TIM16Delay == 1){
-	  			 TIM16Delay = 0.5;
+
+	  			 //Changing timer delay (from 1s to 0.5s)
+	  			__HAL_TIM_SET_AUTORELOAD(&htim16, __HAL_TIM_GET_AUTORELOAD(&htim16)/2);
+	  			TIM16Delay = 0.5;
+
 	  		 }else{
-	  			 TIM16Delay = 1;
+
+	  			__HAL_TIM_SET_AUTORELOAD(&htim16, __HAL_TIM_GET_AUTORELOAD(&htim16)*2);
+	  			TIM16Delay = 1;
 	  		 }
 	  	  }
+
+	  	//Check which button has been pressed and set mode accordingly
+	  	if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == 0)
+	  	{
+	  		LED_mode = 1;
+	  	}
+	  	else if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2) == 0)
+	  	{
+	  		LED_mode = 2;
+	  	}
+	  	else if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == 0)
+	  	{
+	  		LED_mode = 3;
+	  	}
+
 
     
 
@@ -337,6 +359,23 @@ void TIM16_IRQHandler(void)
 	HAL_TIM_IRQHandler(&htim16);
 
 	// TODO: Change LED pattern
+
+	//Checks which mode the system is in
+	if(LED_mode == 1)
+	{
+
+	}
+
+	else if(LED_mode == 2)
+	{
+
+	}
+
+	else if(LED_mode == 3)
+	{
+
+	}
+
 
 
 
