@@ -46,7 +46,15 @@ TIM_HandleTypeDef htim16;
 /* USER CODE BEGIN PV */
 // TODO: Define input variables
 uint8_t LED_start_state = 0b00000001;
+uint8_t LED_reset_state = 0b00000000;
 uint8_t LED_state; //state of LED eg. 00000001
+boolean fwd_back = true;
+
+//variables for sparkle mode:
+uint8_t sub = 1;
+uint8_t num = 255;
+uint8_t rNum;
+uint32_t rDelay;
 
 int LED_mode = 1;
 
@@ -359,21 +367,69 @@ void TIM16_IRQHandler(void)
 	HAL_TIM_IRQHandler(&htim16);
 
 	// TODO: Change LED pattern
+	//check if we need to change between forwards/backwards
+	if(LED_state==0b10000000 && fwd_back==true)//if forward
+	{
+		fwd_back = false;//change to backwards
+	}
+	if(LED_state==0b00000001 && fwd_back==false)
+	{
+		fwd_back = true;
+	}
 
 	//Checks which mode the system is in
 	if(LED_mode == 1)
 	{
-
+		if(fwd_back==true)
+		{
+			//move forwards in pattern
+			//display
+		}
+		else
+		{
+			//move backwards in pattern
+			//display
+		}
 	}
 
 	else if(LED_mode == 2)
 	{
-
+		if(fwd_back==true)
+		{
+			//move forwards in pattern
+			//display inverse
+		}
+		else
+		{
+			//move backwards in pattern
+			//display inverse
+		}
 	}
-
 	else if(LED_mode == 3)
 	{
-
+		if (LED_state == 0)
+		{
+			//generate rNum
+			//generate rDelay
+			//change timer delay to rDelay
+			LED_state = rNum;
+			//display LED_state
+		}
+		else if (LED_state>0 && num>128)
+		{
+			//set timer delay to 100ms
+			num = num - sub;
+			LED_state = rNum&num;
+			//display LED_state
+			sub = sub*2;
+		}
+		else
+		{
+			LED_state = 0;
+			//display LED_state
+			sub = 1;
+			num = 225;
+		}
 	}
 
 
