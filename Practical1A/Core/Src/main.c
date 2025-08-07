@@ -49,12 +49,14 @@ uint8_t LED_start_state = 0b00000001;
 uint8_t LED_reset_state = 0b00000000;
 uint8_t LED_state; //state of LED eg. 00000001
 boolean fwd_back = true;
+uint8_t pin_mask = 0xFF;
 
 //variables for sparkle mode:
 uint8_t sub = 1;
 uint8_t num = 255;
 uint8_t rNum;
 uint32_t rDelay;
+uint32_t arr_1s; //stores ARR value for 1s timer
 
 int LED_mode = 1;
 
@@ -106,7 +108,7 @@ int main(void)
 
   // TODO: Start timer TIM16
   HAL_TIM_Base_Start_IT(&htim16);
-
+  arr_1s = __HAL_TIM_GET_AUTORELOAD(&htim16);
 
   /* USER CODE END 2 */
 
@@ -126,7 +128,13 @@ int main(void)
 	  	  //If Button 0 is pressed, toggle delay between 0.5s and 1s
 	  	  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 0)
 	  	  {
-	  		 if(TIM16Delay == 1){
+	  		  if (__HAL_TIM_GET_AUTORELOAD(&htim16) != arr_1s || __HAL_TIM_GET_AUTORELOAD(&htim16) != arr_1s/2);
+	  		  {
+	  		  	  __HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s);
+	  		  	  TIM16Delay=1;
+	  		  }
+
+	  		  if(TIM16Delay == 1){
 
 	  			 //Changing timer delay (from 1s to 0.5s)
 	  			__HAL_TIM_SET_AUTORELOAD(&htim16, __HAL_TIM_GET_AUTORELOAD(&htim16)/2);
@@ -382,13 +390,15 @@ void TIM16_IRQHandler(void)
 	{
 		if(fwd_back==true)
 		{
-			//move forwards in pattern
-			//display
+			LED_state = LED_state<<1;//move forwards in pattern
+			GPIOA->BSRR = (pin_mask<<16);
+			GPIOA->BSRR = LED_state&pin_mask;//display
 		}
 		else
 		{
-			//move backwards in pattern
-			//display
+			LED_state = LED_state>>1;//move backwards in pattern
+			GPIOA->BSRR = (pin_mask<<16);
+			GPIOA->BSRR = LED_state&pin_mask;//display
 		}
 	}
 
@@ -396,37 +406,42 @@ void TIM16_IRQHandler(void)
 	{
 		if(fwd_back==true)
 		{
-			//move forwards in pattern
-			//display inverse
+			LED_state = LED_state<<1;//move forwards in pattern
+			GPIOA->BSRR = (pin_mask<<16);
+			GPIOA->BSRR = (~LED_state)&pin_mask;//display inverse
 		}
 		else
 		{
-			//move backwards in pattern
-			//display inverse
+			LED_state = LED_state>>1;//move backwards in pattern
+			GPIOA->BSRR = (pin_mask<<16);
+			GPIOA->BSRR = (~LED_state)&pin_mask;//display inverse
 		}
 	}
 	else if(LED_mode == 3)
 	{
 		if (LED_state == 0)
 		{
-			//generate rNum
-			//generate rDelay
-			//change timer delay to rDelay
+			rNum = rand() % 256;//generate rNum
+			rDelay = (rand() % 1400) + 100;//generate rDelay
+			__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s/1000*rDelay);
 			LED_state = rNum;
-			//display LED_state
+			GPIOA->BSRR = (pin_mask<<16);
+			GPIOA->BSRR = LED_state&pin_mask;//display LED_state
 		}
 		else if (LED_state>0 && num>128)
 		{
 			//set timer delay to 100ms
 			num = num - sub;
 			LED_state = rNum&num;
-			//display LED_state
+			GPIOA->BSRR = (pin_mask<<16);
+			GPIOA->BSRR = LED_state&pin_mask;//display LED_state
 			sub = sub*2;
 		}
 		else
 		{
 			LED_state = 0;
-			//display LED_state
+			GPIOA->BSRR = (pin_mask<<16);
+			GPIOA->BSRR = LED_state&pin_mask;//display LED_state
 			sub = 1;
 			num = 225;
 		}
