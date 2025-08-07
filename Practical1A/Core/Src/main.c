@@ -23,6 +23,8 @@
 /* USER CODE BEGIN Includes */
 #include <stdint.h>
 #include "stm32f0xx.h"
+#include <stdbool.h>
+#include <stdlib.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,19 +50,17 @@ TIM_HandleTypeDef htim16;
 uint8_t LED_start_state = 0b00000001;
 uint8_t LED_reset_state = 0b00000000;
 uint8_t LED_state; //state of LED eg. 00000001
-boolean fwd_back = true;
+bool fwd_back = true;
 uint8_t pin_mask = 0xFF;
 
 //variables for sparkle mode:
-uint8_t sub = 1;
-uint8_t num = 255;
 uint8_t rNum;
 uint32_t rDelay;
 uint32_t arr_1s; //stores ARR value for 1s timer
 
 int LED_mode = 1;
 
-int TIM16Delay = 1;
+int TIM16Delay = 1; //Stores what current timer delay is
 
 /* USER CODE END PV */
 
@@ -110,6 +110,7 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim16);
   arr_1s = __HAL_TIM_GET_AUTORELOAD(&htim16);
 
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -128,7 +129,8 @@ int main(void)
 	  	  //If Button 0 is pressed, toggle delay between 0.5s and 1s
 	  	  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 0)
 	  	  {
-	  		  if (__HAL_TIM_GET_AUTORELOAD(&htim16) != arr_1s || __HAL_TIM_GET_AUTORELOAD(&htim16) != arr_1s/2);
+
+	  		  if (__HAL_TIM_GET_AUTORELOAD(&htim16) != arr_1s && __HAL_TIM_GET_AUTORELOAD(&htim16) != arr_1s/2);
 	  		  {
 	  		  	  __HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s);
 	  		  	  TIM16Delay=1;
@@ -151,14 +153,22 @@ int main(void)
 	  	if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == 0)
 	  	{
 	  		LED_mode = 1;
+	  		LED_state = LED_start_state;
+	  		GPIOB->BSRR = (pin_mask<<16);
+
 	  	}
 	  	else if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2) == 0)
 	  	{
 	  		LED_mode = 2;
+	  		LED_state = LED_start_state;
+	  		GPIOB->BSRR = (pin_mask<<16);
+
 	  	}
-	  	else if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == 0)
+	  	else if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3) == 0)
 	  	{
 	  		LED_mode = 3;
+	  		LED_state = LED_reset_state;
+
 	  	}
 
 
@@ -388,17 +398,20 @@ void TIM16_IRQHandler(void)
 	//Checks which mode the system is in
 	if(LED_mode == 1)
 	{
+
 		if(fwd_back==true)
 		{
+
+			GPIOB->BSRR = (pin_mask<<16);
+			GPIOB->BSRR = LED_state&pin_mask;//display
 			LED_state = LED_state<<1;//move forwards in pattern
-			GPIOA->BSRR = (pin_mask<<16);
-			GPIOA->BSRR = LED_state&pin_mask;//display
 		}
 		else
 		{
+
+			GPIOB->BSRR = (pin_mask<<16);
+			GPIOB->BSRR = LED_state&pin_mask;//display
 			LED_state = LED_state>>1;//move backwards in pattern
-			GPIOA->BSRR = (pin_mask<<16);
-			GPIOA->BSRR = LED_state&pin_mask;//display
 		}
 	}
 
@@ -406,15 +419,17 @@ void TIM16_IRQHandler(void)
 	{
 		if(fwd_back==true)
 		{
+
+			GPIOB->BSRR = (pin_mask<<16);
+			GPIOB->BSRR = (~LED_state)&pin_mask;//display inverse
 			LED_state = LED_state<<1;//move forwards in pattern
-			GPIOA->BSRR = (pin_mask<<16);
-			GPIOA->BSRR = (~LED_state)&pin_mask;//display inverse
 		}
 		else
 		{
+
+			GPIOB->BSRR = (pin_mask<<16);
+			GPIOB->BSRR = (~LED_state)&pin_mask;//display inverse
 			LED_state = LED_state>>1;//move backwards in pattern
-			GPIOA->BSRR = (pin_mask<<16);
-			GPIOA->BSRR = (~LED_state)&pin_mask;//display inverse
 		}
 	}
 	else if(LED_mode == 3)
@@ -423,28 +438,55 @@ void TIM16_IRQHandler(void)
 		{
 			rNum = rand() % 256;//generate rNum
 			rDelay = (rand() % 1400) + 100;//generate rDelay
-			__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s/1000*rDelay);
+
+			//For some reason the line below breaks the timer ?? something to do with integer division ?
+			//__HAL_TIM_SET_AUTORELOAD(&htim16, (arr_1s/1000)*rDelay);
+
+			//TEMPORARY
+			__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s);
+
 			LED_state = rNum;
-			GPIOA->BSRR = (pin_mask<<16);
-			GPIOA->BSRR = LED_state&pin_mask;//display LED_state
+			GPIOB->BSRR = (pin_mask<<16);
+			GPIOB->BSRR = LED_state&pin_mask;//display LED_state
 		}
-		else if (LED_state>0 && num>128)
-		{
-			//set timer delay to 100ms
-			num = num - sub;
-			LED_state = rNum&num;
-			GPIOA->BSRR = (pin_mask<<16);
-			GPIOA->BSRR = LED_state&pin_mask;//display LED_state
-			sub = sub*2;
+		else{
+
+			rDelay = rand() % 100; //Generate rNum between 0 and 100ms
+
+			//set timer delay to random number within 100ms
+
+			//For some reason the line below breaks the timer ?? something to do with integer division ?
+			//__HAL_TIM_SET_AUTORELOAD(&htim16, (arr_1s/1000)*rDelay);
+
+			//TEMPORARY
+			__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s);
+
+
+			uint8_t bit_positions[8];
+			uint8_t count = 0; //Size of array holding positions of LEDs that are on
+
+			//Finding out which LEDs are on, and creating an array with their position values
+			for(uint8_t i = 0; i < 8; i++)
+			{
+				if((LED_state >> i) & 1){
+					bit_positions[count++] = i;
+				}
+			}
+
+			//Random number between 0 and count (random LED to turn off out of those that are on)
+			uint8_t randLEDTurnOff = rand()%count;
+
+			//Creating bitmask to use to just turn off the randomly selected LED
+			uint8_t LED_off_bitmask = ~(0b00000001 << bit_positions[randLEDTurnOff]);
+
+			LED_state = LED_state & LED_off_bitmask; //New LED state with one less on
+
+			GPIOB->BSRR = (pin_mask<<16);
+			GPIOB->BSRR = LED_state&pin_mask; //Display new LED state
 		}
-		else
-		{
-			LED_state = 0;
-			GPIOA->BSRR = (pin_mask<<16);
-			GPIOA->BSRR = LED_state&pin_mask;//display LED_state
-			sub = 1;
-			num = 225;
-		}
+
+
+
 	}
 
 
