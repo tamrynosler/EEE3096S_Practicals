@@ -440,10 +440,15 @@ void TIM16_IRQHandler(void)
 			rDelay = (rand() % 1400) + 100;//generate rDelay
 
 			//For some reason the line below breaks the timer ?? something to do with integer division ?
-			//__HAL_TIM_SET_AUTORELOAD(&htim16, (arr_1s/1000)*rDelay);
+			// maybe rDelay is set too small?
+			//uint32_t newDelay = arr_1s/1000.0*rDelay;
+			//__HAL_TIM_SET_AUTORELOAD(&htim16, (arr_1s/1000.0)*rDelay);
+			// what is arr_1s? print out?
 
 			//TEMPORARY
 			__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s);
+			//try this:
+			//__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s/1000.0);
 
 			LED_state = rNum;
 			GPIOB->BSRR = (pin_mask<<16);
