@@ -60,7 +60,7 @@ uint32_t arr_1s; //stores ARR value for 1s timer
 
 int LED_mode = 1;
 
-int TIM16Delay = 1; //Stores what current timer delay is
+float TIM16Delay = 1; //Stores what current timer delay is
 
 /* USER CODE END PV */
 
@@ -139,7 +139,7 @@ int main(void)
 	  		 }else{
 
 	  			__HAL_TIM_SET_AUTORELOAD(&htim16, __HAL_TIM_GET_AUTORELOAD(&htim16)*2);
-	  			TIM16Delay = 1;
+	  			TIM16Delay = 1.0;
 	  		 }
 	  	  }
 
@@ -149,7 +149,7 @@ int main(void)
 	  		LED_mode = 1;
 	  		LED_state = LED_start_state;
 	  		fwd_back = true;
-	  		__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s*TIM16Delay);
+	  		__HAL_TIM_SET_AUTORELOAD(&htim16, (uint32_t)(arr_1s*TIM16Delay));
 	  		GPIOB->BSRR = (pin_mask<<16);
 
 	  	}
@@ -158,7 +158,7 @@ int main(void)
 	  		LED_mode = 2;
 	  		LED_state = LED_start_state;
 	  		fwd_back = true;
-	  		__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s*TIM16Delay);
+	  		__HAL_TIM_SET_AUTORELOAD(&htim16, (uint32_t)(arr_1s*TIM16Delay));
 	  		GPIOB->BSRR = (pin_mask<<16);
 
 	  	}
