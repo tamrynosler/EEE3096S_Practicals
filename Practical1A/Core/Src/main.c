@@ -130,12 +130,6 @@ int main(void)
 	  	  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 0)
 	  	  {
 
-	  		  if (__HAL_TIM_GET_AUTORELOAD(&htim16) != arr_1s && __HAL_TIM_GET_AUTORELOAD(&htim16) != arr_1s/2);
-	  		  {
-	  		  	  __HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s);
-	  		  	  TIM16Delay=1;
-	  		  }
-
 	  		  if(TIM16Delay == 1){
 
 	  			 //Changing timer delay (from 1s to 0.5s)
@@ -154,6 +148,8 @@ int main(void)
 	  	{
 	  		LED_mode = 1;
 	  		LED_state = LED_start_state;
+	  		fwd_back = true;
+	  		__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s*TIM16Delay);
 	  		GPIOB->BSRR = (pin_mask<<16);
 
 	  	}
@@ -161,14 +157,16 @@ int main(void)
 	  	{
 	  		LED_mode = 2;
 	  		LED_state = LED_start_state;
+	  		fwd_back = true;
+	  		__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s*TIM16Delay);
 	  		GPIOB->BSRR = (pin_mask<<16);
 
 	  	}
 	  	else if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3) == 0)
 	  	{
-	  		LED_mode = 3;
 	  		LED_state = LED_reset_state;
-
+	  		LED_mode = 3;
+	  		fwd_back = true;
 	  	}
 
 
@@ -398,7 +396,6 @@ void TIM16_IRQHandler(void)
 	//Checks which mode the system is in
 	if(LED_mode == 1)
 	{
-
 		if(fwd_back==true)
 		{
 
@@ -437,18 +434,10 @@ void TIM16_IRQHandler(void)
 		if (LED_state == 0)
 		{
 			rNum = rand() % 256;//generate rNum
-			rDelay = (rand() % 1400) + 100;//generate rDelay
+			rDelay = (rand() % 80) + 20;//generate rDelay (no zero allowed)
 
-			//For some reason the line below breaks the timer ?? something to do with integer division ?
-			// maybe rDelay is set too small?
-			//uint32_t newDelay = arr_1s/1000.0*rDelay;
-			//__HAL_TIM_SET_AUTORELOAD(&htim16, (arr_1s/1000.0)*rDelay);
-			// what is arr_1s? print out?
 
-			//TEMPORARY
-			__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s);
-			//try this:
-			//__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s/1000.0);
+			__HAL_TIM_SET_AUTORELOAD(&htim16, (arr_1s/1000.0)*rDelay*10);
 
 			LED_state = rNum;
 			GPIOB->BSRR = (pin_mask<<16);
@@ -456,15 +445,8 @@ void TIM16_IRQHandler(void)
 		}
 		else{
 
-			rDelay = rand() % 100; //Generate rNum between 0 and 100ms
 
-			//set timer delay to random number within 100ms
-
-			//For some reason the line below breaks the timer ?? something to do with integer division ?
-			//__HAL_TIM_SET_AUTORELOAD(&htim16, (arr_1s/1000)*rDelay);
-
-			//TEMPORARY
-			__HAL_TIM_SET_AUTORELOAD(&htim16, arr_1s);
+			__HAL_TIM_SET_AUTORELOAD(&htim16, (arr_1s/1000.0*rDelay));
 
 
 			uint8_t bit_positions[8];
