@@ -241,6 +241,8 @@ uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int 
 
 //TODO: Mandelbroat using variable type double
 uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
+	uint32_t start_time = HAL_GetTick();
+
     uint64_t mandelbrot_sum = 0;
     //TODO: Complete the function implementation
     
@@ -248,9 +250,11 @@ uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
 
     double x_0;
     double y_0;
-    uint32_t iteration = 0;
-    double x_i[height];
-    double y_i[height];
+    uint64_t iteration = 0;
+    double x_i;
+    double y_i;
+    uint64_t iteration;
+    double temp;
 
     for(uint32_t y = 0; y <= height - 1; y++)
     {
@@ -258,8 +262,20 @@ uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
     	{
     		x_0 = (x/width)*3.5 - 2.5;
     		y_0 = (y/height)*2 - 1;
-    		x_i[]
+    		x_i = 0;
+    		y_i = 0;
+    		iteration = 0;
+    		while(iteration < maxIter && x_i^2 + y_i^2 <= 4)
+    		{
+    			temp = x_i^2 - y_i^2;
+    			y_i = 2*x_i*y_i + y_0;
+    			x_i = temp + x_0;
+    			iteration = iteration + 1;
+
+    		}
+    		mandelbrot_sum = mandelbrot_sum + iteration;
     	}
+
     }
     return mandelbrot_sum;
 }
