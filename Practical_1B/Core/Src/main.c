@@ -102,13 +102,13 @@ int main(void)
   
 
   //TODO: Record the start time
-  
+  start_time = HAL_GetTick();
   
   //TODO: Call the Mandelbrot Function and store the output in the checksum variable defined initially
-  
+  //checksum = calculate_mandelbrot_fixed_point_arithmetic(width, height, max_iterations);
 
   //TODO: Record the end time
-  
+  end_time = HAL_GetTick();
 
   //TODO: Calculate the execution time
   
