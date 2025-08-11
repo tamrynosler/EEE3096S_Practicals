@@ -204,7 +204,34 @@ static void MX_GPIO_Init(void)
 uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int max_iterations){
   uint64_t mandelbrot_sum = 0;
     //TODO: Complete the function implementation
-    
+    uint64_t checksum = 0;
+    uint64_t s = 1000000; //10^6 scale factor
+    uint64_t x_0;
+    uint64_t y_0;
+    uint64_t x_i;
+    uint64_t y_i;
+    uint64_t iteration;
+    uint64_t temp;
+    for (uint64_t y = 0; y <= height-1; y++)
+    {
+    	for (uint64_t x = 0; x <= width-1; y++)
+    	{
+    		x_0 = ((x/width)*3.5*s - 2.5*s)/s;
+    		y_0 = ((y/height)*2.0*s - 1.0*s)/s;
+    		x_i = 0;
+    		y_i = 0;
+    		iteration = 0;
+    		while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<=4)
+    		{
+    			temp = x_i*x_i - y_i*y_i;
+    			y_i = 2*x_i*y_i + y_0;
+    			x_i = temp + x_0;
+    			iteration = iteration+1;
+    		}
+    		checksum = checksum + iteration;
+    	}
+    }
+    mandelbrot_sum = checksum;
     return mandelbrot_sum;
 
 }
