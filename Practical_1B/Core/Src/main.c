@@ -44,13 +44,14 @@
 
 /* USER CODE BEGIN PV */
 //TODO: Define and initialise the global varibales required
-/*
-  start_time
-  end_time
-  execution_time 
-  checksum: should be uint64_t
-  initial width and height maybe or you might opt for an array??
-*/
+
+  uint32_t start_time = 0
+  uint32_t end_time = 0;
+  uint32_t execution_time = 0;
+  uint64_t checksum = 0;
+
+  //initial width and height maybe or you might opt for an array??
+
 
 /* USER CODE END PV */
 
@@ -214,6 +215,23 @@ uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
     uint64_t mandelbrot_sum = 0;
     //TODO: Complete the function implementation
     
+    checksum = 0;
+
+    double x_0;
+    double y_0;
+    uint32_t iteration = 0;
+    double x_i[height];
+    double y_i[height];
+
+    for(uint32_t y = 0; y <= height - 1; y++)
+    {
+    	for(uint32_t x = 0; x <= width - 1; x++)
+    	{
+    		x_0 = (x/width)*3.5 - 2.5;
+    		y_0 = (y/height)*2 - 1;
+    		x_i[]
+    	}
+    }
     return mandelbrot_sum;
 }
 
