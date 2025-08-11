@@ -45,10 +45,11 @@
 /* USER CODE BEGIN PV */
 //TODO: Define and initialise the global varibales required
 
-  uint32_t start_time = 0
+  uint32_t start_time = 0;
   uint32_t end_time = 0;
   uint32_t execution_time = 0;
   uint64_t checksum = 0;
+  uint16_t pin_mask = 0;
 
   //initial width and height maybe or you might opt for an array??
 
@@ -100,7 +101,7 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
   //TODO: Turn on LED 0 to signify the start of the operation
-  
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
 
   //TODO: Record the start time
   start_time = HAL_GetTick();
@@ -112,16 +113,17 @@ int main(void)
   end_time = HAL_GetTick();
 
   //TODO: Calculate the execution time
-  
+  execution_time = end_time - start_time;
 
   //TODO: Turn on LED 1 to signify the end of the operation
-  
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
 
   //TODO: Hold the LEDs on for a 1s delay
-  
+  HAL_Delay(1000); // waits 1000 ms (1 second)
 
   //TODO: Turn off the LEDs
-  
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
 
   /* USER CODE END 2 */
 
