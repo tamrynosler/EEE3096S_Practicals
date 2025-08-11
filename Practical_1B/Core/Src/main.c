@@ -250,7 +250,6 @@ uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
 
     double x_0;
     double y_0;
-    uint64_t iteration = 0;
     double x_i;
     double y_i;
     uint64_t iteration;
@@ -265,9 +264,9 @@ uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
     		x_i = 0;
     		y_i = 0;
     		iteration = 0;
-    		while(iteration < maxIter && x_i^2 + y_i^2 <= 4)
+    		while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4)
     		{
-    			temp = x_i^2 - y_i^2;
+    			temp = x_i*x_i - y_i*y_i;
     			y_i = 2*x_i*y_i + y_0;
     			x_i = temp + x_0;
     			iteration = iteration + 1;
