@@ -207,6 +207,7 @@ static void MX_GPIO_Init(void)
 //TODO: Mandelbroat using variable type integers and fixed point arithmetic
 uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int max_iterations){
   uint64_t mandelbrot_sum = 0;
+
     //TODO: Complete the function implementation
   	checksum = 0;
     uint64_t s = 1000000; //10^6 scale factor
@@ -242,12 +243,11 @@ uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int 
 
 //TODO: Mandelbroat using variable type double
 uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
-	uint32_t start_time = HAL_GetTick();
+
 
     uint64_t mandelbrot_sum = 0;
     //TODO: Complete the function implementation
     
-    checksum = 0;
 
     double x_0;
     double y_0;
