@@ -107,8 +107,8 @@ int main(void)
   start_time = HAL_GetTick();
   
   //TODO: Call the Mandelbrot Function and store the output in the checksum variable defined initially
-  checksum = calculate_mandelbrot_fixed_point_arithmetic(128, 128, MAX_ITER);
-  //checksum = calculate_mandelbrot_double(128, 128, MAX_ITER);
+  //checksum = calculate_mandelbrot_fixed_point_arithmetic(160, 160, MAX_ITER);
+  checksum = calculate_mandelbrot_double(256, 256, MAX_ITER);
 
   //TODO: Record the end time
   end_time = HAL_GetTick();
@@ -209,29 +209,30 @@ uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int 
   uint64_t mandelbrot_sum = 0;
 
     //TODO: Complete the function implementation
-  	//checksum = 0;
-    uint64_t s = 100000000; //10^8 scale factor
-    uint64_t s3_5 = 3.5*s;
-    uint64_t s2_5 = 3.5*s;
-    uint64_t x_0 = 0;
-    uint64_t y_0 = 0;
-    uint32_t x_i;
-    uint32_t y_i;
+
+    int s = 10000; //10^4 scale factor (so that overflow doesnt occur on 32bit ints)
+    int s3_5 = 3.5*s;
+    int s2_5 = 2.5*s;
+    int x_0 = 0;
+    int y_0 = 0;
+    int x_i;
+    int y_i;
     uint64_t iteration;
-    uint32_t temp;
+    int64_t temp; //Prevent overflow by making 64bit
+
     for (uint32_t y = 0; y <= height-1; y++)
     {
     	for (uint32_t x = 0; x <= width-1; x++)
     	{
-    		x_0 = ((((x*s)/width))*(s3_5)/s - (s2_5))/s;
-    		y_0 = ((((y*s)/height))*(2*s)/s - (s))/s;
+    		x_0 = ((((x*s)/width))*(s3_5)/s - (s2_5));
+    		y_0 = ((((y*s)/height))*(2*s)/s - (s));
     		x_i = 0;
     		y_i = 0;
     		iteration = 0;
-    		while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4)
+    		while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4*s*s)
     		{
-    			temp = x_i*x_i - y_i*y_i;
-    			y_i = 2*x_i*y_i + y_0;
+    			temp = x_i*x_i/s - y_i*y_i/s;
+    			y_i = 2*x_i*y_i/s + y_0;
     			x_i = temp + x_0;
     			iteration = iteration+1;
     		}
@@ -241,6 +242,8 @@ uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int 
     return mandelbrot_sum;
 
 }
+
+
 
 //TODO: Mandelbroat using variable type double
 uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
