@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
   31:Core/Src/main.c **** /* USER CODE END PTD */
   32:Core/Src/main.c **** 
   33:Core/Src/main.c **** /* Private define ------------------------------------------------------------*/
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 2
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 2
 
 
   34:Core/Src/main.c **** /* USER CODE BEGIN PD */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
   88:Core/Src/main.c **** 
   89:Core/Src/main.c ****   /* USER CODE BEGIN Init */
   90:Core/Src/main.c **** 
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 3
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 3
 
 
   91:Core/Src/main.c ****   /* USER CODE END Init */
@@ -140,8 +140,8 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
  107:Core/Src/main.c ****   start_time = HAL_GetTick();
  108:Core/Src/main.c ****   
  109:Core/Src/main.c ****   //TODO: Call the Mandelbrot Function and store the output in the checksum variable defined initia
- 110:Core/Src/main.c ****   //checksum = calculate_mandelbrot_fixed_point_arithmetic(256, 256, MAX_ITER);
- 111:Core/Src/main.c ****   checksum = calculate_mandelbrot_double(128, 128, MAX_ITER);
+ 110:Core/Src/main.c ****   checksum = calculate_mandelbrot_fixed_point_arithmetic(128, 128, MAX_ITER);
+ 111:Core/Src/main.c ****   //checksum = calculate_mandelbrot_double(128, 128, MAX_ITER);
  112:Core/Src/main.c **** 
  113:Core/Src/main.c ****   //TODO: Record the end time
  114:Core/Src/main.c ****   end_time = HAL_GetTick();
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
  145:Core/Src/main.c ****   */
  146:Core/Src/main.c **** void SystemClock_Config(void)
  147:Core/Src/main.c **** {
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 4
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 4
 
 
  148:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
   43 000a FFF7FEFF 		bl	memset
   44              	.LVL0:
  185:Core/Src/main.c **** /* USER CODE BEGIN MX_GPIO_Init_1 */
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 5
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 5
 
 
  186:Core/Src/main.c **** /* USER CODE END MX_GPIO_Init_1 */
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
   88              		.loc 1 196 23 is_stmt 0 view .LVU17
   89 0040 0323     		movs	r3, #3
   90 0042 0393     		str	r3, [sp, #12]
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 6
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 6
 
 
  197:Core/Src/main.c ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -336,8 +336,8 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
  115 0060 00040048 		.word	1207960576
  116              		.cfi_endproc
  117              	.LFE42:
- 119              		.global	__aeabi_uldivmod
- 120              		.global	__aeabi_lmul
+ 119              		.global	__aeabi_lmul
+ 120              		.global	__aeabi_uldivmod
  121              		.section	.text.calculate_mandelbrot_fixed_point_arithmetic,"ax",%progbits
  122              		.align	1
  123              		.global	calculate_mandelbrot_fixed_point_arithmetic
@@ -353,12 +353,12 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
  208:Core/Src/main.c **** uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int max_iterations){
  131              		.loc 1 208 96 is_stmt 1 view -0
  132              		.cfi_startproc
- 133              		@ args = 0, pretend = 0, frame = 80
+ 133              		@ args = 0, pretend = 0, frame = 24
  134              		@ frame_needed = 0, uses_anonymous_args = 0
  135              		.loc 1 208 96 is_stmt 0 view .LVU27
  136 0000 F0B5     		push	{r4, r5, r6, r7, lr}
  137              	.LCFI2:
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 7
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 7
 
 
  138              		.cfi_def_cfa_offset 20
@@ -378,11 +378,11 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
  152              		.cfi_offset 9, -32
  153              		.cfi_offset 10, -28
  154              		.cfi_offset 11, -24
- 155 000c 95B0     		sub	sp, sp, #84
+ 155 000c 87B0     		sub	sp, sp, #28
  156              	.LCFI4:
- 157              		.cfi_def_cfa_offset 120
+ 157              		.cfi_def_cfa_offset 64
  158 000e 8146     		mov	r9, r0
- 159 0010 1391     		str	r1, [sp, #76]
+ 159 0010 0591     		str	r1, [sp, #20]
  160 0012 1400     		movs	r4, r2
  209:Core/Src/main.c ****   uint64_t mandelbrot_sum = 0;
  161              		.loc 1 209 3 is_stmt 1 view .LVU28
@@ -390,11 +390,11 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
  210:Core/Src/main.c **** 
  211:Core/Src/main.c ****     //TODO: Complete the function implementation
  212:Core/Src/main.c ****   	//checksum = 0;
- 213:Core/Src/main.c ****     uint64_t s = 1000000; //10^6 scale factor
+ 213:Core/Src/main.c ****     uint64_t s = 100000000; //10^8 scale factor
  163              		.loc 1 213 5 view .LVU29
- 214:Core/Src/main.c ****     uint32_t x_0 = 0;
+ 214:Core/Src/main.c ****     uint64_t x_0 = 0;
  164              		.loc 1 214 5 view .LVU30
- 215:Core/Src/main.c ****     uint32_t y_0 = 0;
+ 215:Core/Src/main.c ****     uint64_t y_0 = 0;
  165              		.loc 1 215 5 view .LVU31
  216:Core/Src/main.c ****     uint32_t x_i;
  166              		.loc 1 216 5 view .LVU32
@@ -410,7 +410,7 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
  172              		.loc 1 220 10 view .LVU37
  173              		.loc 1 220 19 is_stmt 0 view .LVU38
  174 0014 0023     		movs	r3, #0
- 175 0016 1293     		str	r3, [sp, #72]
+ 175 0016 0493     		str	r3, [sp, #16]
  176              	.LBE6:
  209:Core/Src/main.c **** 
  177              		.loc 1 209 12 view .LVU39
@@ -418,888 +418,831 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
  179              	.LVL5:
  209:Core/Src/main.c **** 
  180              		.loc 1 209 12 view .LVU40
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 8
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 8
 
 
  181 001a 0023     		movs	r3, #0
- 182 001c 1092     		str	r2, [sp, #64]
- 183 001e 1193     		str	r3, [sp, #68]
+ 182 001c 0292     		str	r2, [sp, #8]
+ 183 001e 0393     		str	r3, [sp, #12]
  184              	.LBB9:
  185              		.loc 1 220 5 view .LVU41
- 186 0020 ADE0     		b	.L5
+ 186 0020 70E0     		b	.L5
  187              	.LVL6:
  188              	.L9:
  189              	.LBB7:
  221:Core/Src/main.c ****     {
  222:Core/Src/main.c ****     	for (uint32_t x = 0; x <= width-1; x++)
  223:Core/Src/main.c ****     	{
- 224:Core/Src/main.c ****     		//x_0temp = (x*s)/width;
- 225:Core/Src/main.c ****     		x_0 = ((((x*s)/width)/s)*((uint32_t)(3500000)) - ((uint32_t)(2500000)))/s;
- 226:Core/Src/main.c ****     		//y_0temp = (y*s)/height;
- 227:Core/Src/main.c ****     		y_0 = ((((y*s)/height)/s)*((uint32_t)(2*s)) - ((uint32_t)(1*s)))/s;
- 228:Core/Src/main.c ****     		x_i = 0;
- 229:Core/Src/main.c ****     		y_i = 0;
- 230:Core/Src/main.c ****     		iteration = 0;
- 231:Core/Src/main.c ****     		while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4)
- 232:Core/Src/main.c ****     		{
- 233:Core/Src/main.c ****     			temp = x_i*x_i - y_i*y_i;
- 190              		.loc 1 233 8 is_stmt 1 view .LVU42
- 191              		.loc 1 233 13 is_stmt 0 view .LVU43
+ 224:Core/Src/main.c ****     		x_0 = ((((x*s)/width)/s)*((uint64_t)(3.5*s)) - ((uint64_t)(2.5*s)))/s;
+ 225:Core/Src/main.c ****     		y_0 = ((((y*s)/height)/s)*((uint64_t)(2*s)) - ((uint64_t)(1*s)))/s;
+ 226:Core/Src/main.c ****     		x_i = 0;
+ 227:Core/Src/main.c ****     		y_i = 0;
+ 228:Core/Src/main.c ****     		iteration = 0;
+ 229:Core/Src/main.c ****     		while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4)
+ 230:Core/Src/main.c ****     		{
+ 231:Core/Src/main.c ****     			temp = x_i*x_i - y_i*y_i;
+ 190              		.loc 1 231 8 is_stmt 1 view .LVU42
+ 191              		.loc 1 231 13 is_stmt 0 view .LVU43
  192 0022 AD1B     		subs	r5, r5, r6
  193              	.LVL7:
- 234:Core/Src/main.c ****     			y_i = 2*x_i*y_i + y_0;
- 194              		.loc 1 234 8 is_stmt 1 view .LVU44
- 195              		.loc 1 234 19 is_stmt 0 view .LVU45
+ 232:Core/Src/main.c ****     			y_i = 2*x_i*y_i + y_0;
+ 194              		.loc 1 232 8 is_stmt 1 view .LVU44
+ 195              		.loc 1 232 19 is_stmt 0 view .LVU45
  196 0024 4143     		muls	r1, r0
  197              	.LVL8:
- 198              		.loc 1 234 19 view .LVU46
+ 198              		.loc 1 232 19 view .LVU46
  199 0026 4900     		lsls	r1, r1, #1
- 200              		.loc 1 234 12 view .LVU47
- 201 0028 6144     		add	r1, r1, ip
+ 200              		.loc 1 232 12 view .LVU47
+ 201 0028 4144     		add	r1, r1, r8
  202 002a 0800     		movs	r0, r1
  203              	.LVL9:
- 235:Core/Src/main.c ****     			x_i = temp + x_0;
- 204              		.loc 1 235 8 is_stmt 1 view .LVU48
- 205              		.loc 1 235 12 is_stmt 0 view .LVU49
- 206 002c 2900     		movs	r1, r5
- 207 002e 5944     		add	r1, r1, fp
+ 233:Core/Src/main.c ****     			x_i = temp + x_0;
+ 204              		.loc 1 233 8 is_stmt 1 view .LVU48
+ 205              		.loc 1 233 12 is_stmt 0 view .LVU49
+ 206 002c 0199     		ldr	r1, [sp, #4]
+ 207 002e 4919     		adds	r1, r1, r5
  208              	.LVL10:
- 236:Core/Src/main.c ****     			iteration = iteration+1;
- 209              		.loc 1 236 8 is_stmt 1 view .LVU50
- 210              		.loc 1 236 18 is_stmt 0 view .LVU51
+ 234:Core/Src/main.c ****     			iteration = iteration+1;
+ 209              		.loc 1 234 8 is_stmt 1 view .LVU50
+ 210              		.loc 1 234 18 is_stmt 0 view .LVU51
  211 0030 0126     		movs	r6, #1
  212 0032 0027     		movs	r7, #0
  213 0034 9219     		adds	r2, r2, r6
  214 0036 7B41     		adcs	r3, r3, r7
  215              	.LVL11:
  216              	.L6:
- 231:Core/Src/main.c ****     		{
- 217              		.loc 1 231 41 is_stmt 1 view .LVU52
- 231:Core/Src/main.c ****     		{
- 218              		.loc 1 231 24 is_stmt 0 view .LVU53
+ 229:Core/Src/main.c ****     		{
+ 217              		.loc 1 229 41 is_stmt 1 view .LVU52
+ 229:Core/Src/main.c ****     		{
+ 218              		.loc 1 229 24 is_stmt 0 view .LVU53
  219 0038 E617     		asrs	r6, r4, #31
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 9
+ 229:Core/Src/main.c ****     		{
+ 220              		.loc 1 229 41 view .LVU54
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 9
 
 
- 231:Core/Src/main.c ****     		{
- 220              		.loc 1 231 41 view .LVU54
  221 003a 9E42     		cmp	r6, r3
- 222 003c 00D8     		bhi	.LCB198
- 223 003e 94E0     		b	.L14	@long jump
- 224              	.LCB198:
- 225              	.L13:
- 231:Core/Src/main.c ****     		{
- 226              		.loc 1 231 48 discriminator 1 view .LVU55
- 227 0040 0D00     		movs	r5, r1
- 228 0042 4D43     		muls	r5, r1
- 231:Core/Src/main.c ****     		{
- 229              		.loc 1 231 58 discriminator 1 view .LVU56
- 230 0044 0600     		movs	r6, r0
- 231 0046 4643     		muls	r6, r0
- 231:Core/Src/main.c ****     		{
- 232              		.loc 1 231 53 discriminator 1 view .LVU57
- 233 0048 AF19     		adds	r7, r5, r6
- 231:Core/Src/main.c ****     		{
- 234              		.loc 1 231 41 discriminator 1 view .LVU58
- 235 004a 042F     		cmp	r7, #4
- 236 004c E9D9     		bls	.L9
- 237              	.L7:
- 237:Core/Src/main.c ****     		}
- 238:Core/Src/main.c ****     		mandelbrot_sum = mandelbrot_sum + iteration;
- 238              		.loc 1 238 7 is_stmt 1 view .LVU59
- 239              		.loc 1 238 22 is_stmt 0 view .LVU60
- 240 004e 1098     		ldr	r0, [sp, #64]
- 241 0050 1199     		ldr	r1, [sp, #68]
- 242              	.LVL12:
- 243              		.loc 1 238 22 view .LVU61
- 244 0052 8018     		adds	r0, r0, r2
- 245 0054 5941     		adcs	r1, r1, r3
- 246 0056 1090     		str	r0, [sp, #64]
- 247 0058 1191     		str	r1, [sp, #68]
- 248              	.LVL13:
+ 222 003c 5AD9     		bls	.L14
+ 223              	.L13:
+ 229:Core/Src/main.c ****     		{
+ 224              		.loc 1 229 48 discriminator 1 view .LVU55
+ 225 003e 0D00     		movs	r5, r1
+ 226 0040 4D43     		muls	r5, r1
+ 229:Core/Src/main.c ****     		{
+ 227              		.loc 1 229 58 discriminator 1 view .LVU56
+ 228 0042 0600     		movs	r6, r0
+ 229 0044 4643     		muls	r6, r0
+ 229:Core/Src/main.c ****     		{
+ 230              		.loc 1 229 53 discriminator 1 view .LVU57
+ 231 0046 AF19     		adds	r7, r5, r6
+ 229:Core/Src/main.c ****     		{
+ 232              		.loc 1 229 41 discriminator 1 view .LVU58
+ 233 0048 042F     		cmp	r7, #4
+ 234 004a EAD9     		bls	.L9
+ 235              	.L7:
+ 235:Core/Src/main.c ****     		}
+ 236:Core/Src/main.c ****     		mandelbrot_sum = mandelbrot_sum + iteration;
+ 236              		.loc 1 236 22 view .LVU59
+ 237 004c C846     		mov	r8, r9
+ 238              		.loc 1 236 22 view .LVU60
+ 239 004e D146     		mov	r9, r10
+ 240              	.LVL12:
+ 241              		.loc 1 236 22 view .LVU61
+ 242 0050 E246     		mov	r10, ip
+ 243              	.LVL13:
+ 244              		.loc 1 236 7 is_stmt 1 view .LVU62
+ 245              		.loc 1 236 22 is_stmt 0 view .LVU63
+ 246 0052 0298     		ldr	r0, [sp, #8]
+ 247 0054 0399     		ldr	r1, [sp, #12]
+ 248              	.LVL14:
+ 249              		.loc 1 236 22 view .LVU64
+ 250 0056 8018     		adds	r0, r0, r2
+ 251 0058 5941     		adcs	r1, r1, r3
+ 252 005a 0290     		str	r0, [sp, #8]
+ 253 005c 0391     		str	r1, [sp, #12]
+ 254              	.LVL15:
  222:Core/Src/main.c ****     	{
- 249              		.loc 1 222 42 is_stmt 1 discriminator 2 view .LVU62
- 250 005a 0123     		movs	r3, #1
- 251 005c 9C46     		mov	ip, r3
+ 255              		.loc 1 222 42 is_stmt 1 discriminator 2 view .LVU65
+ 256 005e 0123     		movs	r3, #1
+ 257 0060 9C46     		mov	ip, r3
+ 258 0062 E044     		add	r8, r8, ip
+ 259              	.LVL16:
+ 260              	.L11:
  222:Core/Src/main.c ****     	{
- 252              		.loc 1 222 42 is_stmt 0 discriminator 2 view .LVU63
- 253 005e E044     		add	r8, r8, ip
- 254              	.LVL14:
- 255              	.L11:
+ 261              		.loc 1 222 29 discriminator 1 view .LVU66
  222:Core/Src/main.c ****     	{
- 256              		.loc 1 222 29 is_stmt 1 discriminator 1 view .LVU64
+ 262              		.loc 1 222 37 is_stmt 0 discriminator 1 view .LVU67
+ 263 0064 4B46     		mov	r3, r9
+ 264 0066 013B     		subs	r3, r3, #1
  222:Core/Src/main.c ****     	{
- 257              		.loc 1 222 37 is_stmt 0 discriminator 1 view .LVU65
- 258 0060 4B46     		mov	r3, r9
- 259 0062 013B     		subs	r3, r3, #1
- 222:Core/Src/main.c ****     	{
- 260              		.loc 1 222 29 discriminator 1 view .LVU66
- 261 0064 4345     		cmp	r3, r8
- 262 0066 00D2     		bcs	.LCB241
- 263 0068 86E0     		b	.L15	@long jump
- 264              	.LCB241:
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 10
+ 265              		.loc 1 222 29 discriminator 1 view .LVU68
+ 266 0068 4345     		cmp	r3, r8
+ 267 006a 48D3     		bcc	.L15
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 10
 
 
- 225:Core/Src/main.c ****     		//y_0temp = (y*s)/height;
- 265              		.loc 1 225 7 is_stmt 1 view .LVU67
- 225:Core/Src/main.c ****     		//y_0temp = (y*s)/height;
- 266              		.loc 1 225 18 is_stmt 0 view .LVU68
- 267 006a 4346     		mov	r3, r8
- 268 006c 0C93     		str	r3, [sp, #48]
- 269 006e 0027     		movs	r7, #0
- 270 0070 0D97     		str	r7, [sp, #52]
- 271 0072 0997     		str	r7, [sp, #36]
- 272 0074 0C9D     		ldr	r5, [sp, #48]
- 273 0076 0D9E     		ldr	r6, [sp, #52]
- 274 0078 EB0E     		lsrs	r3, r5, #27
- 275 007a 0993     		str	r3, [sp, #36]
- 276 007c 6B01     		lsls	r3, r5, #5
- 277 007e 0893     		str	r3, [sp, #32]
- 278 0080 089A     		ldr	r2, [sp, #32]
- 279 0082 099B     		ldr	r3, [sp, #36]
- 280 0084 521B     		subs	r2, r2, r5
- 281 0086 B341     		sbcs	r3, r3, r6
- 282 0088 D10D     		lsrs	r1, r2, #23
- 283 008a 5802     		lsls	r0, r3, #9
- 284 008c 0190     		str	r0, [sp, #4]
- 285 008e 0843     		orrs	r0, r1
- 286 0090 0190     		str	r0, [sp, #4]
- 287 0092 5302     		lsls	r3, r2, #9
- 288 0094 0093     		str	r3, [sp]
- 289 0096 009A     		ldr	r2, [sp]
- 290 0098 019B     		ldr	r3, [sp, #4]
- 291 009a 5219     		adds	r2, r2, r5
- 292 009c 7341     		adcs	r3, r3, r6
- 293 009e 910E     		lsrs	r1, r2, #26
- 294 00a0 9801     		lsls	r0, r3, #6
- 295 00a2 0390     		str	r0, [sp, #12]
- 296 00a4 0843     		orrs	r0, r1
- 297 00a6 0390     		str	r0, [sp, #12]
- 298 00a8 9101     		lsls	r1, r2, #6
- 299 00aa 0291     		str	r1, [sp, #8]
- 300 00ac 0298     		ldr	r0, [sp, #8]
- 301 00ae 0399     		ldr	r1, [sp, #12]
- 302 00b0 801A     		subs	r0, r0, r2
- 303 00b2 9941     		sbcs	r1, r1, r3
- 304 00b4 4019     		adds	r0, r0, r5
- 305 00b6 7141     		adcs	r1, r1, r6
- 225:Core/Src/main.c ****     		//y_0temp = (y*s)/height;
- 306              		.loc 1 225 21 view .LVU69
- 307 00b8 4B46     		mov	r3, r9
- 308 00ba DB17     		asrs	r3, r3, #31
- 309 00bc 4A46     		mov	r2, r9
- 310 00be FFF7FEFF 		bl	__aeabi_uldivmod
- 311              	.LVL15:
- 225:Core/Src/main.c ****     		//y_0temp = (y*s)/height;
- 312              		.loc 1 225 28 view .LVU70
- 313 00c2 384A     		ldr	r2, .L17
- 314 00c4 0023     		movs	r3, #0
- 315 00c6 FFF7FEFF 		bl	__aeabi_uldivmod
- 316              	.LVL16:
- 225:Core/Src/main.c ****     		//y_0temp = (y*s)/height;
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 11
+ 224:Core/Src/main.c ****     		y_0 = ((((y*s)/height)/s)*((uint64_t)(2*s)) - ((uint64_t)(1*s)))/s;
+ 268              		.loc 1 224 7 is_stmt 1 view .LVU69
+ 224:Core/Src/main.c ****     		y_0 = ((((y*s)/height)/s)*((uint64_t)(2*s)) - ((uint64_t)(1*s)))/s;
+ 269              		.loc 1 224 18 is_stmt 0 view .LVU70
+ 270 006c 304A     		ldr	r2, .L17
+ 271 006e 0023     		movs	r3, #0
+ 272 0070 4046     		mov	r0, r8
+ 273 0072 0021     		movs	r1, #0
+ 274 0074 FFF7FEFF 		bl	__aeabi_lmul
+ 275              	.LVL17:
+ 224:Core/Src/main.c ****     		y_0 = ((((y*s)/height)/s)*((uint64_t)(2*s)) - ((uint64_t)(1*s)))/s;
+ 276              		.loc 1 224 21 view .LVU71
+ 277 0078 4B46     		mov	r3, r9
+ 278 007a DB17     		asrs	r3, r3, #31
+ 279 007c 4A46     		mov	r2, r9
+ 280 007e FFF7FEFF 		bl	__aeabi_uldivmod
+ 281              	.LVL18:
+ 224:Core/Src/main.c ****     		y_0 = ((((y*s)/height)/s)*((uint64_t)(2*s)) - ((uint64_t)(1*s)))/s;
+ 282              		.loc 1 224 28 view .LVU72
+ 283 0082 2B4A     		ldr	r2, .L17
+ 284 0084 0023     		movs	r3, #0
+ 285 0086 FFF7FEFF 		bl	__aeabi_uldivmod
+ 286              	.LVL19:
+ 224:Core/Src/main.c ****     		y_0 = ((((y*s)/height)/s)*((uint64_t)(2*s)) - ((uint64_t)(1*s)))/s;
+ 287              		.loc 1 224 31 view .LVU73
+ 288 008a 2A4A     		ldr	r2, .L17+4
+ 289 008c 0023     		movs	r3, #0
+ 290 008e FFF7FEFF 		bl	__aeabi_lmul
+ 291              	.LVL20:
+ 224:Core/Src/main.c ****     		y_0 = ((((y*s)/height)/s)*((uint64_t)(2*s)) - ((uint64_t)(1*s)))/s;
+ 292              		.loc 1 224 52 view .LVU74
+ 293 0092 294A     		ldr	r2, .L17+8
+ 294 0094 0123     		movs	r3, #1
+ 295 0096 5B42     		rsbs	r3, r3, #0
+ 296 0098 8018     		adds	r0, r0, r2
+ 297 009a 5941     		adcs	r1, r1, r3
+ 224:Core/Src/main.c ****     		y_0 = ((((y*s)/height)/s)*((uint64_t)(2*s)) - ((uint64_t)(1*s)))/s;
+ 298              		.loc 1 224 11 view .LVU75
+ 299 009c 244A     		ldr	r2, .L17
+ 300 009e 0023     		movs	r3, #0
+ 301 00a0 FFF7FEFF 		bl	__aeabi_uldivmod
+ 302              	.LVL21:
+ 303 00a4 0190     		str	r0, [sp, #4]
+ 304              	.LVL22:
+ 225:Core/Src/main.c ****     		x_i = 0;
+ 305              		.loc 1 225 7 is_stmt 1 view .LVU76
+ 225:Core/Src/main.c ****     		x_i = 0;
+ 306              		.loc 1 225 18 is_stmt 0 view .LVU77
+ 307 00a6 224A     		ldr	r2, .L17
+ 308 00a8 0023     		movs	r3, #0
+ 309 00aa 5846     		mov	r0, fp
+ 310              	.LVL23:
+ 225:Core/Src/main.c ****     		x_i = 0;
+ 311              		.loc 1 225 18 view .LVU78
+ 312 00ac 0021     		movs	r1, #0
+ 313              	.LVL24:
+ 225:Core/Src/main.c ****     		x_i = 0;
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 11
 
 
- 317              		.loc 1 225 31 view .LVU71
- 318 00ca 374A     		ldr	r2, .L17+4
- 319 00cc 0023     		movs	r3, #0
- 320 00ce FFF7FEFF 		bl	__aeabi_lmul
- 321              	.LVL17:
- 225:Core/Src/main.c ****     		//y_0temp = (y*s)/height;
- 322              		.loc 1 225 54 view .LVU72
- 323 00d2 364A     		ldr	r2, .L17+8
- 324 00d4 0123     		movs	r3, #1
- 325 00d6 5B42     		rsbs	r3, r3, #0
- 326 00d8 8018     		adds	r0, r0, r2
- 327 00da 5941     		adcs	r1, r1, r3
- 225:Core/Src/main.c ****     		//y_0temp = (y*s)/height;
- 328              		.loc 1 225 78 view .LVU73
- 329 00dc 314A     		ldr	r2, .L17
- 330 00de 0023     		movs	r3, #0
- 331 00e0 FFF7FEFF 		bl	__aeabi_uldivmod
- 332              	.LVL18:
- 225:Core/Src/main.c ****     		//y_0temp = (y*s)/height;
- 333              		.loc 1 225 11 view .LVU74
- 334 00e4 8346     		mov	fp, r0
- 335              	.LVL19:
- 227:Core/Src/main.c ****     		x_i = 0;
- 336              		.loc 1 227 7 is_stmt 1 view .LVU75
- 227:Core/Src/main.c ****     		x_i = 0;
- 337              		.loc 1 227 18 is_stmt 0 view .LVU76
- 338 00e6 129B     		ldr	r3, [sp, #72]
- 339 00e8 0E93     		str	r3, [sp, #56]
- 340 00ea 0F97     		str	r7, [sp, #60]
- 341 00ec 0B97     		str	r7, [sp, #44]
- 342 00ee 0E9D     		ldr	r5, [sp, #56]
- 343 00f0 0F9E     		ldr	r6, [sp, #60]
- 344 00f2 EB0E     		lsrs	r3, r5, #27
- 345 00f4 0B93     		str	r3, [sp, #44]
- 346 00f6 6B01     		lsls	r3, r5, #5
- 347 00f8 0A93     		str	r3, [sp, #40]
- 348 00fa 0A9A     		ldr	r2, [sp, #40]
- 349 00fc 0B9B     		ldr	r3, [sp, #44]
- 350 00fe 521B     		subs	r2, r2, r5
- 351 0100 B341     		sbcs	r3, r3, r6
- 352 0102 D10D     		lsrs	r1, r2, #23
- 353              	.LVL20:
- 227:Core/Src/main.c ****     		x_i = 0;
- 354              		.loc 1 227 18 view .LVU77
- 355 0104 5802     		lsls	r0, r3, #9
- 227:Core/Src/main.c ****     		x_i = 0;
- 356              		.loc 1 227 18 view .LVU78
- 357 0106 0590     		str	r0, [sp, #20]
- 358 0108 0843     		orrs	r0, r1
- 359 010a 0590     		str	r0, [sp, #20]
- 360 010c 5302     		lsls	r3, r2, #9
- 361 010e 0493     		str	r3, [sp, #16]
- 362 0110 049A     		ldr	r2, [sp, #16]
- 363 0112 059B     		ldr	r3, [sp, #20]
- 364 0114 5219     		adds	r2, r2, r5
- 365 0116 7341     		adcs	r3, r3, r6
- 366 0118 910E     		lsrs	r1, r2, #26
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 12
+ 314              		.loc 1 225 18 view .LVU79
+ 315 00ae FFF7FEFF 		bl	__aeabi_lmul
+ 316              	.LVL25:
+ 225:Core/Src/main.c ****     		x_i = 0;
+ 317              		.loc 1 225 21 view .LVU80
+ 318 00b2 5346     		mov	r3, r10
+ 319 00b4 DB17     		asrs	r3, r3, #31
+ 320 00b6 5246     		mov	r2, r10
+ 321 00b8 FFF7FEFF 		bl	__aeabi_uldivmod
+ 322              	.LVL26:
+ 225:Core/Src/main.c ****     		x_i = 0;
+ 323              		.loc 1 225 29 view .LVU81
+ 324 00bc 1C4A     		ldr	r2, .L17
+ 325 00be 0023     		movs	r3, #0
+ 326 00c0 FFF7FEFF 		bl	__aeabi_uldivmod
+ 327              	.LVL27:
+ 225:Core/Src/main.c ****     		x_i = 0;
+ 328              		.loc 1 225 32 view .LVU82
+ 329 00c4 1D4A     		ldr	r2, .L17+12
+ 330 00c6 0023     		movs	r3, #0
+ 331 00c8 FFF7FEFF 		bl	__aeabi_lmul
+ 332              	.LVL28:
+ 225:Core/Src/main.c ****     		x_i = 0;
+ 333              		.loc 1 225 51 view .LVU83
+ 334 00cc 1C4A     		ldr	r2, .L17+16
+ 335 00ce 0123     		movs	r3, #1
+ 336 00d0 5B42     		rsbs	r3, r3, #0
+ 337 00d2 8018     		adds	r0, r0, r2
+ 338 00d4 5941     		adcs	r1, r1, r3
+ 225:Core/Src/main.c ****     		x_i = 0;
+ 339              		.loc 1 225 11 view .LVU84
+ 340 00d6 164A     		ldr	r2, .L17
+ 341 00d8 0023     		movs	r3, #0
+ 342 00da FFF7FEFF 		bl	__aeabi_uldivmod
+ 343              	.LVL29:
+ 344 00de 8446     		mov	ip, r0
+ 345              	.LVL30:
+ 226:Core/Src/main.c ****     		y_i = 0;
+ 346              		.loc 1 226 7 is_stmt 1 view .LVU85
+ 227:Core/Src/main.c ****     		iteration = 0;
+ 347              		.loc 1 227 7 view .LVU86
+ 228:Core/Src/main.c ****     		while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4)
+ 348              		.loc 1 228 7 view .LVU87
+ 229:Core/Src/main.c ****     		{
+ 349              		.loc 1 229 7 view .LVU88
+ 228:Core/Src/main.c ****     		while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4)
+ 350              		.loc 1 228 17 is_stmt 0 view .LVU89
+ 351 00e0 0022     		movs	r2, #0
+ 352 00e2 0023     		movs	r3, #0
+ 227:Core/Src/main.c ****     		iteration = 0;
+ 353              		.loc 1 227 11 view .LVU90
+ 354 00e4 0020     		movs	r0, #0
+ 355              	.LVL31:
+ 226:Core/Src/main.c ****     		y_i = 0;
+ 356              		.loc 1 226 11 view .LVU91
+ 357 00e6 0021     		movs	r1, #0
+ 358              	.LVL32:
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 12
 
 
- 367 011a 9801     		lsls	r0, r3, #6
- 368 011c 0790     		str	r0, [sp, #28]
- 369 011e 0843     		orrs	r0, r1
- 370 0120 0790     		str	r0, [sp, #28]
- 371 0122 9101     		lsls	r1, r2, #6
- 372 0124 0691     		str	r1, [sp, #24]
- 373 0126 0698     		ldr	r0, [sp, #24]
- 374 0128 0799     		ldr	r1, [sp, #28]
- 375 012a 801A     		subs	r0, r0, r2
- 376 012c 9941     		sbcs	r1, r1, r3
- 377 012e 4019     		adds	r0, r0, r5
- 378 0130 7141     		adcs	r1, r1, r6
- 227:Core/Src/main.c ****     		x_i = 0;
- 379              		.loc 1 227 21 view .LVU79
- 380 0132 5346     		mov	r3, r10
- 381 0134 DB17     		asrs	r3, r3, #31
- 382 0136 5246     		mov	r2, r10
- 383 0138 FFF7FEFF 		bl	__aeabi_uldivmod
- 384              	.LVL21:
- 227:Core/Src/main.c ****     		x_i = 0;
- 385              		.loc 1 227 29 view .LVU80
- 386 013c 194A     		ldr	r2, .L17
- 387 013e 0023     		movs	r3, #0
- 388 0140 FFF7FEFF 		bl	__aeabi_uldivmod
- 389              	.LVL22:
- 227:Core/Src/main.c ****     		x_i = 0;
- 390              		.loc 1 227 32 view .LVU81
- 391 0144 1A4A     		ldr	r2, .L17+12
- 392 0146 0023     		movs	r3, #0
- 393 0148 FFF7FEFF 		bl	__aeabi_lmul
- 394              	.LVL23:
- 227:Core/Src/main.c ****     		x_i = 0;
- 395              		.loc 1 227 51 view .LVU82
- 396 014c 194A     		ldr	r2, .L17+16
- 397 014e 0123     		movs	r3, #1
- 398 0150 5B42     		rsbs	r3, r3, #0
- 399 0152 8018     		adds	r0, r0, r2
- 400 0154 5941     		adcs	r1, r1, r3
- 227:Core/Src/main.c ****     		x_i = 0;
- 401              		.loc 1 227 71 view .LVU83
- 402 0156 134A     		ldr	r2, .L17
- 403 0158 0023     		movs	r3, #0
- 404 015a FFF7FEFF 		bl	__aeabi_uldivmod
- 405              	.LVL24:
- 227:Core/Src/main.c ****     		x_i = 0;
- 406              		.loc 1 227 11 view .LVU84
- 407 015e 8446     		mov	ip, r0
- 408              	.LVL25:
- 228:Core/Src/main.c ****     		y_i = 0;
- 409              		.loc 1 228 7 is_stmt 1 view .LVU85
- 229:Core/Src/main.c ****     		iteration = 0;
- 410              		.loc 1 229 7 view .LVU86
- 230:Core/Src/main.c ****     		while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4)
- 411              		.loc 1 230 7 view .LVU87
- 231:Core/Src/main.c ****     		{
- 412              		.loc 1 231 7 view .LVU88
- 230:Core/Src/main.c ****     		while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4)
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 13
-
-
- 413              		.loc 1 230 17 is_stmt 0 view .LVU89
- 414 0160 0022     		movs	r2, #0
- 415 0162 0023     		movs	r3, #0
- 229:Core/Src/main.c ****     		iteration = 0;
- 416              		.loc 1 229 11 view .LVU90
- 417 0164 0020     		movs	r0, #0
- 418              	.LVL26:
- 228:Core/Src/main.c ****     		y_i = 0;
- 419              		.loc 1 228 11 view .LVU91
- 420 0166 0021     		movs	r1, #0
- 421              	.LVL27:
- 231:Core/Src/main.c ****     		{
- 422              		.loc 1 231 13 view .LVU92
- 423 0168 66E7     		b	.L6
- 424              	.LVL28:
- 425              	.L14:
- 231:Core/Src/main.c ****     		{
- 426              		.loc 1 231 41 view .LVU93
- 427 016a 9E42     		cmp	r6, r3
- 428 016c 00D0     		beq	.LCB376
- 429 016e 6EE7     		b	.L7	@long jump
- 430              	.LCB376:
- 431 0170 9442     		cmp	r4, r2
- 432 0172 00D9     		bls	.LCB378
- 433 0174 64E7     		b	.L13	@long jump
- 434              	.LCB378:
- 435 0176 6AE7     		b	.L7
- 436              	.LVL29:
- 437              	.L15:
- 231:Core/Src/main.c ****     		{
- 438              		.loc 1 231 41 view .LVU94
- 439              	.LBE7:
+ 226:Core/Src/main.c ****     		y_i = 0;
+ 359              		.loc 1 226 11 view .LVU92
+ 360 00e8 6546     		mov	r5, ip
+ 361 00ea D446     		mov	ip, r10
+ 226:Core/Src/main.c ****     		y_i = 0;
+ 362              		.loc 1 226 11 view .LVU93
+ 363 00ec CA46     		mov	r10, r9
+ 364 00ee C146     		mov	r9, r8
+ 365              	.LVL33:
+ 226:Core/Src/main.c ****     		y_i = 0;
+ 366              		.loc 1 226 11 view .LVU94
+ 367 00f0 A846     		mov	r8, r5
+ 368              	.LVL34:
+ 229:Core/Src/main.c ****     		{
+ 369              		.loc 1 229 13 view .LVU95
+ 370 00f2 A1E7     		b	.L6
+ 371              	.LVL35:
+ 372              	.L14:
+ 229:Core/Src/main.c ****     		{
+ 373              		.loc 1 229 41 view .LVU96
+ 374 00f4 9E42     		cmp	r6, r3
+ 375 00f6 A9D1     		bne	.L7
+ 376 00f8 9442     		cmp	r4, r2
+ 377 00fa A0D8     		bhi	.L13
+ 378 00fc A6E7     		b	.L7
+ 379              	.LVL36:
+ 380              	.L15:
+ 229:Core/Src/main.c ****     		{
+ 381              		.loc 1 229 41 view .LVU97
+ 382              	.LBE7:
  220:Core/Src/main.c ****     {
- 440              		.loc 1 220 42 is_stmt 1 discriminator 2 view .LVU95
- 441 0178 129B     		ldr	r3, [sp, #72]
- 442 017a 0133     		adds	r3, r3, #1
- 443 017c 1293     		str	r3, [sp, #72]
- 444              	.LVL30:
- 445              	.L5:
+ 383              		.loc 1 220 42 is_stmt 1 discriminator 2 view .LVU98
+ 384 00fe 049B     		ldr	r3, [sp, #16]
+ 385 0100 0133     		adds	r3, r3, #1
+ 386 0102 0493     		str	r3, [sp, #16]
+ 387              	.LVL37:
+ 388              	.L5:
  220:Core/Src/main.c ****     {
- 446              		.loc 1 220 28 discriminator 1 view .LVU96
+ 389              		.loc 1 220 28 discriminator 1 view .LVU99
  220:Core/Src/main.c ****     {
- 447              		.loc 1 220 37 is_stmt 0 discriminator 1 view .LVU97
- 448 017e 139B     		ldr	r3, [sp, #76]
- 449 0180 013B     		subs	r3, r3, #1
+ 390              		.loc 1 220 37 is_stmt 0 discriminator 1 view .LVU100
+ 391 0104 059B     		ldr	r3, [sp, #20]
+ 392 0106 013B     		subs	r3, r3, #1
  220:Core/Src/main.c ****     {
- 450              		.loc 1 220 28 discriminator 1 view .LVU98
- 451 0182 129A     		ldr	r2, [sp, #72]
- 452 0184 9342     		cmp	r3, r2
- 453 0186 04D3     		bcc	.L16
- 454              	.LBB8:
+ 393              		.loc 1 220 28 discriminator 1 view .LVU101
+ 394 0108 049A     		ldr	r2, [sp, #16]
+ 395 010a 9342     		cmp	r3, r2
+ 396 010c 06D3     		bcc	.L16
+ 397              	.LBB8:
  222:Core/Src/main.c ****     	{
- 455              		.loc 1 222 20 view .LVU99
- 456 0188 0023     		movs	r3, #0
- 457 018a 9846     		mov	r8, r3
- 458 018c 139B     		ldr	r3, [sp, #76]
- 459 018e 9A46     		mov	r10, r3
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 14
+ 398              		.loc 1 222 20 view .LVU102
+ 399 010e 0023     		movs	r3, #0
+ 400 0110 9846     		mov	r8, r3
+ 401 0112 049B     		ldr	r3, [sp, #16]
+ 402 0114 9B46     		mov	fp, r3
+ 403 0116 059B     		ldr	r3, [sp, #20]
+ 404 0118 9A46     		mov	r10, r3
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 13
 
 
- 460 0190 66E7     		b	.L11
- 461              	.L16:
- 462              	.LBE8:
- 463              	.LBE9:
- 239:Core/Src/main.c ****     	}
- 240:Core/Src/main.c ****     }
- 241:Core/Src/main.c ****     return mandelbrot_sum;
- 464              		.loc 1 241 5 is_stmt 1 view .LVU100
+ 405 011a A3E7     		b	.L11
+ 406              	.LVL38:
+ 407              	.L16:
+ 222:Core/Src/main.c ****     	{
+ 408              		.loc 1 222 20 view .LVU103
+ 409              	.LBE8:
+ 410              	.LBE9:
+ 237:Core/Src/main.c ****     	}
+ 238:Core/Src/main.c ****     }
+ 239:Core/Src/main.c ****     return mandelbrot_sum;
+ 411              		.loc 1 239 5 is_stmt 1 view .LVU104
+ 240:Core/Src/main.c **** 
+ 241:Core/Src/main.c **** }
+ 412              		.loc 1 241 1 is_stmt 0 view .LVU105
+ 413 011c 0298     		ldr	r0, [sp, #8]
+ 414 011e 0399     		ldr	r1, [sp, #12]
+ 415 0120 07B0     		add	sp, sp, #28
+ 416              		@ sp needed
+ 417              	.LVL39:
+ 418              	.LVL40:
+ 419              		.loc 1 241 1 view .LVU106
+ 420 0122 F0BC     		pop	{r4, r5, r6, r7}
+ 421 0124 BB46     		mov	fp, r7
+ 422 0126 B246     		mov	r10, r6
+ 423 0128 A946     		mov	r9, r5
+ 424 012a A046     		mov	r8, r4
+ 425 012c F0BD     		pop	{r4, r5, r6, r7, pc}
+ 426              	.L18:
+ 427 012e C046     		.align	2
+ 428              	.L17:
+ 429 0130 00E1F505 		.word	100000000
+ 430 0134 8093DC14 		.word	350000000
+ 431 0138 804D19F1 		.word	-250000000
+ 432 013c 00C2EB0B 		.word	200000000
+ 433 0140 001F0AFA 		.word	-100000000
+ 434              		.cfi_endproc
+ 435              	.LFE43:
+ 437              		.global	__aeabi_ui2d
+ 438              		.global	__aeabi_i2d
+ 439              		.global	__aeabi_ddiv
+ 440              		.global	__aeabi_dmul
+ 441              		.global	__aeabi_dsub
+ 442              		.global	__aeabi_dadd
+ 443              		.global	__aeabi_dcmple
+ 444              		.section	.text.calculate_mandelbrot_double,"ax",%progbits
+ 445              		.align	1
+ 446              		.global	calculate_mandelbrot_double
+ 447              		.syntax unified
+ 448              		.code	16
+ 449              		.thumb_func
+ 451              	calculate_mandelbrot_double:
+ 452              	.LVL41:
+ 453              	.LFB44:
  242:Core/Src/main.c **** 
- 243:Core/Src/main.c **** }
- 465              		.loc 1 243 1 is_stmt 0 view .LVU101
- 466 0192 1098     		ldr	r0, [sp, #64]
- 467 0194 1199     		ldr	r1, [sp, #68]
- 468 0196 15B0     		add	sp, sp, #84
- 469              		@ sp needed
- 470              	.LVL31:
- 471              	.LVL32:
- 472              		.loc 1 243 1 view .LVU102
- 473 0198 F0BC     		pop	{r4, r5, r6, r7}
- 474 019a BB46     		mov	fp, r7
- 475 019c B246     		mov	r10, r6
- 476 019e A946     		mov	r9, r5
- 477 01a0 A046     		mov	r8, r4
- 478 01a2 F0BD     		pop	{r4, r5, r6, r7, pc}
- 479              	.L18:
- 480              		.align	2
- 481              	.L17:
- 482 01a4 40420F00 		.word	1000000
- 483 01a8 E0673500 		.word	3500000
- 484 01ac 60DAD9FF 		.word	-2500000
- 485 01b0 80841E00 		.word	2000000
- 486 01b4 C0BDF0FF 		.word	-1000000
- 487              		.cfi_endproc
- 488              	.LFE43:
- 490              		.global	__aeabi_ui2d
- 491              		.global	__aeabi_i2d
- 492              		.global	__aeabi_ddiv
- 493              		.global	__aeabi_dmul
- 494              		.global	__aeabi_dsub
- 495              		.global	__aeabi_dadd
- 496              		.global	__aeabi_dcmple
- 497              		.section	.text.calculate_mandelbrot_double,"ax",%progbits
- 498              		.align	1
- 499              		.global	calculate_mandelbrot_double
- 500              		.syntax unified
- 501              		.code	16
- 502              		.thumb_func
- 504              	calculate_mandelbrot_double:
- 505              	.LVL33:
- 506              	.LFB44:
- 244:Core/Src/main.c **** 
- 245:Core/Src/main.c **** //TODO: Mandelbroat using variable type double
- 246:Core/Src/main.c **** uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
- 507              		.loc 1 246 80 is_stmt 1 view -0
- 508              		.cfi_startproc
- 509              		@ args = 0, pretend = 0, frame = 64
- 510              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 15
+ 243:Core/Src/main.c **** //TODO: Mandelbroat using variable type double
+ 244:Core/Src/main.c **** uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
+ 454              		.loc 1 244 80 is_stmt 1 view -0
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 14
 
 
- 511              		.loc 1 246 80 is_stmt 0 view .LVU104
- 512 0000 F0B5     		push	{r4, r5, r6, r7, lr}
- 513              	.LCFI5:
- 514              		.cfi_def_cfa_offset 20
- 515              		.cfi_offset 4, -20
- 516              		.cfi_offset 5, -16
- 517              		.cfi_offset 6, -12
- 518              		.cfi_offset 7, -8
- 519              		.cfi_offset 14, -4
- 520 0002 DE46     		mov	lr, fp
- 521 0004 5746     		mov	r7, r10
- 522 0006 4E46     		mov	r6, r9
- 523 0008 4546     		mov	r5, r8
- 524 000a E0B5     		push	{r5, r6, r7, lr}
- 525              	.LCFI6:
- 526              		.cfi_def_cfa_offset 36
- 527              		.cfi_offset 8, -36
- 528              		.cfi_offset 9, -32
- 529              		.cfi_offset 10, -28
- 530              		.cfi_offset 11, -24
- 531 000c 91B0     		sub	sp, sp, #68
- 532              	.LCFI7:
- 533              		.cfi_def_cfa_offset 104
- 534 000e 8246     		mov	r10, r0
- 535 0010 0F91     		str	r1, [sp, #60]
- 536 0012 9046     		mov	r8, r2
- 247:Core/Src/main.c **** 
- 248:Core/Src/main.c **** 
- 249:Core/Src/main.c ****     uint64_t mandelbrot_sum = 0;
- 537              		.loc 1 249 5 is_stmt 1 view .LVU105
- 538              	.LVL34:
- 250:Core/Src/main.c ****     //TODO: Complete the function implementation
- 251:Core/Src/main.c ****     
- 252:Core/Src/main.c **** 
- 253:Core/Src/main.c ****     double x_0;
- 539              		.loc 1 253 5 view .LVU106
- 254:Core/Src/main.c ****     double y_0;
- 540              		.loc 1 254 5 view .LVU107
- 255:Core/Src/main.c ****     double x_i;
- 541              		.loc 1 255 5 view .LVU108
- 256:Core/Src/main.c ****     double y_i;
- 542              		.loc 1 256 5 view .LVU109
- 257:Core/Src/main.c ****     uint64_t iteration;
- 543              		.loc 1 257 5 view .LVU110
- 258:Core/Src/main.c ****     double temp;
- 544              		.loc 1 258 5 view .LVU111
- 259:Core/Src/main.c **** 
- 260:Core/Src/main.c ****     for(uint32_t y = 0; y <= height - 1; y++)
- 545              		.loc 1 260 5 view .LVU112
- 546              	.LBB10:
- 547              		.loc 1 260 9 view .LVU113
- 548              		.loc 1 260 18 is_stmt 0 view .LVU114
- 549 0014 0023     		movs	r3, #0
- 550 0016 9B46     		mov	fp, r3
- 551              	.LBE10:
- 249:Core/Src/main.c ****     //TODO: Complete the function implementation
- 552              		.loc 1 249 14 view .LVU115
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 16
+ 455              		.cfi_startproc
+ 456              		@ args = 0, pretend = 0, frame = 64
+ 457              		@ frame_needed = 0, uses_anonymous_args = 0
+ 458              		.loc 1 244 80 is_stmt 0 view .LVU108
+ 459 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 460              	.LCFI5:
+ 461              		.cfi_def_cfa_offset 20
+ 462              		.cfi_offset 4, -20
+ 463              		.cfi_offset 5, -16
+ 464              		.cfi_offset 6, -12
+ 465              		.cfi_offset 7, -8
+ 466              		.cfi_offset 14, -4
+ 467 0002 DE46     		mov	lr, fp
+ 468 0004 5746     		mov	r7, r10
+ 469 0006 4E46     		mov	r6, r9
+ 470 0008 4546     		mov	r5, r8
+ 471 000a E0B5     		push	{r5, r6, r7, lr}
+ 472              	.LCFI6:
+ 473              		.cfi_def_cfa_offset 36
+ 474              		.cfi_offset 8, -36
+ 475              		.cfi_offset 9, -32
+ 476              		.cfi_offset 10, -28
+ 477              		.cfi_offset 11, -24
+ 478 000c 91B0     		sub	sp, sp, #68
+ 479              	.LCFI7:
+ 480              		.cfi_def_cfa_offset 104
+ 481 000e 8246     		mov	r10, r0
+ 482 0010 0F91     		str	r1, [sp, #60]
+ 483 0012 9046     		mov	r8, r2
+ 245:Core/Src/main.c **** 
+ 246:Core/Src/main.c **** 
+ 247:Core/Src/main.c ****     uint64_t mandelbrot_sum = 0;
+ 484              		.loc 1 247 5 is_stmt 1 view .LVU109
+ 485              	.LVL42:
+ 248:Core/Src/main.c ****     //TODO: Complete the function implementation
+ 249:Core/Src/main.c ****     
+ 250:Core/Src/main.c **** 
+ 251:Core/Src/main.c ****     double x_0;
+ 486              		.loc 1 251 5 view .LVU110
+ 252:Core/Src/main.c ****     double y_0;
+ 487              		.loc 1 252 5 view .LVU111
+ 253:Core/Src/main.c ****     double x_i;
+ 488              		.loc 1 253 5 view .LVU112
+ 254:Core/Src/main.c ****     double y_i;
+ 489              		.loc 1 254 5 view .LVU113
+ 255:Core/Src/main.c ****     uint64_t iteration;
+ 490              		.loc 1 255 5 view .LVU114
+ 256:Core/Src/main.c ****     double temp;
+ 491              		.loc 1 256 5 view .LVU115
+ 257:Core/Src/main.c **** 
+ 258:Core/Src/main.c ****     for(uint32_t y = 0; y <= height - 1; y++)
+ 492              		.loc 1 258 5 view .LVU116
+ 493              	.LBB10:
+ 494              		.loc 1 258 9 view .LVU117
+ 495              		.loc 1 258 18 is_stmt 0 view .LVU118
+ 496 0014 0023     		movs	r3, #0
+ 497 0016 9B46     		mov	fp, r3
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 15
 
 
- 553 0018 0023     		movs	r3, #0
- 554 001a 0024     		movs	r4, #0
- 555 001c 0C93     		str	r3, [sp, #48]
- 556 001e 0D94     		str	r4, [sp, #52]
- 557              	.LBB13:
- 558              		.loc 1 260 5 view .LVU116
- 559 0020 9FE0     		b	.L20
- 560              	.LVL35:
- 561              	.L24:
- 562              	.LBB11:
- 261:Core/Src/main.c ****     {
- 262:Core/Src/main.c ****     	for(uint32_t x = 0; x <= width - 1; x++)
- 263:Core/Src/main.c ****     	{
- 264:Core/Src/main.c ****     		x_0 = ((double)(x)/(double)(width))*3.5 - 2.5;
- 265:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
- 266:Core/Src/main.c ****     		x_i = 0;
- 267:Core/Src/main.c ****     		y_i = 0;
- 268:Core/Src/main.c ****     		iteration = 0;
- 269:Core/Src/main.c ****     		while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4.0)
- 270:Core/Src/main.c ****     		{
- 271:Core/Src/main.c ****     			temp = x_i*x_i - y_i*y_i;
- 563              		.loc 1 271 8 is_stmt 1 view .LVU117
- 564              		.loc 1 271 13 is_stmt 0 view .LVU118
- 565 0022 069A     		ldr	r2, [sp, #24]
- 566 0024 079B     		ldr	r3, [sp, #28]
- 567 0026 0498     		ldr	r0, [sp, #16]
- 568 0028 0599     		ldr	r1, [sp, #20]
- 569 002a FFF7FEFF 		bl	__aeabi_dsub
- 570              	.LVL36:
- 571 002e 0400     		movs	r4, r0
- 572 0030 0D00     		movs	r5, r1
- 573              	.LVL37:
- 272:Core/Src/main.c ****     			y_i = 2.0*x_i*y_i + y_0;
- 574              		.loc 1 272 8 is_stmt 1 view .LVU119
- 575              		.loc 1 272 17 is_stmt 0 view .LVU120
- 576 0032 3200     		movs	r2, r6
- 577 0034 3B00     		movs	r3, r7
- 578 0036 3000     		movs	r0, r6
- 579 0038 3900     		movs	r1, r7
- 580 003a FFF7FEFF 		bl	__aeabi_dadd
- 581              	.LVL38:
- 582              		.loc 1 272 21 view .LVU121
- 583 003e 009A     		ldr	r2, [sp]
- 584 0040 019B     		ldr	r3, [sp, #4]
- 585 0042 FFF7FEFF 		bl	__aeabi_dmul
- 586              	.LVL39:
- 587              		.loc 1 272 12 view .LVU122
- 588 0046 0A9A     		ldr	r2, [sp, #40]
- 589 0048 0B9B     		ldr	r3, [sp, #44]
- 590 004a FFF7FEFF 		bl	__aeabi_dadd
- 591              	.LVL40:
- 592 004e 0090     		str	r0, [sp]
- 593 0050 0191     		str	r1, [sp, #4]
- 594              	.LVL41:
- 273:Core/Src/main.c ****     			x_i = temp + x_0;
- 595              		.loc 1 273 8 is_stmt 1 view .LVU123
- 596              		.loc 1 273 12 is_stmt 0 view .LVU124
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 17
+ 498              	.LBE10:
+ 247:Core/Src/main.c ****     //TODO: Complete the function implementation
+ 499              		.loc 1 247 14 view .LVU119
+ 500 0018 0023     		movs	r3, #0
+ 501 001a 0024     		movs	r4, #0
+ 502 001c 0C93     		str	r3, [sp, #48]
+ 503 001e 0D94     		str	r4, [sp, #52]
+ 504              	.LBB13:
+ 505              		.loc 1 258 5 view .LVU120
+ 506 0020 9FE0     		b	.L20
+ 507              	.LVL43:
+ 508              	.L24:
+ 509              	.LBB11:
+ 259:Core/Src/main.c ****     {
+ 260:Core/Src/main.c ****     	for(uint32_t x = 0; x <= width - 1; x++)
+ 261:Core/Src/main.c ****     	{
+ 262:Core/Src/main.c ****     		x_0 = ((double)(x)/(double)(width))*3.5 - 2.5;
+ 263:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
+ 264:Core/Src/main.c ****     		x_i = 0;
+ 265:Core/Src/main.c ****     		y_i = 0;
+ 266:Core/Src/main.c ****     		iteration = 0;
+ 267:Core/Src/main.c ****     		while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4)
+ 268:Core/Src/main.c ****     		{
+ 269:Core/Src/main.c ****     			temp = x_i*x_i - y_i*y_i;
+ 510              		.loc 1 269 8 is_stmt 1 view .LVU121
+ 511              		.loc 1 269 13 is_stmt 0 view .LVU122
+ 512 0022 069A     		ldr	r2, [sp, #24]
+ 513 0024 079B     		ldr	r3, [sp, #28]
+ 514 0026 0498     		ldr	r0, [sp, #16]
+ 515 0028 0599     		ldr	r1, [sp, #20]
+ 516 002a FFF7FEFF 		bl	__aeabi_dsub
+ 517              	.LVL44:
+ 518 002e 0400     		movs	r4, r0
+ 519 0030 0D00     		movs	r5, r1
+ 520              	.LVL45:
+ 270:Core/Src/main.c ****     			y_i = 2.0*x_i*y_i + y_0;
+ 521              		.loc 1 270 8 is_stmt 1 view .LVU123
+ 522              		.loc 1 270 17 is_stmt 0 view .LVU124
+ 523 0032 3200     		movs	r2, r6
+ 524 0034 3B00     		movs	r3, r7
+ 525 0036 3000     		movs	r0, r6
+ 526 0038 3900     		movs	r1, r7
+ 527 003a FFF7FEFF 		bl	__aeabi_dadd
+ 528              	.LVL46:
+ 529              		.loc 1 270 21 view .LVU125
+ 530 003e 009A     		ldr	r2, [sp]
+ 531 0040 019B     		ldr	r3, [sp, #4]
+ 532 0042 FFF7FEFF 		bl	__aeabi_dmul
+ 533              	.LVL47:
+ 534              		.loc 1 270 12 view .LVU126
+ 535 0046 0A9A     		ldr	r2, [sp, #40]
+ 536 0048 0B9B     		ldr	r3, [sp, #44]
+ 537 004a FFF7FEFF 		bl	__aeabi_dadd
+ 538              	.LVL48:
+ 539 004e 0090     		str	r0, [sp]
+ 540 0050 0191     		str	r1, [sp, #4]
+ 541              	.LVL49:
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 16
 
 
- 597 0052 2200     		movs	r2, r4
- 598 0054 2B00     		movs	r3, r5
- 599 0056 0898     		ldr	r0, [sp, #32]
- 600 0058 0999     		ldr	r1, [sp, #36]
- 601              	.LVL42:
- 602              		.loc 1 273 12 view .LVU125
- 603 005a FFF7FEFF 		bl	__aeabi_dadd
- 604              	.LVL43:
- 605 005e 0600     		movs	r6, r0
- 606              	.LVL44:
- 607              		.loc 1 273 12 view .LVU126
- 608 0060 0F00     		movs	r7, r1
- 609              	.LVL45:
- 274:Core/Src/main.c ****     			iteration = iteration + 1;
- 610              		.loc 1 274 8 is_stmt 1 view .LVU127
- 611              		.loc 1 274 18 is_stmt 0 view .LVU128
- 612 0062 0122     		movs	r2, #1
- 613 0064 0023     		movs	r3, #0
- 614 0066 0298     		ldr	r0, [sp, #8]
- 615 0068 0399     		ldr	r1, [sp, #12]
- 616 006a 8018     		adds	r0, r0, r2
- 617 006c 5941     		adcs	r1, r1, r3
- 618 006e 0290     		str	r0, [sp, #8]
- 619 0070 0391     		str	r1, [sp, #12]
- 620              	.LVL46:
- 621              	.L21:
- 269:Core/Src/main.c ****     		{
- 622              		.loc 1 269 40 is_stmt 1 view .LVU129
- 269:Core/Src/main.c ****     		{
- 623              		.loc 1 269 23 is_stmt 0 view .LVU130
- 624 0072 4246     		mov	r2, r8
- 625 0074 D317     		asrs	r3, r2, #31
- 269:Core/Src/main.c ****     		{
- 626              		.loc 1 269 40 view .LVU131
- 627 0076 0399     		ldr	r1, [sp, #12]
- 628 0078 8B42     		cmp	r3, r1
- 629 007a 68D9     		bls	.L29
- 630              	.LVL47:
- 631              	.L28:
- 269:Core/Src/main.c ****     		{
- 632              		.loc 1 269 46 discriminator 1 view .LVU132
- 633 007c 3200     		movs	r2, r6
- 634              	.LVL48:
- 269:Core/Src/main.c ****     		{
- 635              		.loc 1 269 46 discriminator 1 view .LVU133
- 636 007e 3B00     		movs	r3, r7
- 637 0080 3000     		movs	r0, r6
- 638 0082 3900     		movs	r1, r7
- 639 0084 FFF7FEFF 		bl	__aeabi_dmul
- 640              	.LVL49:
- 641 0088 0400     		movs	r4, r0
- 642 008a 0D00     		movs	r5, r1
- 643 008c 0494     		str	r4, [sp, #16]
- 644 008e 0595     		str	r5, [sp, #20]
- 269:Core/Src/main.c ****     		{
- 645              		.loc 1 269 56 discriminator 1 view .LVU134
- 646 0090 009A     		ldr	r2, [sp]
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 18
+ 271:Core/Src/main.c ****     			x_i = temp + x_0;
+ 542              		.loc 1 271 8 is_stmt 1 view .LVU127
+ 543              		.loc 1 271 12 is_stmt 0 view .LVU128
+ 544 0052 2200     		movs	r2, r4
+ 545 0054 2B00     		movs	r3, r5
+ 546 0056 0898     		ldr	r0, [sp, #32]
+ 547 0058 0999     		ldr	r1, [sp, #36]
+ 548              	.LVL50:
+ 549              		.loc 1 271 12 view .LVU129
+ 550 005a FFF7FEFF 		bl	__aeabi_dadd
+ 551              	.LVL51:
+ 552 005e 0600     		movs	r6, r0
+ 553              	.LVL52:
+ 554              		.loc 1 271 12 view .LVU130
+ 555 0060 0F00     		movs	r7, r1
+ 556              	.LVL53:
+ 272:Core/Src/main.c ****     			iteration = iteration + 1;
+ 557              		.loc 1 272 8 is_stmt 1 view .LVU131
+ 558              		.loc 1 272 18 is_stmt 0 view .LVU132
+ 559 0062 0122     		movs	r2, #1
+ 560 0064 0023     		movs	r3, #0
+ 561 0066 0298     		ldr	r0, [sp, #8]
+ 562 0068 0399     		ldr	r1, [sp, #12]
+ 563 006a 8018     		adds	r0, r0, r2
+ 564 006c 5941     		adcs	r1, r1, r3
+ 565 006e 0290     		str	r0, [sp, #8]
+ 566 0070 0391     		str	r1, [sp, #12]
+ 567              	.LVL54:
+ 568              	.L21:
+ 267:Core/Src/main.c ****     		{
+ 569              		.loc 1 267 40 is_stmt 1 view .LVU133
+ 267:Core/Src/main.c ****     		{
+ 570              		.loc 1 267 23 is_stmt 0 view .LVU134
+ 571 0072 4246     		mov	r2, r8
+ 572 0074 D317     		asrs	r3, r2, #31
+ 267:Core/Src/main.c ****     		{
+ 573              		.loc 1 267 40 view .LVU135
+ 574 0076 0399     		ldr	r1, [sp, #12]
+ 575 0078 8B42     		cmp	r3, r1
+ 576 007a 68D9     		bls	.L29
+ 577              	.LVL55:
+ 578              	.L28:
+ 267:Core/Src/main.c ****     		{
+ 579              		.loc 1 267 46 discriminator 1 view .LVU136
+ 580 007c 3200     		movs	r2, r6
+ 581              	.LVL56:
+ 267:Core/Src/main.c ****     		{
+ 582              		.loc 1 267 46 discriminator 1 view .LVU137
+ 583 007e 3B00     		movs	r3, r7
+ 584 0080 3000     		movs	r0, r6
+ 585 0082 3900     		movs	r1, r7
+ 586 0084 FFF7FEFF 		bl	__aeabi_dmul
+ 587              	.LVL57:
+ 588 0088 0400     		movs	r4, r0
+ 589 008a 0D00     		movs	r5, r1
+ 590 008c 0494     		str	r4, [sp, #16]
+ 591 008e 0595     		str	r5, [sp, #20]
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 17
 
 
- 647 0092 019B     		ldr	r3, [sp, #4]
- 648 0094 1000     		movs	r0, r2
- 649 0096 1900     		movs	r1, r3
- 650 0098 FFF7FEFF 		bl	__aeabi_dmul
- 651              	.LVL50:
- 652 009c 0200     		movs	r2, r0
- 653 009e 0B00     		movs	r3, r1
- 654 00a0 0692     		str	r2, [sp, #24]
- 655 00a2 0793     		str	r3, [sp, #28]
- 269:Core/Src/main.c ****     		{
- 656              		.loc 1 269 51 discriminator 1 view .LVU135
- 657 00a4 2000     		movs	r0, r4
- 658 00a6 2900     		movs	r1, r5
- 659 00a8 FFF7FEFF 		bl	__aeabi_dadd
- 660              	.LVL51:
- 269:Core/Src/main.c ****     		{
- 661              		.loc 1 269 40 discriminator 1 view .LVU136
- 662 00ac 0022     		movs	r2, #0
- 663 00ae 364B     		ldr	r3, .L32
- 664 00b0 FFF7FEFF 		bl	__aeabi_dcmple
- 665              	.LVL52:
- 666 00b4 0028     		cmp	r0, #0
- 667 00b6 B4D1     		bne	.L24
- 668              	.L22:
- 275:Core/Src/main.c **** 
- 276:Core/Src/main.c ****     		}
- 277:Core/Src/main.c ****     		mandelbrot_sum = mandelbrot_sum + iteration;
- 669              		.loc 1 277 7 is_stmt 1 view .LVU137
- 670              		.loc 1 277 22 is_stmt 0 view .LVU138
- 671 00b8 0C9B     		ldr	r3, [sp, #48]
- 672 00ba 0D9C     		ldr	r4, [sp, #52]
- 673 00bc 0299     		ldr	r1, [sp, #8]
- 674 00be 039A     		ldr	r2, [sp, #12]
- 675 00c0 5B18     		adds	r3, r3, r1
- 676 00c2 5441     		adcs	r4, r4, r2
- 677 00c4 0C93     		str	r3, [sp, #48]
- 678 00c6 0D94     		str	r4, [sp, #52]
- 679              	.LVL53:
- 262:Core/Src/main.c ****     	{
- 680              		.loc 1 262 43 is_stmt 1 discriminator 2 view .LVU139
- 681 00c8 0E9B     		ldr	r3, [sp, #56]
- 682              	.LVL54:
- 262:Core/Src/main.c ****     	{
- 683              		.loc 1 262 43 is_stmt 0 discriminator 2 view .LVU140
- 684 00ca 0133     		adds	r3, r3, #1
- 685 00cc 0E93     		str	r3, [sp, #56]
- 686              	.LVL55:
- 687              	.L26:
- 262:Core/Src/main.c ****     	{
- 688              		.loc 1 262 28 is_stmt 1 discriminator 1 view .LVU141
- 262:Core/Src/main.c ****     	{
- 689              		.loc 1 262 37 is_stmt 0 discriminator 1 view .LVU142
- 690 00ce 5346     		mov	r3, r10
- 691 00d0 013B     		subs	r3, r3, #1
- 262:Core/Src/main.c ****     	{
- 692              		.loc 1 262 28 discriminator 1 view .LVU143
- 693 00d2 0E9A     		ldr	r2, [sp, #56]
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 19
+ 267:Core/Src/main.c ****     		{
+ 592              		.loc 1 267 56 discriminator 1 view .LVU138
+ 593 0090 009A     		ldr	r2, [sp]
+ 594 0092 019B     		ldr	r3, [sp, #4]
+ 595 0094 1000     		movs	r0, r2
+ 596 0096 1900     		movs	r1, r3
+ 597 0098 FFF7FEFF 		bl	__aeabi_dmul
+ 598              	.LVL58:
+ 599 009c 0200     		movs	r2, r0
+ 600 009e 0B00     		movs	r3, r1
+ 601 00a0 0692     		str	r2, [sp, #24]
+ 602 00a2 0793     		str	r3, [sp, #28]
+ 267:Core/Src/main.c ****     		{
+ 603              		.loc 1 267 51 discriminator 1 view .LVU139
+ 604 00a4 2000     		movs	r0, r4
+ 605 00a6 2900     		movs	r1, r5
+ 606 00a8 FFF7FEFF 		bl	__aeabi_dadd
+ 607              	.LVL59:
+ 267:Core/Src/main.c ****     		{
+ 608              		.loc 1 267 40 discriminator 1 view .LVU140
+ 609 00ac 0022     		movs	r2, #0
+ 610 00ae 364B     		ldr	r3, .L32
+ 611 00b0 FFF7FEFF 		bl	__aeabi_dcmple
+ 612              	.LVL60:
+ 613 00b4 0028     		cmp	r0, #0
+ 614 00b6 B4D1     		bne	.L24
+ 615              	.L22:
+ 273:Core/Src/main.c **** 
+ 274:Core/Src/main.c ****     		}
+ 275:Core/Src/main.c ****     		mandelbrot_sum = mandelbrot_sum + iteration;
+ 616              		.loc 1 275 7 is_stmt 1 view .LVU141
+ 617              		.loc 1 275 22 is_stmt 0 view .LVU142
+ 618 00b8 0C9B     		ldr	r3, [sp, #48]
+ 619 00ba 0D9C     		ldr	r4, [sp, #52]
+ 620 00bc 0299     		ldr	r1, [sp, #8]
+ 621 00be 039A     		ldr	r2, [sp, #12]
+ 622 00c0 5B18     		adds	r3, r3, r1
+ 623 00c2 5441     		adcs	r4, r4, r2
+ 624 00c4 0C93     		str	r3, [sp, #48]
+ 625 00c6 0D94     		str	r4, [sp, #52]
+ 626              	.LVL61:
+ 260:Core/Src/main.c ****     	{
+ 627              		.loc 1 260 43 is_stmt 1 discriminator 2 view .LVU143
+ 628 00c8 0E9B     		ldr	r3, [sp, #56]
+ 629              	.LVL62:
+ 260:Core/Src/main.c ****     	{
+ 630              		.loc 1 260 43 is_stmt 0 discriminator 2 view .LVU144
+ 631 00ca 0133     		adds	r3, r3, #1
+ 632 00cc 0E93     		str	r3, [sp, #56]
+ 633              	.LVL63:
+ 634              	.L26:
+ 260:Core/Src/main.c ****     	{
+ 635              		.loc 1 260 28 is_stmt 1 discriminator 1 view .LVU145
+ 260:Core/Src/main.c ****     	{
+ 636              		.loc 1 260 37 is_stmt 0 discriminator 1 view .LVU146
+ 637 00ce 5346     		mov	r3, r10
+ 638 00d0 013B     		subs	r3, r3, #1
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 18
 
 
- 694 00d4 9342     		cmp	r3, r2
- 695 00d6 41D3     		bcc	.L30
- 264:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
- 696              		.loc 1 264 7 is_stmt 1 view .LVU144
- 264:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
- 697              		.loc 1 264 14 is_stmt 0 view .LVU145
- 698 00d8 0E98     		ldr	r0, [sp, #56]
- 699 00da FFF7FEFF 		bl	__aeabi_ui2d
- 700              	.LVL56:
- 701 00de 0400     		movs	r4, r0
- 702 00e0 0D00     		movs	r5, r1
- 264:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
- 703              		.loc 1 264 26 view .LVU146
- 704 00e2 5046     		mov	r0, r10
- 705 00e4 FFF7FEFF 		bl	__aeabi_i2d
- 706              	.LVL57:
- 707 00e8 0200     		movs	r2, r0
- 708 00ea 0B00     		movs	r3, r1
- 264:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
- 709              		.loc 1 264 25 view .LVU147
- 710 00ec 2000     		movs	r0, r4
- 711 00ee 2900     		movs	r1, r5
- 712 00f0 FFF7FEFF 		bl	__aeabi_ddiv
- 713              	.LVL58:
- 264:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
- 714              		.loc 1 264 42 view .LVU148
- 715 00f4 0022     		movs	r2, #0
- 716 00f6 254B     		ldr	r3, .L32+4
- 717 00f8 FFF7FEFF 		bl	__aeabi_dmul
- 718              	.LVL59:
- 264:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
- 719              		.loc 1 264 11 view .LVU149
- 720 00fc 0022     		movs	r2, #0
- 721 00fe 244B     		ldr	r3, .L32+8
- 722 0100 FFF7FEFF 		bl	__aeabi_dsub
- 723              	.LVL60:
- 724 0104 0890     		str	r0, [sp, #32]
- 725 0106 0991     		str	r1, [sp, #36]
- 726              	.LVL61:
- 265:Core/Src/main.c ****     		x_i = 0;
- 727              		.loc 1 265 7 is_stmt 1 view .LVU150
- 265:Core/Src/main.c ****     		x_i = 0;
- 728              		.loc 1 265 14 is_stmt 0 view .LVU151
- 729 0108 5846     		mov	r0, fp
- 730              	.LVL62:
- 265:Core/Src/main.c ****     		x_i = 0;
- 731              		.loc 1 265 14 view .LVU152
- 732 010a FFF7FEFF 		bl	__aeabi_ui2d
- 733              	.LVL63:
- 734 010e 0400     		movs	r4, r0
- 735 0110 0D00     		movs	r5, r1
- 265:Core/Src/main.c ****     		x_i = 0;
- 736              		.loc 1 265 26 view .LVU153
- 737 0112 4846     		mov	r0, r9
- 738 0114 FFF7FEFF 		bl	__aeabi_i2d
- 739              	.LVL64:
- 740 0118 0200     		movs	r2, r0
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 20
+ 260:Core/Src/main.c ****     	{
+ 639              		.loc 1 260 28 discriminator 1 view .LVU147
+ 640 00d2 0E9A     		ldr	r2, [sp, #56]
+ 641 00d4 9342     		cmp	r3, r2
+ 642 00d6 41D3     		bcc	.L30
+ 262:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
+ 643              		.loc 1 262 7 is_stmt 1 view .LVU148
+ 262:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
+ 644              		.loc 1 262 14 is_stmt 0 view .LVU149
+ 645 00d8 0E98     		ldr	r0, [sp, #56]
+ 646 00da FFF7FEFF 		bl	__aeabi_ui2d
+ 647              	.LVL64:
+ 648 00de 0400     		movs	r4, r0
+ 649 00e0 0D00     		movs	r5, r1
+ 262:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
+ 650              		.loc 1 262 26 view .LVU150
+ 651 00e2 5046     		mov	r0, r10
+ 652 00e4 FFF7FEFF 		bl	__aeabi_i2d
+ 653              	.LVL65:
+ 654 00e8 0200     		movs	r2, r0
+ 655 00ea 0B00     		movs	r3, r1
+ 262:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
+ 656              		.loc 1 262 25 view .LVU151
+ 657 00ec 2000     		movs	r0, r4
+ 658 00ee 2900     		movs	r1, r5
+ 659 00f0 FFF7FEFF 		bl	__aeabi_ddiv
+ 660              	.LVL66:
+ 262:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
+ 661              		.loc 1 262 42 view .LVU152
+ 662 00f4 0022     		movs	r2, #0
+ 663 00f6 254B     		ldr	r3, .L32+4
+ 664 00f8 FFF7FEFF 		bl	__aeabi_dmul
+ 665              	.LVL67:
+ 262:Core/Src/main.c ****     		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
+ 666              		.loc 1 262 11 view .LVU153
+ 667 00fc 0022     		movs	r2, #0
+ 668 00fe 244B     		ldr	r3, .L32+8
+ 669 0100 FFF7FEFF 		bl	__aeabi_dsub
+ 670              	.LVL68:
+ 671 0104 0890     		str	r0, [sp, #32]
+ 672 0106 0991     		str	r1, [sp, #36]
+ 673              	.LVL69:
+ 263:Core/Src/main.c ****     		x_i = 0;
+ 674              		.loc 1 263 7 is_stmt 1 view .LVU154
+ 263:Core/Src/main.c ****     		x_i = 0;
+ 675              		.loc 1 263 14 is_stmt 0 view .LVU155
+ 676 0108 5846     		mov	r0, fp
+ 677              	.LVL70:
+ 263:Core/Src/main.c ****     		x_i = 0;
+ 678              		.loc 1 263 14 view .LVU156
+ 679 010a FFF7FEFF 		bl	__aeabi_ui2d
+ 680              	.LVL71:
+ 681 010e 0400     		movs	r4, r0
+ 682 0110 0D00     		movs	r5, r1
+ 263:Core/Src/main.c ****     		x_i = 0;
+ 683              		.loc 1 263 26 view .LVU157
+ 684 0112 4846     		mov	r0, r9
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 19
 
 
- 741 011a 0B00     		movs	r3, r1
- 265:Core/Src/main.c ****     		x_i = 0;
- 742              		.loc 1 265 25 view .LVU154
- 743 011c 2000     		movs	r0, r4
- 744 011e 2900     		movs	r1, r5
- 745 0120 FFF7FEFF 		bl	__aeabi_ddiv
- 746              	.LVL65:
- 265:Core/Src/main.c ****     		x_i = 0;
- 747              		.loc 1 265 43 view .LVU155
- 748 0124 0200     		movs	r2, r0
- 749 0126 0B00     		movs	r3, r1
- 750 0128 FFF7FEFF 		bl	__aeabi_dadd
- 751              	.LVL66:
- 265:Core/Src/main.c ****     		x_i = 0;
- 752              		.loc 1 265 11 view .LVU156
- 753 012c 0022     		movs	r2, #0
- 754 012e 194B     		ldr	r3, .L32+12
- 755 0130 FFF7FEFF 		bl	__aeabi_dsub
- 756              	.LVL67:
- 757 0134 0A90     		str	r0, [sp, #40]
- 758 0136 0B91     		str	r1, [sp, #44]
- 759              	.LVL68:
- 266:Core/Src/main.c ****     		y_i = 0;
- 760              		.loc 1 266 7 is_stmt 1 view .LVU157
- 267:Core/Src/main.c ****     		iteration = 0;
- 761              		.loc 1 267 7 view .LVU158
- 268:Core/Src/main.c ****     		while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4.0)
- 762              		.loc 1 268 7 view .LVU159
- 269:Core/Src/main.c ****     		{
- 763              		.loc 1 269 7 view .LVU160
- 268:Core/Src/main.c ****     		while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4.0)
- 764              		.loc 1 268 17 is_stmt 0 view .LVU161
- 765 0138 0023     		movs	r3, #0
- 766 013a 0024     		movs	r4, #0
- 767 013c 0293     		str	r3, [sp, #8]
- 768 013e 0394     		str	r4, [sp, #12]
- 267:Core/Src/main.c ****     		iteration = 0;
- 769              		.loc 1 267 11 view .LVU162
- 770 0140 0024     		movs	r4, #0
- 771 0142 0025     		movs	r5, #0
- 266:Core/Src/main.c ****     		y_i = 0;
- 772              		.loc 1 266 11 view .LVU163
- 773 0144 2600     		movs	r6, r4
- 774 0146 2F00     		movs	r7, r5
- 775 0148 0094     		str	r4, [sp]
- 776 014a 0195     		str	r5, [sp, #4]
- 269:Core/Src/main.c ****     		{
- 777              		.loc 1 269 12 view .LVU164
- 778 014c 91E7     		b	.L21
- 779              	.LVL69:
- 780              	.L29:
- 269:Core/Src/main.c ****     		{
- 781              		.loc 1 269 40 view .LVU165
- 782 014e 0298     		ldr	r0, [sp, #8]
- 783 0150 0399     		ldr	r1, [sp, #12]
- 784 0152 8B42     		cmp	r3, r1
- 785 0154 B0D1     		bne	.L22
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 21
+ 685 0114 FFF7FEFF 		bl	__aeabi_i2d
+ 686              	.LVL72:
+ 687 0118 0200     		movs	r2, r0
+ 688 011a 0B00     		movs	r3, r1
+ 263:Core/Src/main.c ****     		x_i = 0;
+ 689              		.loc 1 263 25 view .LVU158
+ 690 011c 2000     		movs	r0, r4
+ 691 011e 2900     		movs	r1, r5
+ 692 0120 FFF7FEFF 		bl	__aeabi_ddiv
+ 693              	.LVL73:
+ 263:Core/Src/main.c ****     		x_i = 0;
+ 694              		.loc 1 263 43 view .LVU159
+ 695 0124 0200     		movs	r2, r0
+ 696 0126 0B00     		movs	r3, r1
+ 697 0128 FFF7FEFF 		bl	__aeabi_dadd
+ 698              	.LVL74:
+ 263:Core/Src/main.c ****     		x_i = 0;
+ 699              		.loc 1 263 11 view .LVU160
+ 700 012c 0022     		movs	r2, #0
+ 701 012e 194B     		ldr	r3, .L32+12
+ 702 0130 FFF7FEFF 		bl	__aeabi_dsub
+ 703              	.LVL75:
+ 704 0134 0A90     		str	r0, [sp, #40]
+ 705 0136 0B91     		str	r1, [sp, #44]
+ 706              	.LVL76:
+ 264:Core/Src/main.c ****     		y_i = 0;
+ 707              		.loc 1 264 7 is_stmt 1 view .LVU161
+ 265:Core/Src/main.c ****     		iteration = 0;
+ 708              		.loc 1 265 7 view .LVU162
+ 266:Core/Src/main.c ****     		while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4)
+ 709              		.loc 1 266 7 view .LVU163
+ 267:Core/Src/main.c ****     		{
+ 710              		.loc 1 267 7 view .LVU164
+ 266:Core/Src/main.c ****     		while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4)
+ 711              		.loc 1 266 17 is_stmt 0 view .LVU165
+ 712 0138 0023     		movs	r3, #0
+ 713 013a 0024     		movs	r4, #0
+ 714 013c 0293     		str	r3, [sp, #8]
+ 715 013e 0394     		str	r4, [sp, #12]
+ 265:Core/Src/main.c ****     		iteration = 0;
+ 716              		.loc 1 265 11 view .LVU166
+ 717 0140 0024     		movs	r4, #0
+ 718 0142 0025     		movs	r5, #0
+ 264:Core/Src/main.c ****     		y_i = 0;
+ 719              		.loc 1 264 11 view .LVU167
+ 720 0144 2600     		movs	r6, r4
+ 721 0146 2F00     		movs	r7, r5
+ 722 0148 0094     		str	r4, [sp]
+ 723 014a 0195     		str	r5, [sp, #4]
+ 267:Core/Src/main.c ****     		{
+ 724              		.loc 1 267 12 view .LVU168
+ 725 014c 91E7     		b	.L21
+ 726              	.LVL77:
+ 727              	.L29:
+ 267:Core/Src/main.c ****     		{
+ 728              		.loc 1 267 40 view .LVU169
+ 729 014e 0298     		ldr	r0, [sp, #8]
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 20
 
 
- 786 0156 8242     		cmp	r2, r0
- 787 0158 90D8     		bhi	.L28
- 788 015a ADE7     		b	.L22
- 789              	.LVL70:
- 790              	.L30:
- 269:Core/Src/main.c ****     		{
- 791              		.loc 1 269 40 view .LVU166
- 792              	.LBE11:
- 260:Core/Src/main.c ****     {
- 793              		.loc 1 260 43 is_stmt 1 discriminator 2 view .LVU167
- 794 015c 0123     		movs	r3, #1
- 795 015e 9C46     		mov	ip, r3
- 796 0160 E344     		add	fp, fp, ip
- 797              	.LVL71:
- 798              	.L20:
- 260:Core/Src/main.c ****     {
- 799              		.loc 1 260 27 discriminator 1 view .LVU168
- 260:Core/Src/main.c ****     {
- 800              		.loc 1 260 37 is_stmt 0 discriminator 1 view .LVU169
- 801 0162 0F9B     		ldr	r3, [sp, #60]
- 802 0164 013B     		subs	r3, r3, #1
- 260:Core/Src/main.c ****     {
- 803              		.loc 1 260 27 discriminator 1 view .LVU170
- 804 0166 5B45     		cmp	r3, fp
- 805 0168 04D3     		bcc	.L31
- 806              	.LBB12:
- 262:Core/Src/main.c ****     	{
- 807              		.loc 1 262 19 view .LVU171
- 808 016a 0023     		movs	r3, #0
- 809 016c 0E93     		str	r3, [sp, #56]
- 810 016e 0F9B     		ldr	r3, [sp, #60]
- 811 0170 9946     		mov	r9, r3
- 812 0172 ACE7     		b	.L26
- 813              	.L31:
- 814              	.LBE12:
- 815              	.LBE13:
- 278:Core/Src/main.c ****     	}
- 279:Core/Src/main.c **** 
- 280:Core/Src/main.c ****     }
- 281:Core/Src/main.c ****     return mandelbrot_sum;
- 816              		.loc 1 281 5 is_stmt 1 view .LVU172
- 282:Core/Src/main.c **** }
- 817              		.loc 1 282 1 is_stmt 0 view .LVU173
- 818 0174 0C98     		ldr	r0, [sp, #48]
- 819 0176 0D99     		ldr	r1, [sp, #52]
- 820 0178 11B0     		add	sp, sp, #68
- 821              		@ sp needed
- 822              	.LVL72:
- 823              	.LVL73:
- 824              	.LVL74:
- 825              		.loc 1 282 1 view .LVU174
- 826 017a F0BC     		pop	{r4, r5, r6, r7}
- 827 017c BB46     		mov	fp, r7
- 828 017e B246     		mov	r10, r6
- 829 0180 A946     		mov	r9, r5
- 830 0182 A046     		mov	r8, r4
- 831 0184 F0BD     		pop	{r4, r5, r6, r7, pc}
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 22
+ 730 0150 0399     		ldr	r1, [sp, #12]
+ 731 0152 8B42     		cmp	r3, r1
+ 732 0154 B0D1     		bne	.L22
+ 733 0156 8242     		cmp	r2, r0
+ 734 0158 90D8     		bhi	.L28
+ 735 015a ADE7     		b	.L22
+ 736              	.LVL78:
+ 737              	.L30:
+ 267:Core/Src/main.c ****     		{
+ 738              		.loc 1 267 40 view .LVU170
+ 739              	.LBE11:
+ 258:Core/Src/main.c ****     {
+ 740              		.loc 1 258 43 is_stmt 1 discriminator 2 view .LVU171
+ 741 015c 0123     		movs	r3, #1
+ 742 015e 9C46     		mov	ip, r3
+ 743 0160 E344     		add	fp, fp, ip
+ 744              	.LVL79:
+ 745              	.L20:
+ 258:Core/Src/main.c ****     {
+ 746              		.loc 1 258 27 discriminator 1 view .LVU172
+ 258:Core/Src/main.c ****     {
+ 747              		.loc 1 258 37 is_stmt 0 discriminator 1 view .LVU173
+ 748 0162 0F9B     		ldr	r3, [sp, #60]
+ 749 0164 013B     		subs	r3, r3, #1
+ 258:Core/Src/main.c ****     {
+ 750              		.loc 1 258 27 discriminator 1 view .LVU174
+ 751 0166 5B45     		cmp	r3, fp
+ 752 0168 04D3     		bcc	.L31
+ 753              	.LBB12:
+ 260:Core/Src/main.c ****     	{
+ 754              		.loc 1 260 19 view .LVU175
+ 755 016a 0023     		movs	r3, #0
+ 756 016c 0E93     		str	r3, [sp, #56]
+ 757 016e 0F9B     		ldr	r3, [sp, #60]
+ 758 0170 9946     		mov	r9, r3
+ 759 0172 ACE7     		b	.L26
+ 760              	.L31:
+ 761              	.LBE12:
+ 762              	.LBE13:
+ 276:Core/Src/main.c ****     	}
+ 277:Core/Src/main.c **** 
+ 278:Core/Src/main.c ****     }
+ 279:Core/Src/main.c ****     return mandelbrot_sum;
+ 763              		.loc 1 279 5 is_stmt 1 view .LVU176
+ 280:Core/Src/main.c **** }
+ 764              		.loc 1 280 1 is_stmt 0 view .LVU177
+ 765 0174 0C98     		ldr	r0, [sp, #48]
+ 766 0176 0D99     		ldr	r1, [sp, #52]
+ 767 0178 11B0     		add	sp, sp, #68
+ 768              		@ sp needed
+ 769              	.LVL80:
+ 770              	.LVL81:
+ 771              	.LVL82:
+ 772              		.loc 1 280 1 view .LVU178
+ 773 017a F0BC     		pop	{r4, r5, r6, r7}
+ 774 017c BB46     		mov	fp, r7
+ 775 017e B246     		mov	r10, r6
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 21
 
 
- 832              	.L33:
- 833 0186 C046     		.align	2
- 834              	.L32:
- 835 0188 00001040 		.word	1074790400
- 836 018c 00000C40 		.word	1074528256
- 837 0190 00000440 		.word	1074003968
- 838 0194 0000F03F 		.word	1072693248
- 839              		.cfi_endproc
- 840              	.LFE44:
- 842              		.section	.text.Error_Handler,"ax",%progbits
- 843              		.align	1
- 844              		.global	Error_Handler
- 845              		.syntax unified
- 846              		.code	16
- 847              		.thumb_func
- 849              	Error_Handler:
- 850              	.LFB45:
+ 776 0180 A946     		mov	r9, r5
+ 777 0182 A046     		mov	r8, r4
+ 778 0184 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 779              	.L33:
+ 780 0186 C046     		.align	2
+ 781              	.L32:
+ 782 0188 00001040 		.word	1074790400
+ 783 018c 00000C40 		.word	1074528256
+ 784 0190 00000440 		.word	1074003968
+ 785 0194 0000F03F 		.word	1072693248
+ 786              		.cfi_endproc
+ 787              	.LFE44:
+ 789              		.section	.text.Error_Handler,"ax",%progbits
+ 790              		.align	1
+ 791              		.global	Error_Handler
+ 792              		.syntax unified
+ 793              		.code	16
+ 794              		.thumb_func
+ 796              	Error_Handler:
+ 797              	.LFB45:
+ 281:Core/Src/main.c **** 
+ 282:Core/Src/main.c **** /* USER CODE END 4 */
  283:Core/Src/main.c **** 
- 284:Core/Src/main.c **** /* USER CODE END 4 */
- 285:Core/Src/main.c **** 
- 286:Core/Src/main.c **** /**
- 287:Core/Src/main.c ****   * @brief  This function is executed in case of error occurrence.
- 288:Core/Src/main.c ****   * @retval None
- 289:Core/Src/main.c ****   */
- 290:Core/Src/main.c **** void Error_Handler(void)
- 291:Core/Src/main.c **** {
- 851              		.loc 1 291 1 is_stmt 1 view -0
- 852              		.cfi_startproc
- 853              		@ Volatile: function does not return.
- 854              		@ args = 0, pretend = 0, frame = 0
- 855              		@ frame_needed = 0, uses_anonymous_args = 0
- 856              		@ link register save eliminated.
- 292:Core/Src/main.c ****   /* USER CODE BEGIN Error_Handler_Debug */
- 293:Core/Src/main.c ****   /* User can add his own implementation to report the HAL error return state */
- 294:Core/Src/main.c ****   __disable_irq();
- 857              		.loc 1 294 3 view .LVU176
- 858              	.LBB14:
- 859              	.LBI14:
- 860              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
+ 284:Core/Src/main.c **** /**
+ 285:Core/Src/main.c ****   * @brief  This function is executed in case of error occurrence.
+ 286:Core/Src/main.c ****   * @retval None
+ 287:Core/Src/main.c ****   */
+ 288:Core/Src/main.c **** void Error_Handler(void)
+ 289:Core/Src/main.c **** {
+ 798              		.loc 1 289 1 is_stmt 1 view -0
+ 799              		.cfi_startproc
+ 800              		@ Volatile: function does not return.
+ 801              		@ args = 0, pretend = 0, frame = 0
+ 802              		@ frame_needed = 0, uses_anonymous_args = 0
+ 803              		@ link register save eliminated.
+ 290:Core/Src/main.c ****   /* USER CODE BEGIN Error_Handler_Debug */
+ 291:Core/Src/main.c ****   /* User can add his own implementation to report the HAL error return state */
+ 292:Core/Src/main.c ****   __disable_irq();
+ 804              		.loc 1 292 3 view .LVU180
+ 805              	.LBB14:
+ 806              	.LBI14:
+ 807              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
    1:Drivers/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
    2:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
    3:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
@@ -1315,12 +1258,12 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
   13:Drivers/CMSIS/Include/cmsis_gcc.h ****  * not use this file except in compliance with the License.
   14:Drivers/CMSIS/Include/cmsis_gcc.h ****  * You may obtain a copy of the License at
   15:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 22
+
+
   16:Drivers/CMSIS/Include/cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
   17:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
   18:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 23
-
-
   19:Drivers/CMSIS/Include/cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
   20:Drivers/CMSIS/Include/cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   21:Drivers/CMSIS/Include/cmsis_gcc.h ****  * See the License for the specific language governing permissions and
@@ -1375,12 +1318,12 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
   70:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32        /* deprecated */
   71:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
   72:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 23
+
+
   73:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
   74:Drivers/CMSIS/Include/cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
   75:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 24
-
-
   76:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
   77:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   78:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
@@ -1435,12 +1378,12 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
  127:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
  128:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
  129:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __enable_irq(void)
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 24
+
+
  130:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  131:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
  132:Drivers/CMSIS/Include/cmsis_gcc.h **** }
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 25
-
-
  133:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  134:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  135:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
@@ -1449,369 +1392,369 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 1
  138:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
  139:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
  140:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
- 861              		.loc 2 140 27 view .LVU177
- 862              	.LBB15:
+ 808              		.loc 2 140 27 view .LVU181
+ 809              	.LBB15:
  141:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  142:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
- 863              		.loc 2 142 3 view .LVU178
- 864              		.syntax divided
- 865              	@ 142 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
- 866 0000 72B6     		cpsid i
- 867              	@ 0 "" 2
- 868              		.thumb
- 869              		.syntax unified
- 870              	.L35:
- 871              	.LBE15:
- 872              	.LBE14:
- 295:Core/Src/main.c ****   while (1)
- 873              		.loc 1 295 3 view .LVU179
- 296:Core/Src/main.c ****   {
- 297:Core/Src/main.c ****   }
- 874              		.loc 1 297 3 view .LVU180
- 295:Core/Src/main.c ****   while (1)
- 875              		.loc 1 295 9 view .LVU181
- 876 0002 FEE7     		b	.L35
- 877              		.cfi_endproc
- 878              	.LFE45:
- 880              		.section	.text.SystemClock_Config,"ax",%progbits
- 881              		.align	1
- 882              		.global	SystemClock_Config
- 883              		.syntax unified
- 884              		.code	16
- 885              		.thumb_func
- 887              	SystemClock_Config:
- 888              	.LFB41:
+ 810              		.loc 2 142 3 view .LVU182
+ 811              		.syntax divided
+ 812              	@ 142 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 813 0000 72B6     		cpsid i
+ 814              	@ 0 "" 2
+ 815              		.thumb
+ 816              		.syntax unified
+ 817              	.L35:
+ 818              	.LBE15:
+ 819              	.LBE14:
+ 293:Core/Src/main.c ****   while (1)
+ 820              		.loc 1 293 3 view .LVU183
+ 294:Core/Src/main.c ****   {
+ 295:Core/Src/main.c ****   }
+ 821              		.loc 1 295 3 view .LVU184
+ 293:Core/Src/main.c ****   while (1)
+ 822              		.loc 1 293 9 view .LVU185
+ 823 0002 FEE7     		b	.L35
+ 824              		.cfi_endproc
+ 825              	.LFE45:
+ 827              		.section	.text.SystemClock_Config,"ax",%progbits
+ 828              		.align	1
+ 829              		.global	SystemClock_Config
+ 830              		.syntax unified
+ 831              		.code	16
+ 832              		.thumb_func
+ 834              	SystemClock_Config:
+ 835              	.LFB41:
  147:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
- 889              		.loc 1 147 1 view -0
- 890              		.cfi_startproc
- 891              		@ args = 0, pretend = 0, frame = 64
- 892              		@ frame_needed = 0, uses_anonymous_args = 0
- 893 0000 00B5     		push	{lr}
- 894              	.LCFI8:
- 895              		.cfi_def_cfa_offset 4
- 896              		.cfi_offset 14, -4
- 897 0002 91B0     		sub	sp, sp, #68
- 898              	.LCFI9:
- 899              		.cfi_def_cfa_offset 72
+ 836              		.loc 1 147 1 view -0
+ 837              		.cfi_startproc
+ 838              		@ args = 0, pretend = 0, frame = 64
+ 839              		@ frame_needed = 0, uses_anonymous_args = 0
+ 840 0000 00B5     		push	{lr}
+ 841              	.LCFI8:
+ 842              		.cfi_def_cfa_offset 4
+ 843              		.cfi_offset 14, -4
+ 844 0002 91B0     		sub	sp, sp, #68
+ 845              	.LCFI9:
+ 846              		.cfi_def_cfa_offset 72
  148:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 900              		.loc 1 148 3 view .LVU183
- 148:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 901              		.loc 1 148 22 is_stmt 0 view .LVU184
- 902 0004 3022     		movs	r2, #48
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 26
+ 847              		.loc 1 148 3 view .LVU187
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 25
 
 
- 903 0006 0021     		movs	r1, #0
- 904 0008 04A8     		add	r0, sp, #16
- 905 000a FFF7FEFF 		bl	memset
- 906              	.LVL75:
+ 148:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 848              		.loc 1 148 22 is_stmt 0 view .LVU188
+ 849 0004 3022     		movs	r2, #48
+ 850 0006 0021     		movs	r1, #0
+ 851 0008 04A8     		add	r0, sp, #16
+ 852 000a FFF7FEFF 		bl	memset
+ 853              	.LVL83:
  149:Core/Src/main.c **** 
- 907              		.loc 1 149 3 is_stmt 1 view .LVU185
+ 854              		.loc 1 149 3 is_stmt 1 view .LVU189
  149:Core/Src/main.c **** 
- 908              		.loc 1 149 22 is_stmt 0 view .LVU186
- 909 000e 1022     		movs	r2, #16
- 910 0010 0021     		movs	r1, #0
- 911 0012 6846     		mov	r0, sp
- 912 0014 FFF7FEFF 		bl	memset
- 913              	.LVL76:
+ 855              		.loc 1 149 22 is_stmt 0 view .LVU190
+ 856 000e 1022     		movs	r2, #16
+ 857 0010 0021     		movs	r1, #0
+ 858 0012 6846     		mov	r0, sp
+ 859 0014 FFF7FEFF 		bl	memset
+ 860              	.LVL84:
  154:Core/Src/main.c ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
- 914              		.loc 1 154 3 is_stmt 1 view .LVU187
+ 861              		.loc 1 154 3 is_stmt 1 view .LVU191
  154:Core/Src/main.c ****   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
- 915              		.loc 1 154 36 is_stmt 0 view .LVU188
- 916 0018 0223     		movs	r3, #2
- 917 001a 0493     		str	r3, [sp, #16]
+ 862              		.loc 1 154 36 is_stmt 0 view .LVU192
+ 863 0018 0223     		movs	r3, #2
+ 864 001a 0493     		str	r3, [sp, #16]
  155:Core/Src/main.c ****   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
- 918              		.loc 1 155 3 is_stmt 1 view .LVU189
+ 865              		.loc 1 155 3 is_stmt 1 view .LVU193
  155:Core/Src/main.c ****   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
- 919              		.loc 1 155 30 is_stmt 0 view .LVU190
- 920 001c 013B     		subs	r3, r3, #1
- 921 001e 0793     		str	r3, [sp, #28]
+ 866              		.loc 1 155 30 is_stmt 0 view .LVU194
+ 867 001c 013B     		subs	r3, r3, #1
+ 868 001e 0793     		str	r3, [sp, #28]
  156:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
- 922              		.loc 1 156 3 is_stmt 1 view .LVU191
+ 869              		.loc 1 156 3 is_stmt 1 view .LVU195
  156:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
- 923              		.loc 1 156 41 is_stmt 0 view .LVU192
- 924 0020 0F33     		adds	r3, r3, #15
- 925 0022 0893     		str	r3, [sp, #32]
+ 870              		.loc 1 156 41 is_stmt 0 view .LVU196
+ 871 0020 0F33     		adds	r3, r3, #15
+ 872 0022 0893     		str	r3, [sp, #32]
  157:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
- 926              		.loc 1 157 3 is_stmt 1 view .LVU193
+ 873              		.loc 1 157 3 is_stmt 1 view .LVU197
  158:Core/Src/main.c ****   {
- 927              		.loc 1 158 3 view .LVU194
+ 874              		.loc 1 158 3 view .LVU198
  158:Core/Src/main.c ****   {
- 928              		.loc 1 158 7 is_stmt 0 view .LVU195
- 929 0024 04A8     		add	r0, sp, #16
- 930 0026 FFF7FEFF 		bl	HAL_RCC_OscConfig
- 931              	.LVL77:
+ 875              		.loc 1 158 7 is_stmt 0 view .LVU199
+ 876 0024 04A8     		add	r0, sp, #16
+ 877 0026 FFF7FEFF 		bl	HAL_RCC_OscConfig
+ 878              	.LVL85:
  158:Core/Src/main.c ****   {
- 932              		.loc 1 158 6 discriminator 1 view .LVU196
- 933 002a 0028     		cmp	r0, #0
- 934 002c 0DD1     		bne	.L39
+ 879              		.loc 1 158 6 discriminator 1 view .LVU200
+ 880 002a 0028     		cmp	r0, #0
+ 881 002c 0DD1     		bne	.L39
  165:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1;
- 935              		.loc 1 165 3 is_stmt 1 view .LVU197
+ 882              		.loc 1 165 3 is_stmt 1 view .LVU201
  165:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1;
- 936              		.loc 1 165 31 is_stmt 0 view .LVU198
- 937 002e 0723     		movs	r3, #7
- 938 0030 0093     		str	r3, [sp]
+ 883              		.loc 1 165 31 is_stmt 0 view .LVU202
+ 884 002e 0723     		movs	r3, #7
+ 885 0030 0093     		str	r3, [sp]
  167:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 939              		.loc 1 167 3 is_stmt 1 view .LVU199
+ 886              		.loc 1 167 3 is_stmt 1 view .LVU203
  167:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 940              		.loc 1 167 34 is_stmt 0 view .LVU200
- 941 0032 0023     		movs	r3, #0
- 942 0034 0193     		str	r3, [sp, #4]
- 168:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 27
+ 887              		.loc 1 167 34 is_stmt 0 view .LVU204
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 26
 
 
- 943              		.loc 1 168 3 is_stmt 1 view .LVU201
+ 888 0032 0023     		movs	r3, #0
+ 889 0034 0193     		str	r3, [sp, #4]
  168:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
- 944              		.loc 1 168 35 is_stmt 0 view .LVU202
- 945 0036 0293     		str	r3, [sp, #8]
+ 890              		.loc 1 168 3 is_stmt 1 view .LVU205
+ 168:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 891              		.loc 1 168 35 is_stmt 0 view .LVU206
+ 892 0036 0293     		str	r3, [sp, #8]
  169:Core/Src/main.c **** 
- 946              		.loc 1 169 3 is_stmt 1 view .LVU203
+ 893              		.loc 1 169 3 is_stmt 1 view .LVU207
  169:Core/Src/main.c **** 
- 947              		.loc 1 169 36 is_stmt 0 view .LVU204
- 948 0038 0393     		str	r3, [sp, #12]
+ 894              		.loc 1 169 36 is_stmt 0 view .LVU208
+ 895 0038 0393     		str	r3, [sp, #12]
  171:Core/Src/main.c ****   {
- 949              		.loc 1 171 3 is_stmt 1 view .LVU205
+ 896              		.loc 1 171 3 is_stmt 1 view .LVU209
  171:Core/Src/main.c ****   {
- 950              		.loc 1 171 7 is_stmt 0 view .LVU206
- 951 003a 0021     		movs	r1, #0
- 952 003c 6846     		mov	r0, sp
- 953 003e FFF7FEFF 		bl	HAL_RCC_ClockConfig
- 954              	.LVL78:
+ 897              		.loc 1 171 7 is_stmt 0 view .LVU210
+ 898 003a 0021     		movs	r1, #0
+ 899 003c 6846     		mov	r0, sp
+ 900 003e FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 901              	.LVL86:
  171:Core/Src/main.c ****   {
- 955              		.loc 1 171 6 discriminator 1 view .LVU207
- 956 0042 0028     		cmp	r0, #0
- 957 0044 03D1     		bne	.L40
+ 902              		.loc 1 171 6 discriminator 1 view .LVU211
+ 903 0042 0028     		cmp	r0, #0
+ 904 0044 03D1     		bne	.L40
  175:Core/Src/main.c **** 
- 958              		.loc 1 175 1 view .LVU208
- 959 0046 11B0     		add	sp, sp, #68
- 960              		@ sp needed
- 961 0048 00BD     		pop	{pc}
- 962              	.L39:
+ 905              		.loc 1 175 1 view .LVU212
+ 906 0046 11B0     		add	sp, sp, #68
+ 907              		@ sp needed
+ 908 0048 00BD     		pop	{pc}
+ 909              	.L39:
  160:Core/Src/main.c ****   }
- 963              		.loc 1 160 5 is_stmt 1 view .LVU209
- 964 004a FFF7FEFF 		bl	Error_Handler
- 965              	.LVL79:
- 966              	.L40:
+ 910              		.loc 1 160 5 is_stmt 1 view .LVU213
+ 911 004a FFF7FEFF 		bl	Error_Handler
+ 912              	.LVL87:
+ 913              	.L40:
  173:Core/Src/main.c ****   }
- 967              		.loc 1 173 5 view .LVU210
- 968 004e FFF7FEFF 		bl	Error_Handler
- 969              	.LVL80:
- 970              		.cfi_endproc
- 971              	.LFE41:
- 973              		.section	.text.main,"ax",%progbits
- 974              		.align	1
- 975              		.global	main
- 976              		.syntax unified
- 977              		.code	16
- 978              		.thumb_func
- 980              	main:
- 981              	.LFB40:
+ 914              		.loc 1 173 5 view .LVU214
+ 915 004e FFF7FEFF 		bl	Error_Handler
+ 916              	.LVL88:
+ 917              		.cfi_endproc
+ 918              	.LFE41:
+ 920              		.section	.text.main,"ax",%progbits
+ 921              		.align	1
+ 922              		.global	main
+ 923              		.syntax unified
+ 924              		.code	16
+ 925              		.thumb_func
+ 927              	main:
+ 928              	.LFB40:
   79:Core/Src/main.c ****   /* USER CODE BEGIN 1 */
- 982              		.loc 1 79 1 view -0
- 983              		.cfi_startproc
- 984              		@ Volatile: function does not return.
- 985              		@ args = 0, pretend = 0, frame = 0
- 986              		@ frame_needed = 0, uses_anonymous_args = 0
- 987 0000 70B5     		push	{r4, r5, r6, lr}
- 988              	.LCFI10:
- 989              		.cfi_def_cfa_offset 16
- 990              		.cfi_offset 4, -16
- 991              		.cfi_offset 5, -12
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 28
+ 929              		.loc 1 79 1 view -0
+ 930              		.cfi_startproc
+ 931              		@ Volatile: function does not return.
+ 932              		@ args = 0, pretend = 0, frame = 0
+ 933              		@ frame_needed = 0, uses_anonymous_args = 0
+ 934 0000 70B5     		push	{r4, r5, r6, lr}
+ 935              	.LCFI10:
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 27
 
 
- 992              		.cfi_offset 6, -8
- 993              		.cfi_offset 14, -4
+ 936              		.cfi_def_cfa_offset 16
+ 937              		.cfi_offset 4, -16
+ 938              		.cfi_offset 5, -12
+ 939              		.cfi_offset 6, -8
+ 940              		.cfi_offset 14, -4
   87:Core/Src/main.c **** 
- 994              		.loc 1 87 3 view .LVU212
- 995 0002 FFF7FEFF 		bl	HAL_Init
- 996              	.LVL81:
+ 941              		.loc 1 87 3 view .LVU216
+ 942 0002 FFF7FEFF 		bl	HAL_Init
+ 943              	.LVL89:
   94:Core/Src/main.c **** 
- 997              		.loc 1 94 3 view .LVU213
- 998 0006 FFF7FEFF 		bl	SystemClock_Config
- 999              	.LVL82:
+ 944              		.loc 1 94 3 view .LVU217
+ 945 0006 FFF7FEFF 		bl	SystemClock_Config
+ 946              	.LVL90:
  101:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
- 1000              		.loc 1 101 3 view .LVU214
- 1001 000a FFF7FEFF 		bl	MX_GPIO_Init
- 1002              	.LVL83:
+ 947              		.loc 1 101 3 view .LVU218
+ 948 000a FFF7FEFF 		bl	MX_GPIO_Init
+ 949              	.LVL91:
  104:Core/Src/main.c **** 
- 1003              		.loc 1 104 3 view .LVU215
- 1004 000e 174C     		ldr	r4, .L43
- 1005 0010 0122     		movs	r2, #1
- 1006 0012 0121     		movs	r1, #1
- 1007 0014 2000     		movs	r0, r4
- 1008 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 1009              	.LVL84:
+ 950              		.loc 1 104 3 view .LVU219
+ 951 000e 174C     		ldr	r4, .L43
+ 952 0010 0122     		movs	r2, #1
+ 953 0012 0121     		movs	r1, #1
+ 954 0014 2000     		movs	r0, r4
+ 955 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 956              	.LVL92:
  107:Core/Src/main.c ****   
- 1010              		.loc 1 107 3 view .LVU216
+ 957              		.loc 1 107 3 view .LVU220
  107:Core/Src/main.c ****   
- 1011              		.loc 1 107 16 is_stmt 0 view .LVU217
- 1012 001a FFF7FEFF 		bl	HAL_GetTick
- 1013              	.LVL85:
+ 958              		.loc 1 107 16 is_stmt 0 view .LVU221
+ 959 001a FFF7FEFF 		bl	HAL_GetTick
+ 960              	.LVL93:
  107:Core/Src/main.c ****   
- 1014              		.loc 1 107 14 discriminator 1 view .LVU218
- 1015 001e 144D     		ldr	r5, .L43+4
- 1016 0020 2860     		str	r0, [r5]
- 111:Core/Src/main.c **** 
- 1017              		.loc 1 111 3 is_stmt 1 view .LVU219
- 111:Core/Src/main.c **** 
- 1018              		.loc 1 111 14 is_stmt 0 view .LVU220
- 1019 0022 6422     		movs	r2, #100
- 1020 0024 8021     		movs	r1, #128
- 1021 0026 8020     		movs	r0, #128
- 1022 0028 FFF7FEFF 		bl	calculate_mandelbrot_double
- 1023              	.LVL86:
- 111:Core/Src/main.c **** 
- 1024              		.loc 1 111 12 discriminator 1 view .LVU221
- 1025 002c 114B     		ldr	r3, .L43+8
- 1026 002e 1860     		str	r0, [r3]
- 1027 0030 5960     		str	r1, [r3, #4]
+ 961              		.loc 1 107 14 discriminator 1 view .LVU222
+ 962 001e 144D     		ldr	r5, .L43+4
+ 963 0020 2860     		str	r0, [r5]
+ 110:Core/Src/main.c ****   //checksum = calculate_mandelbrot_double(128, 128, MAX_ITER);
+ 964              		.loc 1 110 3 is_stmt 1 view .LVU223
+ 110:Core/Src/main.c ****   //checksum = calculate_mandelbrot_double(128, 128, MAX_ITER);
+ 965              		.loc 1 110 14 is_stmt 0 view .LVU224
+ 966 0022 6422     		movs	r2, #100
+ 967 0024 8021     		movs	r1, #128
+ 968 0026 8020     		movs	r0, #128
+ 969 0028 FFF7FEFF 		bl	calculate_mandelbrot_fixed_point_arithmetic
+ 970              	.LVL94:
+ 110:Core/Src/main.c ****   //checksum = calculate_mandelbrot_double(128, 128, MAX_ITER);
+ 971              		.loc 1 110 12 discriminator 1 view .LVU225
+ 972 002c 114B     		ldr	r3, .L43+8
+ 973 002e 1860     		str	r0, [r3]
+ 974 0030 5960     		str	r1, [r3, #4]
  114:Core/Src/main.c **** 
- 1028              		.loc 1 114 3 is_stmt 1 view .LVU222
+ 975              		.loc 1 114 3 is_stmt 1 view .LVU226
  114:Core/Src/main.c **** 
- 1029              		.loc 1 114 14 is_stmt 0 view .LVU223
- 1030 0032 FFF7FEFF 		bl	HAL_GetTick
- 1031              	.LVL87:
+ 976              		.loc 1 114 14 is_stmt 0 view .LVU227
+ 977 0032 FFF7FEFF 		bl	HAL_GetTick
+ 978              	.LVL95:
  114:Core/Src/main.c **** 
- 1032              		.loc 1 114 12 discriminator 1 view .LVU224
- 1033 0036 104B     		ldr	r3, .L43+12
- 1034 0038 1860     		str	r0, [r3]
- 117:Core/Src/main.c **** 
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 29
+ 979              		.loc 1 114 12 discriminator 1 view .LVU228
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 28
 
 
- 1035              		.loc 1 117 3 is_stmt 1 view .LVU225
+ 980 0036 104B     		ldr	r3, .L43+12
+ 981 0038 1860     		str	r0, [r3]
  117:Core/Src/main.c **** 
- 1036              		.loc 1 117 29 is_stmt 0 view .LVU226
- 1037 003a 2B68     		ldr	r3, [r5]
- 1038 003c C01A     		subs	r0, r0, r3
+ 982              		.loc 1 117 3 is_stmt 1 view .LVU229
  117:Core/Src/main.c **** 
- 1039              		.loc 1 117 18 view .LVU227
- 1040 003e 0F4B     		ldr	r3, .L43+16
- 1041 0040 1860     		str	r0, [r3]
+ 983              		.loc 1 117 29 is_stmt 0 view .LVU230
+ 984 003a 2B68     		ldr	r3, [r5]
+ 985 003c C01A     		subs	r0, r0, r3
+ 117:Core/Src/main.c **** 
+ 986              		.loc 1 117 18 view .LVU231
+ 987 003e 0F4B     		ldr	r3, .L43+16
+ 988 0040 1860     		str	r0, [r3]
  120:Core/Src/main.c **** 
- 1042              		.loc 1 120 3 is_stmt 1 view .LVU228
- 1043 0042 0122     		movs	r2, #1
- 1044 0044 0221     		movs	r1, #2
- 1045 0046 2000     		movs	r0, r4
- 1046 0048 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 1047              	.LVL88:
+ 989              		.loc 1 120 3 is_stmt 1 view .LVU232
+ 990 0042 0122     		movs	r2, #1
+ 991 0044 0221     		movs	r1, #2
+ 992 0046 2000     		movs	r0, r4
+ 993 0048 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 994              	.LVL96:
  123:Core/Src/main.c **** 
- 1048              		.loc 1 123 3 view .LVU229
- 1049 004c FA20     		movs	r0, #250
- 1050 004e 8000     		lsls	r0, r0, #2
- 1051 0050 FFF7FEFF 		bl	HAL_Delay
- 1052              	.LVL89:
+ 995              		.loc 1 123 3 view .LVU233
+ 996 004c FA20     		movs	r0, #250
+ 997 004e 8000     		lsls	r0, r0, #2
+ 998 0050 FFF7FEFF 		bl	HAL_Delay
+ 999              	.LVL97:
  126:Core/Src/main.c ****   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
- 1053              		.loc 1 126 3 view .LVU230
- 1054 0054 0022     		movs	r2, #0
- 1055 0056 0121     		movs	r1, #1
- 1056 0058 2000     		movs	r0, r4
- 1057 005a FFF7FEFF 		bl	HAL_GPIO_WritePin
- 1058              	.LVL90:
+ 1000              		.loc 1 126 3 view .LVU234
+ 1001 0054 0022     		movs	r2, #0
+ 1002 0056 0121     		movs	r1, #1
+ 1003 0058 2000     		movs	r0, r4
+ 1004 005a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1005              	.LVL98:
  127:Core/Src/main.c **** 
- 1059              		.loc 1 127 3 view .LVU231
- 1060 005e 0022     		movs	r2, #0
- 1061 0060 0221     		movs	r1, #2
- 1062 0062 2000     		movs	r0, r4
- 1063 0064 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 1064              	.LVL91:
- 1065              	.L42:
+ 1006              		.loc 1 127 3 view .LVU235
+ 1007 005e 0022     		movs	r2, #0
+ 1008 0060 0221     		movs	r1, #2
+ 1009 0062 2000     		movs	r0, r4
+ 1010 0064 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1011              	.LVL99:
+ 1012              	.L42:
  133:Core/Src/main.c ****   {
- 1066              		.loc 1 133 3 view .LVU232
+ 1013              		.loc 1 133 3 view .LVU236
  138:Core/Src/main.c ****   /* USER CODE END 3 */
- 1067              		.loc 1 138 3 view .LVU233
+ 1014              		.loc 1 138 3 view .LVU237
  133:Core/Src/main.c ****   {
- 1068              		.loc 1 133 9 view .LVU234
- 1069 0068 FEE7     		b	.L42
- 1070              	.L44:
- 1071 006a C046     		.align	2
- 1072              	.L43:
- 1073 006c 00040048 		.word	1207960576
- 1074 0070 00000000 		.word	start_time
- 1075 0074 00000000 		.word	checksum
- 1076 0078 00000000 		.word	end_time
- 1077 007c 00000000 		.word	execution_time
- 1078              		.cfi_endproc
- 1079              	.LFE40:
- 1081              		.global	pin_mask
- 1082              		.section	.bss.pin_mask,"aw",%nobits
- 1083              		.align	1
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 30
+ 1015              		.loc 1 133 9 view .LVU238
+ 1016 0068 FEE7     		b	.L42
+ 1017              	.L44:
+ 1018 006a C046     		.align	2
+ 1019              	.L43:
+ 1020 006c 00040048 		.word	1207960576
+ 1021 0070 00000000 		.word	start_time
+ 1022 0074 00000000 		.word	checksum
+ 1023 0078 00000000 		.word	end_time
+ 1024 007c 00000000 		.word	execution_time
+ 1025              		.cfi_endproc
+ 1026              	.LFE40:
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 29
 
 
- 1086              	pin_mask:
- 1087 0000 0000     		.space	2
- 1088              		.global	checksum
- 1089              		.section	.bss.checksum,"aw",%nobits
- 1090              		.align	3
- 1093              	checksum:
- 1094 0000 00000000 		.space	8
- 1094      00000000 
- 1095              		.global	execution_time
- 1096              		.section	.bss.execution_time,"aw",%nobits
- 1097              		.align	2
- 1100              	execution_time:
- 1101 0000 00000000 		.space	4
- 1102              		.global	end_time
- 1103              		.section	.bss.end_time,"aw",%nobits
- 1104              		.align	2
- 1107              	end_time:
- 1108 0000 00000000 		.space	4
- 1109              		.global	start_time
- 1110              		.section	.bss.start_time,"aw",%nobits
- 1111              		.align	2
- 1114              	start_time:
- 1115 0000 00000000 		.space	4
- 1116              		.text
- 1117              	.Letext0:
- 1118              		.file 3 "C:\\ST\\STM32CubeIDE_1.19.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltool
- 1119              		.file 4 "C:\\ST\\STM32CubeIDE_1.19.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltool
- 1120              		.file 5 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f051x8.h"
- 1121              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_def.h"
- 1122              		.file 7 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h"
- 1123              		.file 8 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
- 1124              		.file 9 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h"
- 1125              		.file 10 "<built-in>"
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s 			page 31
+ 1028              		.global	pin_mask
+ 1029              		.section	.bss.pin_mask,"aw",%nobits
+ 1030              		.align	1
+ 1033              	pin_mask:
+ 1034 0000 0000     		.space	2
+ 1035              		.global	checksum
+ 1036              		.section	.bss.checksum,"aw",%nobits
+ 1037              		.align	3
+ 1040              	checksum:
+ 1041 0000 00000000 		.space	8
+ 1041      00000000 
+ 1042              		.global	execution_time
+ 1043              		.section	.bss.execution_time,"aw",%nobits
+ 1044              		.align	2
+ 1047              	execution_time:
+ 1048 0000 00000000 		.space	4
+ 1049              		.global	end_time
+ 1050              		.section	.bss.end_time,"aw",%nobits
+ 1051              		.align	2
+ 1054              	end_time:
+ 1055 0000 00000000 		.space	4
+ 1056              		.global	start_time
+ 1057              		.section	.bss.start_time,"aw",%nobits
+ 1058              		.align	2
+ 1061              	start_time:
+ 1062 0000 00000000 		.space	4
+ 1063              		.text
+ 1064              	.Letext0:
+ 1065              		.file 3 "C:\\ST\\STM32CubeIDE_1.19.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltool
+ 1066              		.file 4 "C:\\ST\\STM32CubeIDE_1.19.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltool
+ 1067              		.file 5 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f051x8.h"
+ 1068              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_def.h"
+ 1069              		.file 7 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h"
+ 1070              		.file 8 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h"
+ 1071              		.file 9 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h"
+ 1072              		.file 10 "<built-in>"
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s 			page 30
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:19     .text.MX_GPIO_Init:00000000 $t
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:24     .text.MX_GPIO_Init:00000000 MX_GPIO_Init
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:114    .text.MX_GPIO_Init:0000005c $d
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:122    .text.calculate_mandelbrot_fixed_point_arithmetic:00000000 $t
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:128    .text.calculate_mandelbrot_fixed_point_arithmetic:00000000 calculate_mandelbrot_fixed_point_arithmetic
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:482    .text.calculate_mandelbrot_fixed_point_arithmetic:000001a4 $d
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:498    .text.calculate_mandelbrot_double:00000000 $t
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:504    .text.calculate_mandelbrot_double:00000000 calculate_mandelbrot_double
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:835    .text.calculate_mandelbrot_double:00000188 $d
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:843    .text.Error_Handler:00000000 $t
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:849    .text.Error_Handler:00000000 Error_Handler
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:881    .text.SystemClock_Config:00000000 $t
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:887    .text.SystemClock_Config:00000000 SystemClock_Config
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:974    .text.main:00000000 $t
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:980    .text.main:00000000 main
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1073   .text.main:0000006c $d
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1114   .bss.start_time:00000000 start_time
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1093   .bss.checksum:00000000 checksum
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1107   .bss.end_time:00000000 end_time
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1100   .bss.execution_time:00000000 execution_time
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1086   .bss.pin_mask:00000000 pin_mask
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1083   .bss.pin_mask:00000000 $d
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1090   .bss.checksum:00000000 $d
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1097   .bss.execution_time:00000000 $d
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1104   .bss.end_time:00000000 $d
-C:\Users\thoma\AppData\Local\Temp\cc1AlvWh.s:1111   .bss.start_time:00000000 $d
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:19     .text.MX_GPIO_Init:00000000 $t
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:24     .text.MX_GPIO_Init:00000000 MX_GPIO_Init
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:114    .text.MX_GPIO_Init:0000005c $d
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:122    .text.calculate_mandelbrot_fixed_point_arithmetic:00000000 $t
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:128    .text.calculate_mandelbrot_fixed_point_arithmetic:00000000 calculate_mandelbrot_fixed_point_arithmetic
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:429    .text.calculate_mandelbrot_fixed_point_arithmetic:00000130 $d
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:445    .text.calculate_mandelbrot_double:00000000 $t
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:451    .text.calculate_mandelbrot_double:00000000 calculate_mandelbrot_double
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:782    .text.calculate_mandelbrot_double:00000188 $d
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:790    .text.Error_Handler:00000000 $t
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:796    .text.Error_Handler:00000000 Error_Handler
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:828    .text.SystemClock_Config:00000000 $t
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:834    .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:921    .text.main:00000000 $t
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:927    .text.main:00000000 main
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1020   .text.main:0000006c $d
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1061   .bss.start_time:00000000 start_time
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1040   .bss.checksum:00000000 checksum
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1054   .bss.end_time:00000000 end_time
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1047   .bss.execution_time:00000000 execution_time
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1033   .bss.pin_mask:00000000 pin_mask
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1030   .bss.pin_mask:00000000 $d
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1037   .bss.checksum:00000000 $d
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1044   .bss.execution_time:00000000 $d
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1051   .bss.end_time:00000000 $d
+C:\Users\thoma\AppData\Local\Temp\cc90nVvl.s:1058   .bss.start_time:00000000 $d
 
 UNDEFINED SYMBOLS
 memset
 HAL_GPIO_WritePin
 HAL_GPIO_Init
-__aeabi_uldivmod
 __aeabi_lmul
+__aeabi_uldivmod
 __aeabi_ui2d
 __aeabi_i2d
 __aeabi_ddiv
