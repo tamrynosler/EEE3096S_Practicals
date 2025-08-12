@@ -210,9 +210,9 @@ uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int 
 
     //TODO: Complete the function implementation
   	//checksum = 0;
-    uint64_t s = 1000000; //10^6 scale factor
-    uint32_t x_0 = 0;
-    uint32_t y_0 = 0;
+    uint64_t s = 100000000; //10^8 scale factor
+    uint64_t x_0 = 0;
+    uint64_t y_0 = 0;
     uint32_t x_i;
     uint32_t y_i;
     uint64_t iteration;
@@ -221,10 +221,8 @@ uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int 
     {
     	for (uint32_t x = 0; x <= width-1; x++)
     	{
-    		//x_0temp = (x*s)/width;
-    		x_0 = ((((x*s)/width)/s)*((uint32_t)(3500000)) - ((uint32_t)(2500000)))/s;
-    		//y_0temp = (y*s)/height;
-    		y_0 = ((((y*s)/height)/s)*((uint32_t)(2*s)) - ((uint32_t)(1*s)))/s;
+    		x_0 = ((((x*s)/width)/s)*((uint64_t)(3.5*s)) - ((uint64_t)(2.5*s)))/s;
+    		y_0 = ((((y*s)/height)/s)*((uint64_t)(2*s)) - ((uint64_t)(1*s)))/s;
     		x_i = 0;
     		y_i = 0;
     		iteration = 0;
