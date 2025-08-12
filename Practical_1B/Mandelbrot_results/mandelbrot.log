@@ -1,0 +1,10 @@
+2025-08-12 10:18 - INFO - Mandelbrot Performance Benchmarking
+2025-08-12 10:18 - INFO - 
+Resolution | Time    | Checksum | Image File            
+-----------+---------+----------+-----------------------
+128x128    | 0.049 s | 429384   | mandelbrot_128×128.png
+160x160    | 0.074 s | 669829   | mandelbrot_160×160.png
+192x192    | 0.111 s | 966024   | mandelbrot_192×192.png
+224x224    | 0.154 s | 1314999  | mandelbrot_224×224.png
+256x256    | 0.196 s | 1715812  | mandelbrot_256×256.png
+2025-08-12 10:18 - INFO - Mandelbrot benchmarking completed
