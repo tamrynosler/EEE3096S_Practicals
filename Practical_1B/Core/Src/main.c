@@ -107,7 +107,7 @@ int main(void)
   start_time = HAL_GetTick();
   
   //TODO: Call the Mandelbrot Function and store the output in the checksum variable defined initially
-  //checksum = calculate_mandelbrot_fixed_point_arithmetic(128, 128, MAX_ITER);
+  //checksum = calculate_mandelbrot_fixed_point_arithmetic(256, 256, MAX_ITER);
   checksum = calculate_mandelbrot_double(128, 128, MAX_ITER);
 
   //TODO: Record the end time
@@ -211,10 +211,8 @@ uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int 
     //TODO: Complete the function implementation
   	//checksum = 0;
     uint64_t s = 1000000; //10^6 scale factor
-    uint64_t x_0 = 10;
-    uint64_t y_0 = 10;
-    //uint64_t x_0temp;
-    //uint64_t y_0temp;
+    uint32_t x_0 = 0;
+    uint32_t y_0 = 0;
     uint32_t x_i;
     uint32_t y_i;
     uint64_t iteration;
@@ -224,9 +222,9 @@ uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int 
     	for (uint32_t x = 0; x <= width-1; x++)
     	{
     		//x_0temp = (x*s)/width;
-    		x_0 = ((((x*s)/width)/s)*((int)(3.5*s)) - ((int)(2.5*s)))/s;
+    		x_0 = ((((x*s)/width)/s)*((uint32_t)(3500000)) - ((uint32_t)(2500000)))/s;
     		//y_0temp = (y*s)/height;
-    		y_0 = ((((y*s)/height)/s)*((int)(2.0*s)) - ((int)(1.0*s)))/s;
+    		y_0 = ((((y*s)/height)/s)*((uint32_t)(2*s)) - ((uint32_t)(1*s)))/s;
     		x_i = 0;
     		y_i = 0;
     		iteration = 0;
@@ -263,15 +261,15 @@ uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
     {
     	for(uint32_t x = 0; x <= width - 1; x++)
     	{
-    		x_0 = (x/width)*3.5 - 2.5;
-    		y_0 = (y/height)*2 - 1;
+    		x_0 = ((double)(x)/(double)(width))*3.5 - 2.5;
+    		y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
     		x_i = 0;
     		y_i = 0;
     		iteration = 0;
     		while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4)
     		{
     			temp = x_i*x_i - y_i*y_i;
-    			y_i = 2*x_i*y_i + y_0;
+    			y_i = 2.0*x_i*y_i + y_0;
     			x_i = temp + x_0;
     			iteration = iteration + 1;
 
