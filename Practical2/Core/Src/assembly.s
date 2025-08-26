@@ -73,6 +73,7 @@ main_loop:
 	CMP R0, #0
 	BEQ sw3_pressed @ branch sw3_pressed
 
+	B continue
 	@ if SW0 true:
 
 	sw0_pressed:
@@ -90,7 +91,6 @@ main_loop:
 		@ set timer to SHORT_DELAY_CNT
 		LDR R7, =SHORT_DELAY_CNT
     	LDR R7, [R7]
-		@MOVS R7, SHORT_DELAY_CNT
 		B continue
 
 	@ if SW2 true:
@@ -131,5 +131,5 @@ GPIOB_BASE:  		.word 0x48000400
 MODER_OUTPUT: 		.word 0x5555
 
 @ TODO: Add your own values for these delays
-LONG_DELAY_CNT: 	.word 8400000 @0.7s
-SHORT_DELAY_CNT: 	.word 3600000 @0.3s
+LONG_DELAY_CNT: 	.word 1400000 @0.7s
+SHORT_DELAY_CNT: 	.word 600000 @0.3s
