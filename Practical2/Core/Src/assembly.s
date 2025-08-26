@@ -53,39 +53,37 @@ main_loop:
 	MOVS R0, #0x01
 	ANDS R0, R0, R5 @ true if button NOT pressed
 	CMP R0, #0
-	BLEQ sw0_pressed @ branch sw0_pressed
+	BEQ sw0_pressed @ branch sw0_pressed
 
 	@ compare register SW1 and true
-	@AND R6, R5, #0x02 @ true if button NOT pressed
-	@CMP R6, #0
-	@BEQ sw1_pressed @ branch sw1_pressed
+	MOVS R0, #0x02
+	ANDS R0, R0, R5 @ true if button NOT pressed
+	CMP R0, #0
+	BEQ sw1_pressed @ branch sw1_pressed
 
 	@ compare register SW2 and true
-	@AND R6, R5, #0x04 @ true if button NOT pressed
-	@CMP R6, #0
-	@BEQ sw2_pressed @ branch sw2_pressed
+	MOVS R0, #0x04
+	ANDS R0, R0, R5 @ true if button NOT pressed
+	CMP R0, #0
+	BEQ sw2_pressed @ branch sw2_pressed
 
 	@ compare register SW3 and true
-	@AND R6, R5, #0x08 @ true if button NOT pressed
-	@CMP R6, #0
-	@BEQ sw3_pressed @ branch sw3_pressed
+	MOVS R0, #0x08
+	ANDS R0, R0, R5 @ true if button NOT pressed
+	CMP R0, #0
+	BEQ sw3_pressed @ branch sw3_pressed
 
-	@ ------------------increment & display -------------------------------
-	@ Delay(timer) ?? delay or interrupts?
-	BL delay_loop
-	ADD R2, R2, R4 @ LED state <- LED state + increment [R2]
-	B write_leds @ display LED state
 	@ if SW0 true:
 
 	sw0_pressed:
 		@ set increment to 2
 		MOVS R4, #2
 		@ compare register SW1 and true
-		@MOVS R0, 0x02
-		@AND R6, R5, #0x02 @ true if button NOT pressed
-		@CMP R6, #0
-		@BEQ sw1_pressed @ branch sw1_pressed
-		BX lr
+		MOVS R0, #0x02
+		ANDS R0, R0, R5 @ true if button NOT pressed
+		CMP R0, #0
+		BEQ sw1_pressed @ branch sw1_pressed
+		B continue
 
 	@ if SW1 true:
 	sw1_pressed:
@@ -93,6 +91,7 @@ main_loop:
 		LDR R7, =SHORT_DELAY_CNT
     	LDR R7, [R7]
 		@MOVS R7, SHORT_DELAY_CNT
+		B continue
 
 	@ if SW2 true:
 	sw2_pressed:
@@ -100,12 +99,20 @@ main_loop:
 		MOVS R2, #0xAA
 		@ set increment to 0
 		MOVS R4, #0
-
+		B continue
 
 	@ if SW3 true:
 	sw3_pressed:
 		@ set increment to 0
 		MOVS R4, #0
+		B continue
+
+	continue:
+		@ ------------------increment & display -------------------------------
+		@ Delay(timer) ?? delay or interrupts?
+		BL delay_loop
+		ADD R2, R2, R4 @ LED state <- LED state + increment [R2]
+		B write_leds @ display LED state
 
 write_leds:
 	STR R2, [R1, #0x14]
