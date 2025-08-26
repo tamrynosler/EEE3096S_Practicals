@@ -35,33 +35,40 @@ ASM_Main:
 @ TODO: Add code, labels and logic for button checks and LED patterns
 
 main_loop:
+
 	@ reset timer and increment to default values
 	MOVS R4, #1 @ R4 stores the increment
 	@ set timer to LONG_DELAY_CNT
-	MOVS R7, LONG_DELAY_CNT
+	LDR R7, =LONG_DELAY_CNT
+    LDR R7, [R7]
+	@MOVS R7, LONG_DELAY_CNT
 
 	@ ------------------Checks push buttons -------------------------------
 	@check push button button registers
-	LDR R5, [R0, 0x10]
+	LDR R0, GPIOA_BASE
+	LDR R5, [R0, #0x10]
+
+
 	@ compare register SW0 and true
-	AND R6, R5, #0b00000001 @ true if button NOT pressed
+	MOVS R0, #0x01
+	ANDS R0, R0, R5 @ true if button NOT pressed
 	CMP R6, #0
 	BEQ sw0_pressed @ branch sw0_pressed
 
 	@ compare register SW1 and true
-	AND R6, R5, #0b00000010 @ true if button NOT pressed
-	CMP R6, #0
-	BEQ sw1_pressed @ branch sw1_pressed
+	@AND R6, R5, #0x02 @ true if button NOT pressed
+	@CMP R6, #0
+	@BEQ sw1_pressed @ branch sw1_pressed
 
 	@ compare register SW2 and true
-	AND R6, R5, #0b00000100 @ true if button NOT pressed
-	CMP R6, #0
-	BEQ sw2_pressed @ branch sw2_pressed
+	@AND R6, R5, #0x04 @ true if button NOT pressed
+	@CMP R6, #0
+	@BEQ sw2_pressed @ branch sw2_pressed
 
 	@ compare register SW3 and true
-	AND R6, R5, #0b00001000 @ true if button NOT pressed
-	CMP R6, #0
-	BEQ sw3_pressed @ branch sw3_pressed
+	@AND R6, R5, #0x08 @ true if button NOT pressed
+	@CMP R6, #0
+	@BEQ sw3_pressed @ branch sw3_pressed
 
 
 	@ if SW0 true:
@@ -69,14 +76,17 @@ main_loop:
 		@ set increment to 2
 		MOVS R4, #2
 		@ compare register SW1 and true
-		AND R6, R5, #0b00000010 @ true if button NOT pressed
-		CMP R6, #0
-		BEQ sw1_pressed @ branch sw1_pressed
+		@MOVS R0, 0x02
+		@AND R6, R5, #0x02 @ true if button NOT pressed
+		@CMP R6, #0
+		@BEQ sw1_pressed @ branch sw1_pressed
 
 	@ if SW1 true:
 	sw1_pressed:
 		@ set timer to SHORT_DELAY_CNT
-		MOVS R7, SHORT_DELAY_CNT
+		LDR R7, =SHORT_DELAY_CNT
+    	LDR R7, [R7]
+		@MOVS R7, SHORT_DELAY_CNT
 
 	@ if SW2 true:
 	sw2_pressed:
