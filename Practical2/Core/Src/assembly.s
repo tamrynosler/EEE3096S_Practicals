@@ -85,22 +85,27 @@ main_loop:
 		@ set increment to 0
 		MOVS R4, #0
 
+
 	@ if SW3 true:
 	sw3_pressed:
 		@ set increment to 0
 		MOVS R4, #0
 
+
 	@ ------------------increment & display -------------------------------
-	@ LED state <- LED state + increment [R2]
-	ADD R2, R2, R4
-	@ display LED state
-	@ "complete" write_leds
 	@ Delay(timer) ?? delay or interrupts?
+	BL delay_loop
+	ADD R2, R2, R4 @ LED state <- LED state + increment [R2]
+	B write_leds @ display LED state
 
 write_leds:
 	STR R2, [R1, #0x14]
 	B main_loop
 
+delay_loop:
+	SUBS R7, R7, #1
+	BNE delay_loop
+	BX lr
 @ LITERALS; DO NOT EDIT
 	.align
 RCC_BASE: 			.word 0x40021000
@@ -110,5 +115,5 @@ GPIOB_BASE:  		.word 0x48000400
 MODER_OUTPUT: 		.word 0x5555
 
 @ TODO: Add your own values for these delays
-LONG_DELAY_CNT: 	.word 700 @0.7s
-SHORT_DELAY_CNT: 	.word 300 @0.3s
+LONG_DELAY_CNT: 	.word 8400000 @0.7s
+SHORT_DELAY_CNT: 	.word 3600000 @0.3s
