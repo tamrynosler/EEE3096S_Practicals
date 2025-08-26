@@ -38,33 +38,45 @@ main_loop:
 	@ reset timer and increment to default values
 	MOVS R4, #1 @ R4 stores the increment
 	@ set timer to LONG_DELAY_CNT
+	MOVS R7, LONG_DELAY_CNT
 
 	@ ------------------Checks push buttons -------------------------------
 	@check push button button registers
+	LDR R5, [R0, 0x10]
 	@ compare register SW0 and true
-	@ branch sw0_pressed
+	AND R6, R5, #0b00000001 @ true if button NOT pressed
+	CMP R6, #0
+	BEQ sw0_pressed @ branch sw0_pressed
 
 	@ compare register SW1 and true
-	@ branch sw1_pressed
+	AND R6, R5, #0b00000010 @ true if button NOT pressed
+	CMP R6, #0
+	BEQ sw1_pressed @ branch sw1_pressed
 
 	@ compare register SW2 and true
-	@ branch sw2_pressed
+	AND R6, R5, #0b00000100 @ true if button NOT pressed
+	CMP R6, #0
+	BEQ sw2_pressed @ branch sw2_pressed
 
 	@ compare register SW3 and true
-	@ branch sw3_pressed
+	AND R6, R5, #0b00001000 @ true if button NOT pressed
+	CMP R6, #0
+	BEQ sw3_pressed @ branch sw3_pressed
 
-	@ update button flags? Can we just check registers directly?
 
 	@ if SW0 true:
 	sw0_pressed:
 		@ set increment to 2
 		MOVS R4, #2
 		@ compare register SW1 and true
-		@ branch sw1_pressed
+		AND R6, R5, #0b00000010 @ true if button NOT pressed
+		CMP R6, #0
+		BEQ sw1_pressed @ branch sw1_pressed
 
 	@ if SW1 true:
 	sw1_pressed:
 		@ set timer to SHORT_DELAY_CNT
+		MOVS R7, SHORT_DELAY_CNT
 
 	@ if SW2 true:
 	sw2_pressed:
@@ -82,6 +94,7 @@ main_loop:
 	@ LED state <- LED state + increment [R2]
 	ADD R2, R2, R4
 	@ display LED state
+	@ "complete" write_leds
 	@ Delay(timer) ?? delay or interrupts?
 
 write_leds:
