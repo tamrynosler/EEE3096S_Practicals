@@ -35,7 +35,54 @@ ASM_Main:
 @ TODO: Add code, labels and logic for button checks and LED patterns
 
 main_loop:
+	@ reset timer and increment to default values
+	MOVS R4, #1 @ R4 stores the increment
+	@ set timer to LONG_DELAY_CNT
 
+	@ ------------------Checks push buttons -------------------------------
+	@check push button button registers
+	@ compare register SW0 and true
+	@ branch sw0_pressed
+
+	@ compare register SW1 and true
+	@ branch sw1_pressed
+
+	@ compare register SW2 and true
+	@ branch sw2_pressed
+
+	@ compare register SW3 and true
+	@ branch sw3_pressed
+
+	@ update button flags? Can we just check registers directly?
+
+	@ if SW0 true:
+	sw0_pressed:
+		@ set increment to 2
+		MOVS R4, #2
+		@ compare register SW1 and true
+		@ branch sw1_pressed
+
+	@ if SW1 true:
+	sw1_pressed:
+		@ set timer to SHORT_DELAY_CNT
+
+	@ if SW2 true:
+	sw2_pressed:
+		@ set LED state to 0xAA
+		MOVS R2, #0xAA
+		@ set increment to 0
+		MOVS R4, #0
+
+	@ if SW3 true:
+	sw3_pressed:
+		@ set increment to 0
+		MOVS R4, #0
+
+	@ ------------------increment & display -------------------------------
+	@ LED state <- LED state + increment [R2]
+	ADD R2, R2, R4
+	@ display LED state
+	@ Delay(timer) ?? delay or interrupts?
 
 write_leds:
 	STR R2, [R1, #0x14]
@@ -50,5 +97,5 @@ GPIOB_BASE:  		.word 0x48000400
 MODER_OUTPUT: 		.word 0x5555
 
 @ TODO: Add your own values for these delays
-LONG_DELAY_CNT: 	.word 0
-SHORT_DELAY_CNT: 	.word 0
+LONG_DELAY_CNT: 	.word 700 @0.7s
+SHORT_DELAY_CNT: 	.word 300 @0.3s
