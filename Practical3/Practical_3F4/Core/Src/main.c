@@ -26,6 +26,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+#define MAX_ITER 100
 
 /* USER CODE END PTD */
 
@@ -45,6 +46,17 @@
 //TODO: Define variables you think you might need
 // - Performance timing variables (e.g execution time, throughput, pixels per second, clock cycles)
 
+//Mandelbrot Variables
+//********************************************************************
+  uint32_t start_time = 0;
+  uint32_t end_time = 0;
+  uint32_t execution_time = 0;
+  uint64_t checksum = 0;
+  uint16_t pin_mask = 0;
+  //*******************************************************************
+  //End Mandelbrot variables
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -52,6 +64,9 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 //TODO: Define any function prototypes you might need such as the calculate Mandelbrot function among others
+
+  uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int max_iterations);
+  uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations);
 
 /* USER CODE END PFP */
 
@@ -95,26 +110,43 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+  //while (1)
+  //{
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 	  //TODO: Visual indicator: Turn on LED0 to signal processing start
-
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
 
 	  //TODO: Benchmark and Profile Performance
 
+	  //Start time
+	  start_time = HAL_GetTick();
+
+	  //Call mandelbrot function
+	  checksum = calculate_mandelbrot_fixed_point_arithmetic(256, 256, MAX_ITER);
+	  //checksum = calculate_mandelbrot_double(256, 256, MAX_ITER);
+
+	  //End time
+	  end_time = HAL_GetTick();
+
+	  execution_time = end_time - start_time;
+
+
+
 
 	  //TODO: Visual indicator: Turn on LED1 to signal processing start
-
+	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
 
 	  //TODO: Keep the LEDs ON for 2s
+	    HAL_Delay(2000); // waits 1000 ms (1 second)
 
 	  //TODO: Turn OFF LEDs
+	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
   }
   /* USER CODE END 3 */
-}
+//}
 
 /**
   * @brief System Clock Configuration
@@ -199,6 +231,90 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 //TODO: Function signatures you defined previously , implement them here
+
+	//Start Mandelbrot functions
+//******************************************************************************************************
+	uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int max_iterations){
+	  uint64_t mandelbrot_sum = 0;
+
+
+
+		int s = 10000; //10^4 scale factor (so that overflow doesnt occur on 32bit ints)
+		int s3_5 = 3.5*s;
+		int s2_5 = 2.5*s;
+		int x_0 = 0;
+		int y_0 = 0;
+		int x_i;
+		int y_i;
+		uint64_t iteration;
+		int64_t temp; //Prevent overflow by making 64bit
+
+		for (uint32_t y = 0; y <= height-1; y++)
+		{
+			for (uint32_t x = 0; x <= width-1; x++)
+			{
+				x_0 = ((((x*s)/width))*(s3_5)/s - (s2_5));
+				y_0 = ((((y*s)/height))*(2*s)/s - (s));
+				x_i = 0;
+				y_i = 0;
+				iteration = 0;
+				while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4*s*s)
+				{
+					temp = x_i*x_i/s - y_i*y_i/s;
+					y_i = 2*x_i*y_i/s + y_0;
+					x_i = temp + x_0;
+					iteration = iteration+1;
+				}
+				mandelbrot_sum = mandelbrot_sum + iteration;
+			}
+		}
+		return mandelbrot_sum;
+
+	}
+
+
+
+
+	uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
+
+
+		uint64_t mandelbrot_sum = 0;
+
+
+
+		double x_0;
+		double y_0;
+		double x_i;
+		double y_i;
+		uint64_t iteration;
+		double temp;
+
+		for(uint32_t y = 0; y <= height - 1; y++)
+		{
+			for(uint32_t x = 0; x <= width - 1; x++)
+			{
+				x_0 = ((double)(x)/(double)(width))*3.5 - 2.5;
+				y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
+				x_i = 0;
+				y_i = 0;
+				iteration = 0;
+				while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4)
+				{
+					temp = x_i*x_i - y_i*y_i;
+					y_i = 2.0*x_i*y_i + y_0;
+					x_i = temp + x_0;
+					iteration = iteration + 1;
+
+				}
+				mandelbrot_sum = mandelbrot_sum + iteration;
+			}
+
+		}
+		return mandelbrot_sum;
+	}
+
+	//****************************************************************************************************
+	//End Mandelbrot functions
 
 /* USER CODE END 4 */
 
