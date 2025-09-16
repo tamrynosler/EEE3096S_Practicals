@@ -41,12 +41,11 @@ main_loop:
 	@ set timer to LONG_DELAY_CNT
 	LDR R7, =LONG_DELAY_CNT
     LDR R7, [R7]
-	@MOVS R7, LONG_DELAY_CNT
 
 	@ ------------------Checks push buttons -------------------------------
-	@check push button button registers
-	LDR R0, GPIOA_BASE
-	LDR R5, [R0, #0x10]
+
+	LDR R0, GPIOA_BASE @Load address of GPIOA_BASE into R0
+	LDR R5, [R0, #0x10] @Load the value from offset 0x10 of GPIOA_Base into R5 (IDR)
 
 
 	@ compare register SW0 and true
@@ -79,7 +78,7 @@ main_loop:
 	sw0_pressed:
 		@ set increment to 2
 		MOVS R4, #2
-		@ compare register SW1 and true
+		@compare register SW1 and true
 		MOVS R0, #0x02
 		ANDS R0, R0, R5 @ true if button NOT pressed
 		CMP R0, #0
