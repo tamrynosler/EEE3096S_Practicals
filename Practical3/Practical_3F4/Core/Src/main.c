@@ -26,7 +26,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define MAX_ITER 100
+#define MAX_ITER 1000
 
 /* USER CODE END PTD */
 
@@ -50,9 +50,15 @@
 //********************************************************************
   uint32_t start_time = 0;
   uint32_t end_time = 0;
-  uint32_t execution_time = 0;
-  uint64_t checksum = 0;
   uint16_t pin_mask = 0;
+
+  int sizes[] = {128, 160, 192, 224, 256};
+  int num_sizes = 5;
+
+   // Arrays to store results
+  uint64_t checksums[5];
+  uint32_t execution_times[5];
+
   //*******************************************************************
   //End Mandelbrot variables
 
@@ -120,30 +126,36 @@ int main(void)
 
 	  //TODO: Benchmark and Profile Performance
 
-	  //Start time
-	  start_time = HAL_GetTick();
+	  //Automatically step through all image sizes
+	  for (int i = 0; i < num_sizes; i++)
+	    {
+	        int current_size = sizes[i];
 
-	  //Call mandelbrot function
-	  checksum = calculate_mandelbrot_fixed_point_arithmetic(256, 256, MAX_ITER);
-	  //checksum = calculate_mandelbrot_double(256, 256, MAX_ITER);
+			  //Start time
+			  start_time = HAL_GetTick();
 
-	  //End time
-	  end_time = HAL_GetTick();
+			  //Call mandelbrot function
+			  checksums[i] = calculate_mandelbrot_fixed_point_arithmetic(current_size, current_size, MAX_ITER);
+			  //checksum = calculate_mandelbrot_double(256, 256, MAX_ITER);
 
-	  execution_time = end_time - start_time;
+			  //End time
+			  end_time = HAL_GetTick();
+
+			  execution_times[i] = end_time - start_time;
 
 
 
 
-	  //TODO: Visual indicator: Turn on LED1 to signal processing start
-	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
+			  //TODO: Visual indicator: Turn on LED1 to signal processing start
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
 
-	  //TODO: Keep the LEDs ON for 2s
-	    HAL_Delay(2000); // waits 1000 ms (1 second)
+			  //TODO: Keep the LEDs ON for 2s
+				HAL_Delay(2000);
 
-	  //TODO: Turn OFF LEDs
-	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
-	    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
+			  //TODO: Turn OFF LEDs
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
+	    }
   }
   /* USER CODE END 3 */
 //}
