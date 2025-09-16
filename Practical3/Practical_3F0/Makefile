@@ -47,6 +47,8 @@ Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c \
 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.c \
 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c_ex.c \
 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c \
+Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim.c \
+Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.c \
 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_dma.c \
 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.c \
 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_pwr.c \

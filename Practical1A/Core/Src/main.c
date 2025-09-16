@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2023 STMicroelectronics.
+  * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -25,6 +25,7 @@
 #include "stm32f0xx.h"
 #include <stdbool.h>
 #include <stdlib.h>
+#include "stm32f0xx_hal_conf.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -34,7 +35,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define MAX_ITER 100
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -43,33 +44,41 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-TIM_HandleTypeDef htim16;
+TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-// TODO: Define input variables
-uint8_t LED_start_state = 0b00000001;
-uint8_t LED_reset_state = 0b00000000;
-uint8_t LED_state; //state of LED eg. 00000001
-bool fwd_back = true;
-uint8_t pin_mask = 0xFF;
+//TODO: Define variables you think you might need
+//Mandelbrot Variables
+//********************************************************************
+  uint32_t start_time = 0;
+  uint32_t end_time = 0;
+  uint16_t pin_mask = 0;
+  uint64_t start_cnt, end_cnt; //For cycle counting
 
-//variables for sparkle mode:
-uint8_t rNum;
-uint32_t rDelay;
-uint32_t arr_1s; //stores ARR value for 1s timer
+  int sizes[] = {128, 160, 192, 224, 256};
+  int num_sizes = 5;
 
-int LED_mode = 1;
+   // Arrays to store results
+  uint64_t checksums[5];
+  uint32_t execution_times[5];
+  uint64_t cycle_cnt[5];
+  uint32_t throughput[5];
 
-float TIM16Delay = 1; //Stores what current timer delay is
-
+  //*******************************************************************
+  //End Mandelbrot variables
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_TIM16_Init(void);
+static void MX_TIM2_Init(void);
+static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
-void TIM16_IRQHandler(void);
+//TODO: Define any function prototypes you might need such as the calculate Mandelbrot function among others
+	uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int max_iterations);
+	uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -85,6 +94,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -93,86 +103,87 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+
+
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_TIM16_Init();
+  MX_TIM2_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
-  // TODO: Start timer TIM16
-  HAL_TIM_Base_Start_IT(&htim16);
-  arr_1s = __HAL_TIM_GET_AUTORELOAD(&htim16);
+  //Start timer 2 (used to measure cycles)
+    	  	  //TIM2 is initialised to be at the same frequency as the CPU
+    	  	  HAL_TIM_Base_Start(&htim2);
 
 
+  		  //TODO: Visual indicator: Turn on LED0 to signal processing start
+  		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+
+  		  //TODO: Benchmark and Profile Performance
+
+  		  //Automatically step through all image sizes
+  		  for (int i = 0; i < num_sizes; i++)
+  		    {
+  		        int current_size = sizes[i];
+
+  				  //Start time and cycle count
+  				  start_time = HAL_GetTick();
+  				  start_cnt = __HAL_TIM_GET_COUNTER(&htim2);
+
+
+  				  //Call mandelbrot function
+  				  checksums[i] = calculate_mandelbrot_fixed_point_arithmetic(current_size, current_size, MAX_ITER);
+  				  //checksum = calculate_mandelbrot_double(256, 256, MAX_ITER);
+
+  				  //End time and cycle count
+  				  end_time = HAL_GetTick();
+  				  end_cnt = __HAL_TIM_GET_COUNTER(&htim2);
+
+
+  				  execution_times[i] = end_time - start_time;
+  				  throughput[i] = (current_size*current_size)/execution_times[i]; //Throughput in pixels per second
+
+  				  //Cycle count (accounting for overflow of TIM2)
+  				  if (end_cnt >= start_cnt)
+  				      cycle_cnt[i] = end_cnt - start_cnt;
+  				  else
+  				      cycle_cnt[i] = (0xFFFFFFFF - start_cnt) + end_cnt + 1;
+
+
+  				  //TODO: Visual indicator: Turn on LED1 to signal processing start
+  					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
+
+  				  //TODO: Keep the LEDs ON for 2s
+  					HAL_Delay(2000);
+
+  				  //TODO: Turn OFF LEDs
+  					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+  					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
+  		    }
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+	  while (1)
+	  {
 
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 
 
-	  // TODO: Check pushbuttons to change timer delay and pattern type
 
-
-	  	  //If Button 0 is pressed, toggle delay between 0.5s and 1s
-	  	  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == 0)
-	  	  {
-
-	  		  if(TIM16Delay == 1){
-
-	  			 //Changing timer delay (from 1s to 0.5s)
-	  			__HAL_TIM_SET_AUTORELOAD(&htim16, __HAL_TIM_GET_AUTORELOAD(&htim16)/2);
-	  			TIM16Delay = 0.5;
-
-	  		 }else{
-
-	  			__HAL_TIM_SET_AUTORELOAD(&htim16, __HAL_TIM_GET_AUTORELOAD(&htim16)*2);
-	  			TIM16Delay = 1.0;
-	  		 }
-	  	  }
-
-	  	//Check which button has been pressed and set mode accordingly
-	  	if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == 0)
-	  	{
-	  		LED_mode = 1;
-	  		LED_state = LED_start_state;
-	  		fwd_back = true;
-	  		__HAL_TIM_SET_AUTORELOAD(&htim16, (uint32_t)(arr_1s*TIM16Delay));
-	  		GPIOB->BSRR = (pin_mask<<16);
-
-	  	}
-	  	else if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2) == 0)
-	  	{
-	  		LED_mode = 2;
-	  		LED_state = LED_start_state;
-	  		fwd_back = true;
-	  		__HAL_TIM_SET_AUTORELOAD(&htim16, (uint32_t)(arr_1s*TIM16Delay));
-	  		GPIOB->BSRR = (pin_mask<<16);
-
-	  	}
-	  	else if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3) == 0)
-	  	{
-	  		LED_state = LED_reset_state;
-	  		LED_mode = 3;
-	  		fwd_back = true;
-	  	}
-
-
-    
-
-  }
   /* USER CODE END 3 */
 }
 
@@ -182,65 +193,126 @@ int main(void)
   */
 void SystemClock_Config(void)
 {
-  LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
-  while(LL_FLASH_GetLatency() != LL_FLASH_LATENCY_0)
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
+  RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
+    Error_Handler();
   }
-  LL_RCC_HSI_Enable();
 
-   /* Wait till HSI is ready */
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
 
-  }
-  LL_RCC_HSI_SetCalibTrimming(16);
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
-
-   /* Wait till System clock is ready */
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI)
-  {
-
-  }
-  LL_SetSystemCoreClock(8000000);
-
-   /* Update the time base */
-  if (HAL_InitTick (TICK_INT_PRIORITY) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
     Error_Handler();
   }
 }
 
 /**
-  * @brief TIM16 Initialization Function
+  * @brief TIM1 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_TIM16_Init(void)
+static void MX_TIM1_Init(void)
 {
 
-  /* USER CODE BEGIN TIM16_Init 0 */
+  /* USER CODE BEGIN TIM1_Init 0 */
 
-  /* USER CODE END TIM16_Init 0 */
+  /* USER CODE END TIM1_Init 0 */
 
-  /* USER CODE BEGIN TIM16_Init 1 */
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
 
-  /* USER CODE END TIM16_Init 1 */
-  htim16.Instance = TIM16;
-  htim16.Init.Prescaler = 8000-1;
-  htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim16.Init.Period = 1000-1;
-  htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim16.Init.RepetitionCounter = 0;
-  htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
-  if (HAL_TIM_Base_Init(&htim16) != HAL_OK)
+  /* USER CODE BEGIN TIM1_Init 1 */
+
+  /* USER CODE END TIM1_Init 1 */
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 0;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 65535;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim1.Init.RepetitionCounter = 0;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN TIM16_Init 2 */
-  NVIC_EnableIRQ(TIM16_IRQn);
-  /* USER CODE END TIM16_Init 2 */
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM1_Init 2 */
+
+  /* USER CODE END TIM1_Init 2 */
+
+}
+
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 0;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 4294967294;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
 
 }
 
@@ -251,235 +323,122 @@ static void MX_TIM16_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
-  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+
+  /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
-  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOF);
-  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
-  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
+  __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 
-  /**/
-  LL_GPIO_ResetOutputPin(LED0_GPIO_Port, LED0_Pin);
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
+                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7, GPIO_PIN_RESET);
 
-  /**/
-  LL_GPIO_ResetOutputPin(LED1_GPIO_Port, LED1_Pin);
+  /*Configure GPIO pins : PB0 PB1 PB2 PB3
+                           PB4 PB5 PB6 PB7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
+                          |GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /**/
-  LL_GPIO_ResetOutputPin(LED2_GPIO_Port, LED2_Pin);
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
 
-  /**/
-  LL_GPIO_ResetOutputPin(LED3_GPIO_Port, LED3_Pin);
-
-  /**/
-  LL_GPIO_ResetOutputPin(LED4_GPIO_Port, LED4_Pin);
-
-  /**/
-  LL_GPIO_ResetOutputPin(LED5_GPIO_Port, LED5_Pin);
-
-  /**/
-  LL_GPIO_ResetOutputPin(LED6_GPIO_Port, LED6_Pin);
-
-  /**/
-  LL_GPIO_ResetOutputPin(LED7_GPIO_Port, LED7_Pin);
-
-  /**/
-  GPIO_InitStruct.Pin = Button0_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-  LL_GPIO_Init(Button0_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = Button1_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-  LL_GPIO_Init(Button1_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = Button2_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-  LL_GPIO_Init(Button2_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = Button3_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-  LL_GPIO_Init(Button3_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = LED0_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED0_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = LED1_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED1_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = LED2_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED2_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = LED3_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED3_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = LED4_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED4_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = LED5_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED5_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = LED6_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED6_GPIO_Port, &GPIO_InitStruct);
-
-  /**/
-  GPIO_InitStruct.Pin = LED7_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(LED7_GPIO_Port, &GPIO_InitStruct);
-
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
+  /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
-void TIM16_IRQHandler(void)
-{
-	// Acknowledge interrupt
-	HAL_TIM_IRQHandler(&htim16);
+//TODO: Function signatures you defined previously , implement them here
 
-	// TODO: Change LED pattern
-	//check if we need to change between forwards/backwards
-	if(LED_state==0b10000000 && fwd_back==true)//if forward
+//Start Mandelbrot functions
+//******************************************************************************************************
+uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int max_iterations){
+  uint64_t mandelbrot_sum = 0;
+
+
+
+	int s = 10000; //10^4 scale factor (so that overflow doesnt occur on 32bit ints)
+	int s3_5 = 3.5*s;
+	int s2_5 = 2.5*s;
+	int x_0 = 0;
+	int y_0 = 0;
+	int x_i;
+	int y_i;
+	uint64_t iteration;
+	int64_t temp; //Prevent overflow by making 64bit
+
+	for (uint32_t y = 0; y <= height-1; y++)
 	{
-		fwd_back = false;//change to backwards
-	}
-	if(LED_state==0b00000001 && fwd_back==false)
-	{
-		fwd_back = true;
-	}
-
-	//Checks which mode the system is in
-	if(LED_mode == 1)
-	{
-		if(fwd_back==true)
+		for (uint32_t x = 0; x <= width-1; x++)
 		{
-
-			GPIOB->BSRR = (pin_mask<<16);
-			GPIOB->BSRR = LED_state&pin_mask;//display
-			LED_state = LED_state<<1;//move forwards in pattern
-		}
-		else
-		{
-
-			GPIOB->BSRR = (pin_mask<<16);
-			GPIOB->BSRR = LED_state&pin_mask;//display
-			LED_state = LED_state>>1;//move backwards in pattern
-		}
-	}
-
-	else if(LED_mode == 2)
-	{
-		if(fwd_back==true)
-		{
-
-			GPIOB->BSRR = (pin_mask<<16);
-			GPIOB->BSRR = (~LED_state)&pin_mask;//display inverse
-			LED_state = LED_state<<1;//move forwards in pattern
-		}
-		else
-		{
-
-			GPIOB->BSRR = (pin_mask<<16);
-			GPIOB->BSRR = (~LED_state)&pin_mask;//display inverse
-			LED_state = LED_state>>1;//move backwards in pattern
-		}
-	}
-	else if(LED_mode == 3)
-	{
-		if (LED_state == 0)
-		{
-			rNum = rand() % 256;//generate rNum
-			rDelay = (rand() % 80) + 20;//generate rDelay (no zero allowed)
-
-
-			__HAL_TIM_SET_AUTORELOAD(&htim16, (arr_1s/1000.0)*rDelay*10);
-
-			LED_state = rNum;
-			GPIOB->BSRR = (pin_mask<<16);
-			GPIOB->BSRR = LED_state&pin_mask;//display LED_state
-		}
-		else{
-
-
-			__HAL_TIM_SET_AUTORELOAD(&htim16, (arr_1s/1000.0*rDelay));
-
-
-			uint8_t bit_positions[8];
-			uint8_t count = 0; //Size of array holding positions of LEDs that are on
-
-			//Finding out which LEDs are on, and creating an array with their position values
-			for(uint8_t i = 0; i < 8; i++)
+			x_0 = ((((x*s)/width))*(s3_5)/s - (s2_5));
+			y_0 = ((((y*s)/height))*(2*s)/s - (s));
+			x_i = 0;
+			y_i = 0;
+			iteration = 0;
+			while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4*s*s)
 			{
-				if((LED_state >> i) & 1){
-					bit_positions[count++] = i;
-				}
+				temp = x_i*x_i/s - y_i*y_i/s;
+				y_i = 2*x_i*y_i/s + y_0;
+				x_i = temp + x_0;
+				iteration = iteration+1;
 			}
-
-			//Random number between 0 and count (random LED to turn off out of those that are on)
-			uint8_t randLEDTurnOff = rand()%count;
-
-			//Creating bitmask to use to just turn off the randomly selected LED
-			uint8_t LED_off_bitmask = ~(0b00000001 << bit_positions[randLEDTurnOff]);
-
-			LED_state = LED_state & LED_off_bitmask; //New LED state with one less on
-
-			GPIOB->BSRR = (pin_mask<<16);
-			GPIOB->BSRR = LED_state&pin_mask; //Display new LED state
+			mandelbrot_sum = mandelbrot_sum + iteration;
 		}
-
-
-
 	}
-
-
-
+	return mandelbrot_sum;
 
 }
+
+
+
+
+uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
+
+
+	uint64_t mandelbrot_sum = 0;
+
+
+
+	double x_0;
+	double y_0;
+	double x_i;
+	double y_i;
+	uint64_t iteration;
+	double temp;
+
+	for(uint32_t y = 0; y <= height - 1; y++)
+	{
+		for(uint32_t x = 0; x <= width - 1; x++)
+		{
+			x_0 = ((double)(x)/(double)(width))*3.5 - 2.5;
+			y_0 = ((double)(y)/(double)(height))*2.0 - 1.0;
+			x_i = 0;
+			y_i = 0;
+			iteration = 0;
+			while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4)
+			{
+				temp = x_i*x_i - y_i*y_i;
+				y_i = 2.0*x_i*y_i + y_0;
+				x_i = temp + x_0;
+				iteration = iteration + 1;
+
+			}
+			mandelbrot_sum = mandelbrot_sum + iteration;
+		}
+
+	}
+	return mandelbrot_sum;
+}
+
+//****************************************************************************************************
+//End Mandelbrot functions
+
+
 
 
 /* USER CODE END 4 */
@@ -498,8 +457,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.

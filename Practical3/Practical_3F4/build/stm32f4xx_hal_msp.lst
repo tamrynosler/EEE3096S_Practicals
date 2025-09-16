@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\ccbOz23j.s 			page 1
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\ccbOz23j.s 			page 1
   28:Core/Src/stm32f4xx_hal_msp.c **** /* USER CODE BEGIN TD */
   29:Core/Src/stm32f4xx_hal_msp.c **** 
   30:Core/Src/stm32f4xx_hal_msp.c **** /* USER CODE END TD */
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\ccbOz23j.s 			page 2
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s 			page 2
 
 
   31:Core/Src/stm32f4xx_hal_msp.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\ccbOz23j.s 			page 1
   43 0006 0B4B     		ldr	r3, .L3
   44 0008 5A6C     		ldr	r2, [r3, #68]
   45 000a 42F48042 		orr	r2, r2, #16384
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\ccbOz23j.s 			page 3
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s 			page 3
 
 
   46 000e 5A64     		str	r2, [r3, #68]
@@ -166,18 +166,176 @@ ARM GAS  C:\Users\thoma\AppData\Local\Temp\ccbOz23j.s 			page 1
   80 0034 00380240 		.word	1073887232
   81              		.cfi_endproc
   82              	.LFE134:
-  84              		.text
-  85              	.Letext0:
-  86              		.file 2 "C:\\ST\\STM32CubeIDE_1.19.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltool
-  87              		.file 3 "C:\\ST\\STM32CubeIDE_1.19.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltool
-  88              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
-ARM GAS  C:\Users\thoma\AppData\Local\Temp\ccbOz23j.s 			page 4
+  84              		.section	.text.HAL_TIM_Base_MspInit,"ax",%progbits
+  85              		.align	1
+  86              		.global	HAL_TIM_Base_MspInit
+  87              		.syntax unified
+  88              		.thumb
+  89              		.thumb_func
+  91              	HAL_TIM_Base_MspInit:
+  92              	.LVL0:
+  93              	.LFB135:
+  79:Core/Src/stm32f4xx_hal_msp.c **** 
+  80:Core/Src/stm32f4xx_hal_msp.c **** /**
+  81:Core/Src/stm32f4xx_hal_msp.c ****   * @brief TIM_Base MSP Initialization
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s 			page 4
+
+
+  82:Core/Src/stm32f4xx_hal_msp.c ****   * This function configures the hardware resources used in this example
+  83:Core/Src/stm32f4xx_hal_msp.c ****   * @param htim_base: TIM_Base handle pointer
+  84:Core/Src/stm32f4xx_hal_msp.c ****   * @retval None
+  85:Core/Src/stm32f4xx_hal_msp.c ****   */
+  86:Core/Src/stm32f4xx_hal_msp.c **** void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
+  87:Core/Src/stm32f4xx_hal_msp.c **** {
+  94              		.loc 1 87 1 is_stmt 1 view -0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 8
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98              		@ link register save eliminated.
+  88:Core/Src/stm32f4xx_hal_msp.c ****   if(htim_base->Instance==TIM2)
+  99              		.loc 1 88 3 view .LVU15
+ 100              		.loc 1 88 15 is_stmt 0 view .LVU16
+ 101 0000 0368     		ldr	r3, [r0]
+ 102              		.loc 1 88 5 view .LVU17
+ 103 0002 B3F1804F 		cmp	r3, #1073741824
+ 104 0006 00D0     		beq	.L11
+ 105 0008 7047     		bx	lr
+ 106              	.L11:
+  87:Core/Src/stm32f4xx_hal_msp.c ****   if(htim_base->Instance==TIM2)
+ 107              		.loc 1 87 1 view .LVU18
+ 108 000a 82B0     		sub	sp, sp, #8
+ 109              	.LCFI2:
+ 110              		.cfi_def_cfa_offset 8
+  89:Core/Src/stm32f4xx_hal_msp.c ****   {
+  90:Core/Src/stm32f4xx_hal_msp.c ****     /* USER CODE BEGIN TIM2_MspInit 0 */
+  91:Core/Src/stm32f4xx_hal_msp.c **** 
+  92:Core/Src/stm32f4xx_hal_msp.c ****     /* USER CODE END TIM2_MspInit 0 */
+  93:Core/Src/stm32f4xx_hal_msp.c ****     /* Peripheral clock enable */
+  94:Core/Src/stm32f4xx_hal_msp.c ****     __HAL_RCC_TIM2_CLK_ENABLE();
+ 111              		.loc 1 94 5 is_stmt 1 view .LVU19
+ 112              	.LBB4:
+ 113              		.loc 1 94 5 view .LVU20
+ 114 000c 0023     		movs	r3, #0
+ 115 000e 0193     		str	r3, [sp, #4]
+ 116              		.loc 1 94 5 view .LVU21
+ 117 0010 054B     		ldr	r3, .L12
+ 118 0012 1A6C     		ldr	r2, [r3, #64]
+ 119 0014 42F00102 		orr	r2, r2, #1
+ 120 0018 1A64     		str	r2, [r3, #64]
+ 121              		.loc 1 94 5 view .LVU22
+ 122 001a 1B6C     		ldr	r3, [r3, #64]
+ 123 001c 03F00103 		and	r3, r3, #1
+ 124 0020 0193     		str	r3, [sp, #4]
+ 125              		.loc 1 94 5 view .LVU23
+ 126 0022 019B     		ldr	r3, [sp, #4]
+ 127              	.LBE4:
+ 128              		.loc 1 94 5 discriminator 1 view .LVU24
+  95:Core/Src/stm32f4xx_hal_msp.c ****     /* USER CODE BEGIN TIM2_MspInit 1 */
+  96:Core/Src/stm32f4xx_hal_msp.c **** 
+  97:Core/Src/stm32f4xx_hal_msp.c ****     /* USER CODE END TIM2_MspInit 1 */
+  98:Core/Src/stm32f4xx_hal_msp.c **** 
+  99:Core/Src/stm32f4xx_hal_msp.c ****   }
+ 100:Core/Src/stm32f4xx_hal_msp.c **** 
+ 101:Core/Src/stm32f4xx_hal_msp.c **** }
+ 129              		.loc 1 101 1 is_stmt 0 view .LVU25
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s 			page 5
+
+
+ 130 0024 02B0     		add	sp, sp, #8
+ 131              	.LCFI3:
+ 132              		.cfi_def_cfa_offset 0
+ 133              		@ sp needed
+ 134 0026 7047     		bx	lr
+ 135              	.L13:
+ 136              		.align	2
+ 137              	.L12:
+ 138 0028 00380240 		.word	1073887232
+ 139              		.cfi_endproc
+ 140              	.LFE135:
+ 142              		.section	.text.HAL_TIM_Base_MspDeInit,"ax",%progbits
+ 143              		.align	1
+ 144              		.global	HAL_TIM_Base_MspDeInit
+ 145              		.syntax unified
+ 146              		.thumb
+ 147              		.thumb_func
+ 149              	HAL_TIM_Base_MspDeInit:
+ 150              	.LVL1:
+ 151              	.LFB136:
+ 102:Core/Src/stm32f4xx_hal_msp.c **** 
+ 103:Core/Src/stm32f4xx_hal_msp.c **** /**
+ 104:Core/Src/stm32f4xx_hal_msp.c ****   * @brief TIM_Base MSP De-Initialization
+ 105:Core/Src/stm32f4xx_hal_msp.c ****   * This function freeze the hardware resources used in this example
+ 106:Core/Src/stm32f4xx_hal_msp.c ****   * @param htim_base: TIM_Base handle pointer
+ 107:Core/Src/stm32f4xx_hal_msp.c ****   * @retval None
+ 108:Core/Src/stm32f4xx_hal_msp.c ****   */
+ 109:Core/Src/stm32f4xx_hal_msp.c **** void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
+ 110:Core/Src/stm32f4xx_hal_msp.c **** {
+ 152              		.loc 1 110 1 is_stmt 1 view -0
+ 153              		.cfi_startproc
+ 154              		@ args = 0, pretend = 0, frame = 0
+ 155              		@ frame_needed = 0, uses_anonymous_args = 0
+ 156              		@ link register save eliminated.
+ 111:Core/Src/stm32f4xx_hal_msp.c ****   if(htim_base->Instance==TIM2)
+ 157              		.loc 1 111 3 view .LVU27
+ 158              		.loc 1 111 15 is_stmt 0 view .LVU28
+ 159 0000 0368     		ldr	r3, [r0]
+ 160              		.loc 1 111 5 view .LVU29
+ 161 0002 B3F1804F 		cmp	r3, #1073741824
+ 162 0006 00D0     		beq	.L16
+ 163              	.L14:
+ 112:Core/Src/stm32f4xx_hal_msp.c ****   {
+ 113:Core/Src/stm32f4xx_hal_msp.c ****     /* USER CODE BEGIN TIM2_MspDeInit 0 */
+ 114:Core/Src/stm32f4xx_hal_msp.c **** 
+ 115:Core/Src/stm32f4xx_hal_msp.c ****     /* USER CODE END TIM2_MspDeInit 0 */
+ 116:Core/Src/stm32f4xx_hal_msp.c ****     /* Peripheral clock disable */
+ 117:Core/Src/stm32f4xx_hal_msp.c ****     __HAL_RCC_TIM2_CLK_DISABLE();
+ 118:Core/Src/stm32f4xx_hal_msp.c ****     /* USER CODE BEGIN TIM2_MspDeInit 1 */
+ 119:Core/Src/stm32f4xx_hal_msp.c **** 
+ 120:Core/Src/stm32f4xx_hal_msp.c ****     /* USER CODE END TIM2_MspDeInit 1 */
+ 121:Core/Src/stm32f4xx_hal_msp.c ****   }
+ 122:Core/Src/stm32f4xx_hal_msp.c **** 
+ 123:Core/Src/stm32f4xx_hal_msp.c **** }
+ 164              		.loc 1 123 1 view .LVU30
+ 165 0008 7047     		bx	lr
+ 166              	.L16:
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s 			page 6
+
+
+ 117:Core/Src/stm32f4xx_hal_msp.c ****     /* USER CODE BEGIN TIM2_MspDeInit 1 */
+ 167              		.loc 1 117 5 is_stmt 1 view .LVU31
+ 168 000a 034A     		ldr	r2, .L17
+ 169 000c 136C     		ldr	r3, [r2, #64]
+ 170 000e 23F00103 		bic	r3, r3, #1
+ 171 0012 1364     		str	r3, [r2, #64]
+ 172              		.loc 1 123 1 is_stmt 0 view .LVU32
+ 173 0014 F8E7     		b	.L14
+ 174              	.L18:
+ 175 0016 00BF     		.align	2
+ 176              	.L17:
+ 177 0018 00380240 		.word	1073887232
+ 178              		.cfi_endproc
+ 179              	.LFE136:
+ 181              		.text
+ 182              	.Letext0:
+ 183              		.file 2 "C:\\ST\\STM32CubeIDE_1.19.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltool
+ 184              		.file 3 "C:\\ST\\STM32CubeIDE_1.19.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltool
+ 185              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 186              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 187              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 188              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ARM GAS  C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f4xx_hal_msp.c
-C:\Users\thoma\AppData\Local\Temp\ccbOz23j.s:21     .text.HAL_MspInit:00000000 $t
-C:\Users\thoma\AppData\Local\Temp\ccbOz23j.s:27     .text.HAL_MspInit:00000000 HAL_MspInit
-C:\Users\thoma\AppData\Local\Temp\ccbOz23j.s:80     .text.HAL_MspInit:00000034 $d
+C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s:21     .text.HAL_MspInit:00000000 $t
+C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s:27     .text.HAL_MspInit:00000000 HAL_MspInit
+C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s:80     .text.HAL_MspInit:00000034 $d
+C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s:85     .text.HAL_TIM_Base_MspInit:00000000 $t
+C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s:91     .text.HAL_TIM_Base_MspInit:00000000 HAL_TIM_Base_MspInit
+C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s:138    .text.HAL_TIM_Base_MspInit:00000028 $d
+C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s:143    .text.HAL_TIM_Base_MspDeInit:00000000 $t
+C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s:149    .text.HAL_TIM_Base_MspDeInit:00000000 HAL_TIM_Base_MspDeInit
+C:\Users\thoma\AppData\Local\Temp\cc4fSYsb.s:177    .text.HAL_TIM_Base_MspDeInit:00000018 $d
 
 NO UNDEFINED SYMBOLS

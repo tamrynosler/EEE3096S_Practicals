@@ -26,7 +26,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define MAX_ITER 1000
+#define MAX_ITER 100
 
 /* USER CODE END PTD */
 
@@ -41,6 +41,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
 //TODO: Define variables you think you might need
@@ -51,6 +52,7 @@
   uint32_t start_time = 0;
   uint32_t end_time = 0;
   uint16_t pin_mask = 0;
+  uint64_t start_cnt, end_cnt; //For cycle counting
 
   int sizes[] = {128, 160, 192, 224, 256};
   int num_sizes = 5;
@@ -58,6 +60,8 @@
    // Arrays to store results
   uint64_t checksums[5];
   uint32_t execution_times[5];
+  uint64_t cycle_cnt[5];
+  double throughput[5];
 
   //*******************************************************************
   //End Mandelbrot variables
@@ -68,6 +72,7 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 //TODO: Define any function prototypes you might need such as the calculate Mandelbrot function among others
 
@@ -110,6 +115,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -121,8 +127,16 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+    //Start timer 2 (used to measure cycles)
+    //TIM2 is initialised to be at the same frequency as the CPU
+     HAL_TIM_Base_Start(&htim2);
+
 	  //TODO: Visual indicator: Turn on LED0 to signal processing start
 	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
+
+
+
 
 	  //TODO: Benchmark and Profile Performance
 
@@ -134,14 +148,29 @@ int main(void)
 			  //Start time
 			  start_time = HAL_GetTick();
 
+			  //Start cycles
+			  start_cnt = __HAL_TIM_GET_COUNTER(&htim2);
+
 			  //Call mandelbrot function
 			  checksums[i] = calculate_mandelbrot_fixed_point_arithmetic(current_size, current_size, MAX_ITER);
 			  //checksum = calculate_mandelbrot_double(256, 256, MAX_ITER);
 
 			  //End time
 			  end_time = HAL_GetTick();
+			  // Cycle counter end
+			  end_cnt = __HAL_TIM_GET_COUNTER(&htim2);
+
+
 
 			  execution_times[i] = end_time - start_time;
+			  throughput[i] = (current_size*current_size)/(execution_times[i]/1000.0); //Throughput in pixels per second
+
+			  //Cycle count (accounting for overflow of TIM2)
+			  //Multiplying by 2 because TIM2 is scaled down by 2 compared to system clock
+			  if (end_cnt >= start_cnt)
+				  cycle_cnt[i] = 2*(end_cnt - start_cnt);
+			  else
+				  cycle_cnt[i] = 2*((0xFFFFFFFF - start_cnt) + end_cnt + 1);
 
 
 
@@ -158,7 +187,7 @@ int main(void)
 	    }
   }
   /* USER CODE END 3 */
-//}
+
 
 /**
   * @brief System Clock Configuration
@@ -204,6 +233,51 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 0;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 4294967295;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
+
 }
 
 /**
