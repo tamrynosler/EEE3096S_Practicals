@@ -54,14 +54,15 @@ TIM_HandleTypeDef htim2;
   uint16_t pin_mask = 0;
   uint64_t start_cnt, end_cnt; //For cycle counting
 
-  int sizes[] = {128, 160, 192, 224, 256};
-  int num_sizes = 5;
+  int sizes[] = {1536, 1920, 64};
+  int num_sizes = 8;
+  int rows = 8;
 
    // Arrays to store results
-  uint64_t checksums[5];
-  uint32_t execution_times[5];
-  uint64_t cycle_cnt[5];
-  double throughput[5];
+  uint64_t checksums[8];
+  uint32_t execution_times[8];
+  uint64_t cycle_cnt[8];
+  double throughput[8];
 
   //*******************************************************************
   //End Mandelbrot variables
@@ -78,6 +79,8 @@ static void MX_TIM2_Init(void);
 
   uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int max_iterations);
   uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations);
+  uint64_t mandelbrot_sum_stripe(int width, int height, int y_start, int rows, int max_iterations);
+  uint64_t calculate_mandelbrot_striped_total(int width, int height, int max_iterations, int stripe_rows);
 
 /* USER CODE END PFP */
 
@@ -152,7 +155,9 @@ int main(void)
 			  start_cnt = __HAL_TIM_GET_COUNTER(&htim2);
 
 			  //Call mandelbrot function
-			  checksums[i] = calculate_mandelbrot_fixed_point_arithmetic(current_size, current_size, MAX_ITER);
+			  //checksums[i] = calculate_mandelbrot_fixed_point_arithmetic(current_size, 1080, MAX_ITER);
+			  //using striping
+			  checksums[i] = calculate_mandelbrot_striped_total(current_size, 1080, MAX_ITER, rows);
 			  //checksum = calculate_mandelbrot_double(256, 256, MAX_ITER);
 
 			  //End time
@@ -325,7 +330,7 @@ static void MX_GPIO_Init(void)
 
 
 
-		int s = 10000; //10^4 scale factor (so that overflow doesnt occur on 32bit ints)
+		int s = 10000; //10^4 scale factor (so that overflow doesn't occur on 32bit ints)
 		int s3_5 = 3.5*s;
 		int s2_5 = 2.5*s;
 		int x_0 = 0;
@@ -356,6 +361,63 @@ static void MX_GPIO_Init(void)
 		}
 		return mandelbrot_sum;
 
+	}
+
+	uint64_t mandelbrot_sum_stripe(
+	    int width, int height,
+	    int y_start, int rows,
+	    int max_iterations)
+	{
+	    if (rows <= 0 || y_start >= height) return 0;
+	    int y_end = y_start + rows;
+	    if (y_end > height) y_end = height;
+
+	    uint64_t mandelbrot_sum = 0;
+
+	    int s = 10000; //10^4 scale factor (so that overflow doesn't occur on 32bit ints)
+	    int s3_5 = 3.5*s;
+	    int s2_5 = 2.5*s;
+	    int x_0 = 0;
+	    int y_0 = 0;
+	    int x_i;
+	    int y_i;
+	    uint64_t iteration;
+	    int64_t temp; //Prevent overflow by making 64bit
+
+	    for (int y = y_start; y < y_end; ++y) {
+
+	        for (int x = 0; x <= width-1; ++x) {
+	        	x_0 = ((((x*s)/width))*(s3_5)/s - (s2_5));
+	        	y_0 = ((((y*s)/height))*(2*s)/s - (s));
+	            x_i = 0;
+	            y_i = 0;
+	            iteration = 0;
+
+	            while (iteration < max_iterations && (x_i*x_i + y_i*y_i)<= 4*s*s) {
+
+	            	temp = x_i*x_i/s - y_i*y_i/s;
+	            	y_i = 2*x_i*y_i/s + y_0;
+	            	x_i = temp + x_0;
+
+	                iteration = iteration +1;
+	            }
+
+	            mandelbrot_sum += iteration;
+	        }
+	    }
+	    return mandelbrot_sum;
+	}
+
+	uint64_t calculate_mandelbrot_striped_total(
+	    int width, int height, int max_iterations, int stripe_rows)
+	{
+	    uint64_t total = 0;
+	    for (int y = 0; y < height; y += stripe_rows) {
+	        int rows = (y + stripe_rows <= height) ? stripe_rows : (height - y);
+	        total += mandelbrot_sum_stripe(
+	                     width, height, y, rows, max_iterations);
+	    }
+	    return total;
 	}
 
 
