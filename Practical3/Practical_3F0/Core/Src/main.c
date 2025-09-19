@@ -50,16 +50,19 @@ TIM_HandleTypeDef htim2;
   uint32_t end_time = 0;
   uint16_t pin_mask = 0;
   uint64_t start_cnt, end_cnt; //For cycle counting
+  uint32_t run_start = 0; //start time for run time
+  uint32_t run_end = 0; //end time for run time
+  uint32_t run_time = 0;
 
-  int sizes[] = {128, 160, 192, 224, 256};
-  int num_sizes = 5;
+  int sizes[] = {192};//128, 160, 192, 224, 256};
+  int num_sizes = 1;
   int rows = 8; //for striping
 
    // Arrays to store results
-  uint64_t checksums[8];
-  uint32_t execution_times[8];
-  uint64_t cycle_cnt[8];
-  double throughput[8];
+  uint64_t checksums[1];
+  uint32_t execution_times[1];
+  uint64_t cycle_cnt[1];
+  double throughput[1];
 
   //*******************************************************************
   //End Mandelbrot variables
@@ -130,7 +133,7 @@ int main(void)
   		  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);
 
   		  //TODO: Benchmark and Profile Performance
-
+  		  run_start = HAL_GetTick();
   		  //Automatically step through all image sizes
   		  for (int i = 0; i < num_sizes; i++)
   		    {
@@ -143,9 +146,9 @@ int main(void)
 
   				  //Call mandelbrot function
   				  //checksums[i] = calculate_mandelbrot_fixed_point_arithmetic(current_size, current_size, MAX_ITER);
-  				  checksums[i] = calculate_mandelbrot_fixed_point_arithmetic_no_overflow(current_size, current_size, MAX_ITER);
+  				  //checksums[i] = calculate_mandelbrot_fixed_point_arithmetic_no_overflow(current_size, current_size, MAX_ITER);
   				  //checksums[i] = calculate_mandelbrot_striped_total(current_size, 1080, MAX_ITER, rows);
-  				  //checksums[i] = calculate_mandelbrot_double(current_size, current_size, MAX_ITER);
+  				  checksums[i] = calculate_mandelbrot_double(current_size, current_size, MAX_ITER);
   				  //checksum = calculate_mandelbrot_double(256, 256, MAX_ITER);
 
   				  //End time and cycle count
@@ -173,8 +176,10 @@ int main(void)
   					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
   					HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
   		    }
+  		run_end = HAL_GetTick();
+  		run_time = run_end - run_start;
   /* USER CODE END 2 */
-
+  		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_SET); //signal end of processing
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	  while (1)

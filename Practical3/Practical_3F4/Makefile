@@ -99,13 +99,32 @@ CPU = -mcpu=cortex-m4
 
 #TODO: FPU Enbale/Disable
 # fpu
-FPU = -mfpu=fpv4-sp-d16
+# CPU core
+CPU       := -mcpu=cortex-m4 -mthumb
 
-# float-abi
-FLOAT-ABI = -mfloat-abi=hard
+# Choose: hard, softfp, off
+FPU_MODE  ?= hard
 
-# mcu
-MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
+ifeq ($(FPU_MODE),hard)
+  FPUFLAGS  := -mfpu=fpv4-sp-d16
+  FLOATABI  := -mfloat-abi=hard     # pass/return floats in VFP regs
+  FPUDEFS   := -D__FPU_USED=1
+else ifeq ($(FPU_MODE),softfp)
+  FPUFLAGS  := -mfpu=fpv4-sp-d16
+  FLOATABI  := -mfloat-abi=softfp   # use FPU, but soft ABI (easier to link)
+  FPUDEFS   := -D__FPU_USED=1
+else ifeq ($(FPU_MODE),off)
+  FPUFLAGS  :=
+  FLOATABI  := -mfloat-abi=soft     # off
+  FPUDEFS   :=
+endif
+
+#mcu
+MCU := $(CPU) -mthumb $(FPUFLAGS) $(FLOATABI)
+
+CFLAGS  += $(MCU) $(FPUDEFS) -ffunction-sections -fdata-sections
+ASFLAGS += $(MCU)
+LDFLAGS += $(MCU) -Wl,--gc-sections
 
 # macros for gcc
 # AS defines

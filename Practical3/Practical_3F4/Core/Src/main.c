@@ -53,16 +53,19 @@ TIM_HandleTypeDef htim2;
   uint32_t end_time = 0;
   uint16_t pin_mask = 0;
   uint64_t start_cnt, end_cnt; //For cycle counting
+  uint32_t run_start = 0; //start time for run time
+  uint32_t run_end = 0; //end time for run time
+  uint32_t run_time = 0;
 
-  int sizes[] = {128, 160, 192, 224, 256};
-  int num_sizes = 5;
+  int sizes[] = {128};//, 160, 192, 224, 256};
+  int num_sizes = 1;
   int rows = 8;
 
    // Arrays to store results
-  uint64_t checksums[5];
-  uint32_t execution_times[5];
-  uint64_t cycle_cnt[5];
-  double throughput[5];
+  uint64_t checksums[1];
+  uint32_t execution_times[1];
+  uint64_t cycle_cnt[1];
+  double throughput[1];
 
   //*******************************************************************
   //End Mandelbrot variables
@@ -79,6 +82,7 @@ static void MX_TIM2_Init(void);
 
   uint64_t calculate_mandelbrot_fixed_point_arithmetic(int width, int height, int max_iterations);
   uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations);
+  uint64_t calculate_mandelbrot_float(int width, int height, int max_iterations);
   uint64_t mandelbrot_sum_stripe(int width, int height, int y_start, int rows, int max_iterations);
   uint64_t calculate_mandelbrot_striped_total(int width, int height, int max_iterations, int stripe_rows);
   uint64_t calculate_mandelbrot_fixed_point_arithmetic_no_overflow(int width, int height, int max_iterations);
@@ -143,6 +147,7 @@ int main(void)
 
 
 	  //TODO: Benchmark and Profile Performance
+	  run_start = HAL_GetTick();
 
 	  //Automatically step through all image sizes
 	  for (int i = 0; i < num_sizes; i++)
@@ -156,8 +161,9 @@ int main(void)
 			  start_cnt = __HAL_TIM_GET_COUNTER(&htim2);
 
 			  //Call mandelbrot function
-			  checksums[i] = calculate_mandelbrot_fixed_point_arithmetic_no_overflow(current_size, current_size, MAX_ITER);
+			  //checksums[i] = calculate_mandelbrot_fixed_point_arithmetic_no_overflow(current_size, current_size, MAX_ITER);
 			  //using striping
+			  checksums[i] = calculate_mandelbrot_double(current_size, current_size, MAX_ITER);
 			  //checksums[i] = calculate_mandelbrot_striped_total(current_size, 1080, MAX_ITER, rows);
 			  //checksum = calculate_mandelbrot_double(256, 256, MAX_ITER);
 
@@ -191,6 +197,14 @@ int main(void)
 				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
 				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
 	    }
+	  run_end = HAL_GetTick();
+	  run_time = run_end - run_start;
+	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_SET); //signal end of processing
+	  while (1)
+	  {
+
+	  }
+
   }
   /* USER CODE END 3 */
 
@@ -331,7 +345,7 @@ static void MX_GPIO_Init(void)
 
 
 
-		int s = 1000000; //10^4 scale factor (so that overflow doesn't occur on 32bit ints)
+		int s = 10000; //10^4 scale factor (so that overflow doesn't occur on 32bit ints)
 		int s3_5 = 3.5*s;
 		int s2_5 = 2.5*s;
 		int x_0 = 0;
@@ -363,6 +377,7 @@ static void MX_GPIO_Init(void)
 		return mandelbrot_sum;
 
 	}
+
 	uint64_t calculate_mandelbrot_fixed_point_arithmetic_no_overflow(int width, int height, int max_iterations){
 	  uint64_t mandelbrot_sum = 0;
 
@@ -461,11 +476,7 @@ static void MX_GPIO_Init(void)
 
 	uint64_t calculate_mandelbrot_double(int width, int height, int max_iterations){
 
-
 		uint64_t mandelbrot_sum = 0;
-
-
-
 		double x_0;
 		double y_0;
 		double x_i;
@@ -496,6 +507,44 @@ static void MX_GPIO_Init(void)
 		}
 		return mandelbrot_sum;
 	}
+
+	uint64_t calculate_mandelbrot_float(int width, int height, int max_iterations){
+
+
+			uint64_t mandelbrot_sum = 0;
+
+
+
+			float x_0;
+			float y_0;
+			float x_i;
+			float y_i;
+			uint64_t iteration;
+			float temp;
+
+			for(uint32_t y = 0; y <= height - 1; y++)
+			{
+				for(uint32_t x = 0; x <= width - 1; x++)
+				{
+					x_0 = ((float)(x)/(float)(width))*3.5 - 2.5;
+					y_0 = ((float)(y)/(float)(height))*2.0 - 1.0;
+					x_i = 0;
+					y_i = 0;
+					iteration = 0;
+					while(iteration < max_iterations && x_i*x_i + y_i*y_i <= 4)
+					{
+						temp = x_i*x_i - y_i*y_i;
+						y_i = 2.0*x_i*y_i + y_0;
+						x_i = temp + x_0;
+						iteration = iteration + 1;
+
+					}
+					mandelbrot_sum = mandelbrot_sum + iteration;
+				}
+
+			}
+			return mandelbrot_sum;
+		}
 
 	//****************************************************************************************************
 	//End Mandelbrot functions
