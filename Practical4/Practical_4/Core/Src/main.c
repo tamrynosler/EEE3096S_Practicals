@@ -36,7 +36,7 @@
 // TODO: Add values for below variables
 #define NS 256       // Number of samples in LUT
 #define TIM2CLK 16000000  // STM Clock frequency: Hint You might want to check the ioc file
-#define F_SIGNAL 1000 // Frequency of output analog signal
+#define F_SIGNAL 0.2 // Frequency of output analog signal
 
 /* USER CODE END PD */
 
@@ -52,7 +52,7 @@ DMA_HandleTypeDef hdma_tim2_ch1;
 
 /* USER CODE BEGIN PV */
 // TODO: Add code for global variables, including LUTs
-
+uint32_t waveform_count = 0;
 uint32_t Sin_LUT [NS]= {
 		2048, 2098, 2148, 2198, 2248, 2298, 2348, 2398,
 		2447, 2496, 2545, 2594, 2642, 2690, 2737, 2784, 2831, 2877, 2923, 2968,
@@ -189,15 +189,23 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   // TODO: Start TIM3 in PWM mode on channel 3
-
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+  HAL_TIM_Base_Start(&htim3);
   // TODO: Start TIM2 in Output Compare (OC) mode on channel 1
-
+  HAL_TIM_OC_Start_IT(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_Base_Start(&htim2);
   // TODO: Start DMA in IT mode on TIM2->CH1. Source is LUT and Dest is TIM3->CCR3; start with Sine LUT
-
+  HAL_DMA_Abort(&hdma_tim2_ch1);
+  HAL_DMA_Start_IT(
+          &hdma_tim2_ch1,
+          (uint32_t)src,                         // Memory (source): LUT
+          (uint32_t)&TIM3->CCR3,                 // Peripheral (dest): CCR3
+          length                                  // Number of samples
+      );
   // TODO: Write current waveform to LCD(Sine is the first waveform)
-
+  LCD_WriteLine(0, 0, "Sine");
   // TODO: Enable DMA (start transfer from LUT to CCR)
-
+  __HAL_TIM_ENABLE_DMA(&htim2, TIM_DMA_CC1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -465,13 +473,56 @@ static void MX_GPIO_Init(void)
 void EXTI0_IRQHandler(void){
 
 	// TODO: Debounce using HAL_GetTick()
+	uint32_t start = HAL_GetTick();
+	    while ((HAL_GetTick() - start) < 100) {
+	        // spin here
+	    }
+	if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_RESET)
+	{
+		// TODO: Disable DMA transfer and abort IT, then start DMA in IT mode with new LUT and re-enable transfer
+		// HINT: Consider using C's "switch" function to handle LUT changes
+		HAL_DMA_Abort(&hdma_tim2_ch1);
+		switch (waveform_count) {
+		case 0:
+			LCD_WriteLine(0, 0, "Sine");
+			DestAddress = &(Sin_LUT); //write Sine LUT address to destination address
+			waveform_count++; //update waveform counter
+			break;
+		case 1:
+			LCD_WriteLine(0, 0, "Saw");
+			DestAddress = &(Saw_LUT); //write Sine LUT address to destination address
+			waveform_count++; //update waveform counter
+			break;
+		case 2:
+			LCD_WriteLine(0, 0, "Triangle");
+			DestAddress = &(Triangle_LUT); //write Sine LUT address to destination address
+			waveform_count++; //update waveform counter
+			break;
+		case 3:
+			LCD_WriteLine(0, 0, "Piano");
+			DestAddress = &(Piano_LUT); //write Sine LUT address to destination address
+			waveform_count++; //update waveform counter
+			break;
+		case 4:
+			LCD_WriteLine(0, 0, "Guitar");
+			DestAddress = &(Guitar_LUT); //write Sine LUT address to destination address
+			waveform_count++; //update waveform counter
+			break;
+		case 5:
+			LCD_WriteLine(0, 0, "Drum");
+			DestAddress = &(Drum_LUT); //write Sine LUT address to destination address
+			waveform_count = 0; //update waveform counter
+			break;
+		}
 
-
-	// TODO: Disable DMA transfer and abort IT, then start DMA in IT mode with new LUT and re-enable transfer
-	// HINT: Consider using C's "switch" function to handle LUT changes
-
-
-
+		HAL_DMA_Start_IT(
+		          &hdma_tim2_ch1,
+		          (uint32_t)src,                         // Memory (source): LUT
+		          (uint32_t)&TIM3->CCR3,                 // Peripheral (dest): CCR3
+		          length                                  // Number of samples
+		      );
+		__HAL_TIM_ENABLE_DMA(&htim2, TIM_DMA_CC1);
+	}
 
 	HAL_GPIO_EXTI_IRQHandler(Button0_Pin); // Clear interrupt flags
 }
