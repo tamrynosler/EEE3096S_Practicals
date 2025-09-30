@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include "stm32f4xx.h"
 #include "lcd_stm32f4.h"
+//#include "LUT_Instruments.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -187,8 +188,10 @@ int main(void)
   MX_DMA_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
-  /* USER CODE BEGIN 2 */
+  init_LCD();  /* USER CODE BEGIN 2 */
   // TODO: Start TIM3 in PWM mode on channel 3
+  lcd_command(CLEAR);
+  lcd_putstring("Starting Timers ...");
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
   HAL_TIM_Base_Start(&htim3);
   // TODO: Start TIM2 in Output Compare (OC) mode on channel 1
@@ -203,7 +206,8 @@ int main(void)
           length                                  // Number of samples
       );
   // TODO: Write current waveform to LCD(Sine is the first waveform)
-  LCD_WriteLine(0, 0, "Sine");
+  lcd_command(CLEAR);
+  lcd_putstring("Sine");
   // TODO: Enable DMA (start transfer from LUT to CCR)
   __HAL_TIM_ENABLE_DMA(&htim2, TIM_DMA_CC1);
   /* USER CODE END 2 */
@@ -484,19 +488,22 @@ void EXTI0_IRQHandler(void){
 		HAL_DMA_Abort(&hdma_tim2_ch1);
 		switch (waveform_count) {
 		case 0:
-			LCD_WriteLine(0, 0, "Sine");
+			lcd_command(CLEAR);
+			lcd_putstring("Sine");
 			DestAddress = &(Sin_LUT); //write Sine LUT address to destination address
 			waveform_count++; //update waveform counter
 			break;
 		case 1:
-			LCD_WriteLine(0, 0, "Saw");
+			lcd_command(CLEAR);
+			lcd_putstring("Saw");
 			DestAddress = &(Saw_LUT); //write Sine LUT address to destination address
 			waveform_count++; //update waveform counter
 			break;
 		case 2:
-			LCD_WriteLine(0, 0, "Triangle");
+			lcd_command(CLEAR);
+			lcd_putstring("Triangle");
 			DestAddress = &(Triangle_LUT); //write Sine LUT address to destination address
-			waveform_count++; //update waveform counter
+			waveform_count=0; //update waveform counter
 			break;
 		case 3:
 			LCD_WriteLine(0, 0, "Piano");
