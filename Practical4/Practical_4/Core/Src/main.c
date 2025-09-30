@@ -55,6 +55,7 @@ DMA_HandleTypeDef hdma_tim2_ch1;
 // TODO: Add code for global variables, including LUTs
 uint32_t waveform_count = 0;
 uint32_t current_lut;
+uint32_t current_lut_size = 256;
 uint32_t Sin_LUT [NS]= {
 		2048, 2098, 2148, 2198, 2248, 2298, 2348, 2398,
 		2447, 2496, 2545, 2594, 2642, 2690, 2737, 2784, 2831, 2877, 2923, 2968,
@@ -204,7 +205,7 @@ int main(void)
           &hdma_tim2_ch1,
           (uint32_t)&(Sin_LUT),
           (uint32_t)&TIM3->CCR3,
-          NS
+          current_lut_size
       );
   // TODO: Write current waveform to LCD(Sine is the first waveform)
   lcd_command(CLEAR);
@@ -479,9 +480,9 @@ void EXTI0_IRQHandler(void){
 
 	// TODO: Debounce using HAL_GetTick()
 	uint32_t start = HAL_GetTick();
-	    while ((HAL_GetTick() - start) < 100) {
+	while ((HAL_GetTick() - start) < 200) {
 	        // spin here
-	    }
+	}
 	current_lut = &(Sin_LUT);
 	if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_RESET)
 	{
@@ -493,33 +494,39 @@ void EXTI0_IRQHandler(void){
 			lcd_command(CLEAR);
 			lcd_putstring("Sine");
 			current_lut =  &(Sin_LUT); //write Sine LUT address to destination address
+			current_lut_size = 256;
 			waveform_count++; //update waveform counter
 			break;
 		case 1:
 			lcd_command(CLEAR);
 			lcd_putstring("Saw");
 			current_lut =  &(Saw_LUT); //write Sine LUT address to destination address
+			current_lut_size = 256;
 			waveform_count++; //update waveform counter
 			break;
 		case 2:
 			lcd_command(CLEAR);
 			lcd_putstring("Triangle");
 			current_lut =  &(Triangle_LUT); //write Sine LUT address to destination address
+			current_lut_size = 256;
 			waveform_count=0; //update waveform counter
 			break;
 		case 3:
 			lcd_putstring("Piano");
 			current_lut =  &(Piano_LUT); //write Sine LUT address to destination address
+			current_lut_size = 75442;
 			waveform_count++; //update waveform counter
 			break;
 		case 4:
 			lcd_putstring("Guitar");
 			current_lut =  &(Guitar_LUT); //write Sine LUT address to destination address
+			current_lut_size = 42319;
 			waveform_count++; //update waveform counter
 			break;
 		case 5:
 			lcd_putstring("Drum");
 			current_lut = &(Drum_LUT); //write Sine LUT address to destination address
+			current_lut_size = 45349;
 			waveform_count = 0; //update waveform counter
 			break;
 		}
@@ -528,7 +535,7 @@ void EXTI0_IRQHandler(void){
 		          &hdma_tim2_ch1,
 		          (uint32_t)current_lut,
 		          DestAddress,
-		          256
+		          current_lut_size
 		      );
 		__HAL_TIM_ENABLE_DMA(&htim2, TIM_DMA_CC1);
 	}
