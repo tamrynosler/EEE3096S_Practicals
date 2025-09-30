@@ -54,6 +54,7 @@ DMA_HandleTypeDef hdma_tim2_ch1;
 /* USER CODE BEGIN PV */
 // TODO: Add code for global variables, including LUTs
 uint32_t waveform_count = 0;
+uint32_t current_lut;
 uint32_t Sin_LUT [NS]= {
 		2048, 2098, 2148, 2198, 2248, 2298, 2348, 2398,
 		2447, 2496, 2545, 2594, 2642, 2690, 2737, 2784, 2831, 2877, 2923, 2968,
@@ -201,9 +202,9 @@ int main(void)
   HAL_DMA_Abort(&hdma_tim2_ch1);
   HAL_DMA_Start_IT(
           &hdma_tim2_ch1,
-          (uint32_t)src,                         // Memory (source): LUT
-          (uint32_t)&TIM3->CCR3,                 // Peripheral (dest): CCR3
-          length                                  // Number of samples
+          (uint32_t)&(Sin_LUT),
+          (uint32_t)&TIM3->CCR3,
+          NS
       );
   // TODO: Write current waveform to LCD(Sine is the first waveform)
   lcd_command(CLEAR);
@@ -481,6 +482,7 @@ void EXTI0_IRQHandler(void){
 	    while ((HAL_GetTick() - start) < 100) {
 	        // spin here
 	    }
+	current_lut = &(Sin_LUT);
 	if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_RESET)
 	{
 		// TODO: Disable DMA transfer and abort IT, then start DMA in IT mode with new LUT and re-enable transfer
@@ -490,43 +492,43 @@ void EXTI0_IRQHandler(void){
 		case 0:
 			lcd_command(CLEAR);
 			lcd_putstring("Sine");
-			DestAddress = &(Sin_LUT); //write Sine LUT address to destination address
+			current_lut =  &(Sin_LUT); //write Sine LUT address to destination address
 			waveform_count++; //update waveform counter
 			break;
 		case 1:
 			lcd_command(CLEAR);
 			lcd_putstring("Saw");
-			DestAddress = &(Saw_LUT); //write Sine LUT address to destination address
+			current_lut =  &(Saw_LUT); //write Sine LUT address to destination address
 			waveform_count++; //update waveform counter
 			break;
 		case 2:
 			lcd_command(CLEAR);
 			lcd_putstring("Triangle");
-			DestAddress = &(Triangle_LUT); //write Sine LUT address to destination address
+			current_lut =  &(Triangle_LUT); //write Sine LUT address to destination address
 			waveform_count=0; //update waveform counter
 			break;
 		case 3:
-			LCD_WriteLine(0, 0, "Piano");
-			DestAddress = &(Piano_LUT); //write Sine LUT address to destination address
+			lcd_putstring("Piano");
+			current_lut =  &(Piano_LUT); //write Sine LUT address to destination address
 			waveform_count++; //update waveform counter
 			break;
 		case 4:
-			LCD_WriteLine(0, 0, "Guitar");
-			DestAddress = &(Guitar_LUT); //write Sine LUT address to destination address
+			lcd_putstring("Guitar");
+			current_lut =  &(Guitar_LUT); //write Sine LUT address to destination address
 			waveform_count++; //update waveform counter
 			break;
 		case 5:
-			LCD_WriteLine(0, 0, "Drum");
-			DestAddress = &(Drum_LUT); //write Sine LUT address to destination address
+			lcd_putstring("Drum");
+			current_lut = &(Drum_LUT); //write Sine LUT address to destination address
 			waveform_count = 0; //update waveform counter
 			break;
 		}
 
 		HAL_DMA_Start_IT(
 		          &hdma_tim2_ch1,
-		          (uint32_t)src,                         // Memory (source): LUT
-		          (uint32_t)&TIM3->CCR3,                 // Peripheral (dest): CCR3
-		          length                                  // Number of samples
+		          (uint32_t)current_lut,
+		          DestAddress,
+		          256
 		      );
 		__HAL_TIM_ENABLE_DMA(&htim2, TIM_DMA_CC1);
 	}
